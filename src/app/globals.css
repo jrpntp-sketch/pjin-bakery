@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans Thai Looped", "IBM Plex Sans Thai", ui-sans-serif,
+    system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --color-cream-50:  #fdfaf6;
+  --color-cream-100: #f8f1e7;
+  --color-cream-200: #efe2d1;
+
+  --color-cocoa-400: #b08968;
+  --color-cocoa-500: #9c6f4a;
+  --color-cocoa-600: #7f5539;
+  --color-cocoa-700: #5d3d28;
+
+  --color-berry-500: #c2417a;
+  --color-mint-500:  #2f9e70;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-cream-50);
+  color: var(--color-cocoa-700);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ตัวเลขเรียงตรงกันในตาราง */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ซ่อน spinner ของ input[type=number] เพื่อให้กรอกบนมือถือสบายขึ้น */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
