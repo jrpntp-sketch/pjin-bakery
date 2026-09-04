@@ -37,8 +37,14 @@
 
 ### 2. สร้างตาราง
 
-Supabase Dashboard → **SQL Editor** → New query → คัดลอกทั้งหมดจาก
-[`supabase/schema.sql`](supabase/schema.sql) ไปวาง → **Run**
+**วิธี CLI** (แนะนำ — แก้แล้ว push ใหม่ได้เรื่อย ๆ):
+
+```bash
+supabase login && supabase link --project-ref <project-ref> && supabase db push
+```
+
+**หรือวิธีก๊อปวาง:** Dashboard → **SQL Editor** → New query → คัดลอกทั้งหมดจาก
+[`supabase/migrations/20260904000000_init.sql`](supabase/migrations/20260904000000_init.sql) → **Run**
 
 ไฟล์นี้รันซ้ำได้ปลอดภัย ถ้าต้องแก้แล้วรันใหม่
 
