@@ -21,6 +21,17 @@
 | กำไรขั้นต้น | **+441.67** ← ดูเหมือนได้กำไร |
 | กำไรสุทธิ | **−57.08** ← ความจริงคือขาดทุน |
 
+## โปรเจคที่ deploy แล้ว
+
+| | |
+|---|---|
+| Supabase | `pjin-bakery` · ref `fiqzxwndotmjzmjhukmy` · region Singapore |
+| Dashboard | https://supabase.com/dashboard/project/fiqzxwndotmjzmjhukmy |
+| GitHub | https://github.com/jrpntp-sketch/pjin-bakery |
+
+ค่าเชื่อมต่ออยู่ใน `.env.local` (ไม่ถูก commit) — schema ถูก push ขึ้น
+ฐานข้อมูลจริงแล้วและทดสอบผ่านครบ
+
 ## Stack
 
 - **Next.js 15** (App Router, Server Actions) — deploy บน Vercel

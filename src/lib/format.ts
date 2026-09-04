@@ -4,9 +4,10 @@ const baht = new Intl.NumberFormat("th-TH", {
 });
 const plain = new Intl.NumberFormat("th-TH", { maximumFractionDigits: 2 });
 
-/** 1234.5 -> "฿1,234.50" */
+/** 1234.5 -> "฿1,234.50" · -57.08 -> "-฿57.08" (เครื่องหมายลบมาก่อนสัญลักษณ์เงิน) */
 export function money(n: number | null | undefined): string {
-  return "฿" + baht.format(Number(n ?? 0));
+  const v = Number(n ?? 0);
+  return (v < 0 ? "-฿" : "฿") + baht.format(Math.abs(v));
 }
 
 /** ตัดทศนิยมท้ายที่ไม่จำเป็นออก: 12 -> "12", 12.5 -> "12.5" */
