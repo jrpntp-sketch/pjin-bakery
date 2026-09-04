@@ -1,0 +1,13 @@
+{
+  "name": "pjin-bakery-db-test",
+  "private": true,
+  "type": "module",
+  "description": "ทดสอบ migration กับ Postgres จริง — แยก package.json ไม่ให้ Vercel โหลด binary ตอน build",
+  "scripts": {
+    "test": "node run-all.mjs"
+  },
+  "devDependencies": {
+    "embedded-postgres": "^18.4.0-beta.17",
+    "pg": "^8.13.0"
+  }
+}
