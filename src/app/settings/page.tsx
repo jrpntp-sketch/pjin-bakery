@@ -7,6 +7,7 @@ import { useSettings } from "@/lib/hooks";
 import { downloadBackup, restoreBackup, wipeAll, requestPersistence } from "@/lib/backup";
 import { money } from "@/lib/format";
 import { Button, Card, Field, inputClass, numberInput, PageHeader } from "@/components/ui";
+import { openGuide } from "@/components/guide";
 
 export default function SettingsPage() {
   const settings = useSettings();
@@ -57,6 +58,15 @@ export default function SettingsPage() {
 
         <div className="space-y-4">
           <StorageCard />
+
+          <Card title="❓ คู่มือการใช้งาน">
+            <p className="mb-3 text-sm text-cocoa-600">
+              ขั้นตอนการใช้งานทั้งหมด ตัวอย่างการคำนวณ และวิธีสำรองข้อมูล
+            </p>
+            <Button type="button" variant="ghost" onClick={openGuide}>
+              เปิดคู่มือ
+            </Button>
+          </Card>
 
           <Card title="ระบบคิดต้นทุนยังไง">
             <div className="space-y-3 text-sm text-cocoa-600">

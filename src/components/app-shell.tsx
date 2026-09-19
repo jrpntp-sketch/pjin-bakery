@@ -5,6 +5,7 @@ import { ensureSeeded } from "@/lib/db";
 import { requestPersistence } from "@/lib/backup";
 import { useSettings } from "@/lib/hooks";
 import { Sidebar, BottomNav, MobileHeader } from "./nav";
+import { Guide } from "./guide";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
@@ -79,6 +80,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </main>
       </div>
       <BottomNav />
+      <Guide />
     </div>
   );
 }

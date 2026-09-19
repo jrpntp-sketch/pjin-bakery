@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { openGuide } from "./guide";
 
 const LINKS = [
   { href: "/", label: "ภาพรวม", icon: "📊" },
@@ -29,7 +30,15 @@ export function Sidebar({ shopName }: { shopName: string }) {
             <NavLink key={l.href} {...l} active={isActive(pathname, l.href)} />
           ))}
         </nav>
-        <div className="border-t border-cream-100 p-3">
+        <div className="space-y-0.5 border-t border-cream-100 p-3">
+          <button
+            type="button"
+            onClick={openGuide}
+            className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium text-cocoa-400 transition hover:bg-cream-50 hover:text-cocoa-600"
+          >
+            <span className="text-base leading-none">❓</span>
+            คู่มือการใช้งาน
+          </button>
           <NavLink
             href="/settings"
             label="ตั้งค่า"
@@ -102,6 +111,14 @@ export function MobileHeader({ shopName }: { shopName: string }) {
     <header className="sticky top-0 z-10 flex items-center justify-between border-b border-cream-200 bg-cream-50/95 px-4 py-3 backdrop-blur lg:hidden">
       <p className="truncate font-bold text-cocoa-700">{shopName}</p>
       <div className="flex items-center gap-1">
+        <button
+          type="button"
+          onClick={openGuide}
+          className="rounded-lg px-2 py-1 text-lg"
+          aria-label="คู่มือการใช้งาน"
+        >
+          ❓
+        </button>
         <Link
           href="/reports"
           className="rounded-lg px-2 py-1 text-lg"
