@@ -7,16 +7,24 @@ import { requestPersistence } from "@/lib/backup";
 import { useSettings } from "@/lib/hooks";
 import { Sidebar, BottomNav, MobileHeader } from "./nav";
 import { Guide } from "./guide";
+import { Logo } from "./logo";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
+  const [dbError, setDbError] = useState<string | null>(null);
   const pathname = usePathname();
   const settings = useSettings();
 
   useEffect(() => {
     let alive = true;
     (async () => {
-      await ensureSeeded();
+      try {
+        await ensureSeeded();
+      } catch (e) {
+        // ถ้าเปิดฐานข้อมูลไม่ได้ ต้องบอกผู้ใช้ ไม่ใช่ค้างหน้าโหลดเงียบ ๆ
+        if (alive) setDbError(e instanceof Error ? e.message : String(e));
+        return;
+      }
       // ขอให้เบราว์เซอร์อย่าล้างข้อมูลทิ้ง — สำคัญมากบน iOS
       requestPersistence().catch(() => {});
       if (alive) setReady(true);
@@ -59,11 +67,38 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  if (dbError) {
+    return (
+      <div className="flex min-h-dvh items-center justify-center bg-cream-50 px-6">
+        <div className="max-w-sm text-center">
+          <Logo className="mx-auto w-32 opacity-60" />
+          <h1 className="mt-4 text-lg font-bold text-plum-700">
+            เปิดข้อมูลไม่ได้
+          </h1>
+          <p className="mt-2 text-sm text-plum-400">
+            เบราว์เซอร์ไม่ยอมให้แอปเก็บข้อมูล มักเกิดตอนเปิดในโหมดไม่ระบุตัวตน
+            หรือตั้งค่าบล็อกข้อมูลเว็บไว้
+          </p>
+          <p className="mt-3 rounded-xl bg-white px-3 py-2 text-left text-xs text-plum-400">
+            {dbError}
+          </p>
+          <button
+            type="button"
+            onClick={() => location.reload()}
+            className="mt-4 rounded-xl bg-plum-600 px-5 py-2.5 text-sm font-semibold text-cream-50"
+          >
+            ลองใหม่
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   if (!ready) {
     return (
       <div className="flex min-h-dvh items-center justify-center bg-cream-50">
         <div className="text-center">
-          <p className="animate-pulse text-4xl">🧁</p>
+          <Logo className="mx-auto w-40 animate-pulse" />
           <p className="mt-3 text-sm text-plum-400">กำลังเปิดข้อมูล…</p>
         </div>
       </div>

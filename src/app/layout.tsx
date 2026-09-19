@@ -5,13 +5,13 @@ import { AppShell } from "@/components/app-shell";
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export const metadata: Metadata = {
-  title: "ร้านขนม — ต้นทุนและกำไรที่แท้จริง",
+  title: "Lamoon ละมุน — ต้นทุนและกำไรที่แท้จริง",
   description:
     "บันทึกรอบผลิต ต้นทุนจริงต่อชิ้น สต๊อก และกำไรขั้นต้น/สุทธิ — ข้อมูลเก็บในเครื่องคุณเอง",
   manifest: `${BASE}/manifest.json`,
   appleWebApp: {
     capable: true,
-    title: "ร้านขนม",
+    title: "Lamoon",
     statusBarStyle: "default",
   },
   icons: {

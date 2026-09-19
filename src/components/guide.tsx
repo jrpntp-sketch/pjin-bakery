@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Logo } from "./logo";
 
 const SEEN_KEY = "pjin-guide-seen";
 const OPEN_EVENT = "pjin:open-guide";
@@ -75,6 +76,7 @@ export function Guide() {
         </header>
 
         <div className="overflow-y-auto overscroll-contain px-5 py-5 [-webkit-overflow-scrolling:touch]">
+          <Logo className="mx-auto mb-5 w-44" />
           <Content />
         </div>
 

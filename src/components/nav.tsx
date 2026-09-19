@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { openGuide } from "./guide";
+import { LogoMark } from "./logo";
 
 const LINKS = [
   { href: "/", label: "ภาพรวม", icon: "📊" },
@@ -19,11 +20,14 @@ export function Sidebar({ shopName }: { shopName: string }) {
   return (
     <aside className="hidden w-56 shrink-0 border-r border-cream-200 bg-white/85 backdrop-blur lg:block">
       <div className="sticky top-0 flex h-dvh flex-col">
-        <div className="px-5 py-5">
-          <p className="text-xs font-medium text-plum-400">ร้าน</p>
-          <p className="truncate text-base font-bold text-plum-700">
-            {shopName}
-          </p>
+        <div className="flex items-center gap-2.5 px-4 py-4">
+          <LogoMark className="size-10 shrink-0 rounded-full" />
+          <div className="min-w-0">
+            <p className="text-xs font-medium text-plum-400">ร้าน</p>
+            <p className="truncate text-base font-bold text-plum-700">
+              {shopName}
+            </p>
+          </div>
         </div>
         <nav className="flex-1 space-y-0.5 px-3">
           {LINKS.map((l) => (
@@ -109,7 +113,10 @@ function isActive(pathname: string, href: string) {
 export function MobileHeader({ shopName }: { shopName: string }) {
   return (
     <header className="sticky top-0 z-10 flex items-center justify-between border-b border-cream-200 bg-white/80 px-4 py-3 backdrop-blur lg:hidden">
-      <p className="truncate font-bold text-[var(--page-accent)]">{shopName}</p>
+      <div className="flex min-w-0 items-center gap-2">
+        <LogoMark className="size-8 shrink-0 rounded-full" />
+        <p className="truncate font-bold text-[var(--page-accent)]">{shopName}</p>
+      </div>
       <div className="flex items-center gap-1">
         <button
           type="button"
