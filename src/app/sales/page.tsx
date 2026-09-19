@@ -44,7 +44,7 @@ export default function SalesPage() {
 
           <Card title="รายการล่าสุด">
             {sales.length === 0 ? (
-              <Empty icon="🧾">ยังไม่มีรายการขาย</Empty>
+              <Empty icon="🥞">ยังไม่มีรายการขาย</Empty>
             ) : (
               <ul className="divide-y divide-cream-100">
                 {sales.map((t) => (

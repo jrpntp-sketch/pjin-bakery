@@ -26,7 +26,7 @@ export default function ChannelsPage() {
       <div className="grid gap-4 lg:grid-cols-[1fr_20rem]">
         <Card title={`ช่องทางทั้งหมด (${channels.length})`}>
           {channels.length === 0 ? (
-            <Empty icon="🏪">ยังไม่มีช่องทางจำหน่าย — กรุณาเพิ่มช่องทางใหม่</Empty>
+            <Empty icon="🧁">ยังไม่มีช่องทางจำหน่าย — กรุณาเพิ่มช่องทางใหม่</Empty>
           ) : (
             <ul className="divide-y divide-cream-100">
               {channels.map((c) => (

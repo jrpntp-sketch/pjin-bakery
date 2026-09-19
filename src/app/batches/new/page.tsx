@@ -199,7 +199,7 @@ export default function NewBatchPage() {
         </div>
 
         <div className="lg:sticky lg:top-5 lg:self-start">
-          <Card title="💡 ต้นทุนจริงต่อหน่วย">
+          <Card title="🍪 ต้นทุนจริงต่อหน่วย">
             {!calc.hasQty ? (
               <p className="py-6 text-center text-sm text-plum-400">ใส่จำนวนที่ได้ แล้วตัวเลขจะขึ้นตรงนี้</p>
             ) : (

@@ -7,13 +7,13 @@ import { LogoMark } from "./logo";
 import { Emoji, withEmoji } from "./emoji";
 
 const LINKS = [
-  { href: "/", label: "ภาพรวม", icon: "📊" },
-  { href: "/batches", label: "รอบผลิต", icon: "🧑‍🍳" },
-  { href: "/sales", label: "ขาย/ฝาก", icon: "🧾" },
-  { href: "/products", label: "สินค้า", icon: "🧁" },
-  { href: "/channels", label: "ช่องทาง", icon: "🏪" },
+  { href: "/", label: "ภาพรวม", icon: "🥐" },
+  { href: "/batches", label: "รอบผลิต", icon: "🍩" },
+  { href: "/sales", label: "ขาย/ฝาก", icon: "🥞" },
+  { href: "/products", label: "สินค้า", icon: "🥨" },
+  { href: "/channels", label: "ช่องทาง", icon: "🧁" },
   { href: "/expenses", label: "รายจ่าย", icon: "💸" },
-  { href: "/reports", label: "รายงาน", icon: "📈" },
+  { href: "/reports", label: "รายงาน", icon: "🍰" },
 ] as const;
 
 export function Sidebar({ shopName }: { shopName: string }) {
@@ -41,7 +41,7 @@ export function Sidebar({ shopName }: { shopName: string }) {
             onClick={openGuide}
             className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium text-plum-400 transition hover:bg-cream-50 hover:text-plum-600"
           >
-            <Emoji name="question" className="text-base" />
+            <Emoji name="waffle" className="text-base" />
             คู่มือการใช้งาน
           </button>
           <NavLink
@@ -125,14 +125,14 @@ export function MobileHeader({ shopName }: { shopName: string }) {
           className="rounded-lg px-2 py-1 text-lg"
           aria-label="คู่มือการใช้งาน"
         >
-          <Emoji name="question" className="size-5" />
+          <Emoji name="waffle" className="size-5" />
         </button>
         <Link
           href="/reports"
           className="rounded-lg px-2 py-1 text-lg"
           aria-label="รายงาน"
         >
-          <Emoji name="chart-up" className="size-5" />
+          <Emoji name="shortcake" className="size-5" />
         </Link>
         <Link
           href="/settings"

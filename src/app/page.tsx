@@ -106,7 +106,7 @@ export default function DashboardPage() {
       <Card title="รายการขายล่าสุด" className="mt-4"
         action={<LinkButton href="/reports" variant="ghost" className="!px-3 !py-1.5 !text-xs">ดูรายงาน</LinkButton>}>
         {d.recent.length === 0 ? (
-          <Empty icon="🧾">เดือนนี้ยังไม่มีรายการขาย</Empty>
+          <Empty icon="🥞">เดือนนี้ยังไม่มีรายการขาย</Empty>
         ) : (
           <ul className="divide-y divide-cream-100">
             {d.recent.map((t) => (

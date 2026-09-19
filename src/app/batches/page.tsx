@@ -18,7 +18,7 @@ export default function BatchesPage() {
 
       <Card title={`ประวัติการผลิต (${batches.length} รอบล่าสุด)`}>
         {batches.length === 0 ? (
-          <Empty icon="🧑‍🍳">
+          <Empty icon="🍩">
             ยังไม่มีรอบผลิต
             <span className="mt-3 block"><LinkButton href="/batches/new">บันทึกการผลิต</LinkButton></span>
           </Empty>

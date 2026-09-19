@@ -8,28 +8,31 @@ const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
  * ของ Apple กับ Android คนละแบบ พี่จินกับเราจะเห็นไม่ตรงกัน
  */
 const MAP: Record<string, string> = {
-  "🧁": "cupcake",
-  "🧑‍🍳": "cook",
-  "🧾": "receipt",
-  "📦": "package",
-  "🏪": "store",
-  "💸": "money-wings",
-  "📈": "chart-up",
-  "📊": "bar-chart",
-  "💾": "floppy",
-  "📱": "phone",
-  "💡": "bulb",
-  "📌": "pushpin",
-  "🧪": "test-tube",
-  "✨": "sparkles",
-  "👍": "thumbs-up",
+  // ชุดขนม — เลือกโดยเจ้าของร้าน
+  "🥨": "pretzel",      // สินค้า
+  "🍩": "doughnut",     // รอบผลิต
+  "🥞": "pancakes",     // ขาย/ฝากขาย
+  "🥐": "croissant",    // ภาพรวม
+  "🧁": "cupcake",      // ช่องทางขาย
+  "🍰": "shortcake",    // รายงาน
+  "🍪": "cookie",       // ต้นทุนต่อหน่วย
+  "🧇": "waffle",       // คู่มือ
+  "🥧": "pie",          // สำรองข้อมูล
+  "🍮": "custard",      // ที่เก็บข้อมูล
+  "🍡": "dango",        // หมายเหตุสำคัญ
+  "🍧": "shaved-ice",   // ตัวอย่างการคำนวณ
+  "🍭": "lollipop",     // ปุ่มสำรองข้อมูล
+  "🍨": "ice-cream",    // ปุ่มกู้ข้อมูล
+
+  // ของเดิมที่ไม่ได้เปลี่ยน
+  "📦": "package",      // สต็อกใกล้หมด
+  "💸": "money-wings",  // รายจ่ายอื่น
   "⚠️": "warning",
   "⚠": "warning",
-  "❓": "question",
+  "✨": "sparkles",     // ทุกอย่างดี
+  "👍": "thumbs-up",    // สต็อกปกติ
   "⚙️": "gear",
   "⚙": "gear",
-  "⬇": "arrow-down",
-  "⬆": "arrow-up",
 };
 
 // เรียงจากยาวไปสั้น เพื่อให้ ⚠️ (มี FE0F) ถูกจับก่อน ⚠ เปล่า ๆ

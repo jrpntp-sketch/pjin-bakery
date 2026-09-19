@@ -136,7 +136,7 @@ export const inputClass =
 /* ---------- Empty state ---------- */
 export function Empty({
   children,
-  icon = "🧁",
+  icon = "🥨",
 }: {
   children: ReactNode;
   icon?: string;

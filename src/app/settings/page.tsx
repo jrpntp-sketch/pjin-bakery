@@ -59,7 +59,7 @@ export default function SettingsPage() {
         <div className="space-y-4">
           <StorageCard />
 
-          <Card title="❓ คู่มือการใช้งาน">
+          <Card title="🧇 คู่มือการใช้งาน">
             <p className="mb-3 text-sm text-plum-600">
               ขั้นตอนการใช้งานทั้งหมด ตัวอย่างการคำนวณ และวิธีสำรองข้อมูล
             </p>
@@ -116,7 +116,7 @@ function BackupCard() {
   }
 
   return (
-    <Card title="💾 สำรองข้อมูล">
+    <Card title="🥧 สำรองข้อมูล">
       <p className="mb-3 text-sm text-plum-600">
         ข้อมูลจัดเก็บเฉพาะในอุปกรณ์นี้เท่านั้น{" "}
         <span className="font-semibold text-plum-700">
@@ -127,10 +127,10 @@ function BackupCard() {
 
       <div className="flex flex-wrap gap-2">
         <Button type="button" onClick={() => downloadBackup()}>
-          <Emoji name="arrow-down" /> สำรองข้อมูลตอนนี้
+          <Emoji name="lollipop" /> สำรองข้อมูลตอนนี้
         </Button>
         <Button type="button" variant="ghost" onClick={() => fileRef.current?.click()}>
-          <Emoji name="arrow-up" /> กู้จากไฟล์
+          <Emoji name="ice-cream" /> กู้จากไฟล์
         </Button>
         <input ref={fileRef} type="file" accept="application/json,.json" onChange={onFile} className="hidden" />
       </div>
@@ -171,7 +171,7 @@ function StorageCard() {
   }, []);
 
   return (
-    <Card title="📱 ที่เก็บข้อมูล">
+    <Card title="🍮 ที่เก็บข้อมูล">
       <div className="space-y-3 text-sm text-plum-600">
         <p>
           ข้อมูลทั้งหมดอยู่ในเครื่องนี้ ไม่ได้ส่งไปไหน ไม่ต้องล็อกอิน ใช้ได้แม้ไม่มีเน็ต
@@ -194,7 +194,7 @@ function StorageCard() {
 
         <div className="rounded-xl bg-cream-50 p-3 text-xs text-plum-400">
           <p className="mb-1 flex items-center gap-1.5 font-semibold text-plum-600">
-            <Emoji name="pushpin" /> สำคัญสำหรับ iPhone
+            <Emoji name="dango" /> สำคัญสำหรับ iPhone
           </p>
           กรุณากด{" "}
           <span className="font-semibold">

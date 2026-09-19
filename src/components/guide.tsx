@@ -134,7 +134,7 @@ function Content() {
         </p>
       </Step>
 
-      <Step n={2} icon="🧁" title="สินค้า">
+      <Step n={2} icon="🥨" title="สินค้า">
         <p>เพิ่มสินค้าที่ผลิตและจำหน่าย โดยระบุ</p>
         <ul className="ml-4 list-disc space-y-0.5">
           <li>ชื่อสินค้า</li>
@@ -146,7 +146,7 @@ function Content() {
         </p>
       </Step>
 
-      <Step n={3} icon="🏪" title="ช่องทางการขาย">
+      <Step n={3} icon="🧁" title="ช่องทางการขาย">
         <p>
           ระบบมีช่องทาง <b>ขายเอง</b> เป็นค่าเริ่มต้น
           และสามารถเพิ่มช่องทางฝากขายได้ตามรูปแบบที่ใช้งานจริง
@@ -179,7 +179,7 @@ function Content() {
         </p>
       </Step>
 
-      <Step n={4} icon="🧑‍🍳" title="รอบผลิต" highlight>
+      <Step n={4} icon="🍩" title="รอบผลิต" highlight>
         <p>
           ทุกครั้งที่ผลิตขนม ควรบันทึกข้อมูลทันที โดยกรอกข้อมูลหลัก 4 รายการ
         </p>
@@ -199,7 +199,7 @@ function Content() {
         </p>
       </Step>
 
-      <Step n={5} icon="🧾" title="ขาย / ฝากขาย">
+      <Step n={5} icon="🥞" title="ขาย / ฝากขาย">
         <p className="rounded-xl bg-cream-100 px-3 py-2 text-center text-xs font-semibold text-plum-700">
           เลือกสินค้า → เลือกช่องทาง → ระบุจำนวน → ตรวจสอบกำไร → บันทึก
         </p>
@@ -209,7 +209,7 @@ function Content() {
         </p>
       </Step>
 
-      <Step n={6} icon="📈" title="รายงาน">
+      <Step n={6} icon="🍰" title="รายงาน">
         <p>ใช้หน้ารายงานเพื่อวิเคราะห์ว่า</p>
         <ul className="ml-4 list-disc space-y-0.5">
           <li>สินค้าชนิดใดสร้างกำไรได้ดี</li>
@@ -243,7 +243,7 @@ function Content() {
 
       <section className="rounded-2xl border border-cream-200 bg-white p-4">
         <h3 className="flex items-center gap-1.5 text-sm font-bold text-plum-700">
-          {withEmoji("💾")} ข้อจำกัดและการสำรองข้อมูล
+          {withEmoji("🥧")} ข้อจำกัดและการสำรองข้อมูล
         </h3>
         <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-plum-600">
           <li>
@@ -314,7 +314,7 @@ function Step({
 function Example() {
   return (
     <section className="rounded-2xl border border-cream-200 bg-white p-4">
-      <h3 className="flex items-center gap-1.5 text-base font-bold text-plum-700">{withEmoji("🧪")} ตัวอย่างการคำนวณ</h3>
+      <h3 className="flex items-center gap-1.5 text-base font-bold text-plum-700">{withEmoji("🍧")} ตัวอย่างการคำนวณ</h3>
       <p className="mt-2 text-sm text-plum-600">
         ทดลองใช้งานด้วยข้อมูลดังต่อไปนี้
       </p>

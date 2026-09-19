@@ -81,7 +81,7 @@ export default function ReportsPage() {
       </div>
 
       {r.count === 0 ? (
-        <Card><Empty icon="📈">ช่วงเวลานี้ยังไม่มีรายการขาย</Empty></Card>
+        <Card><Empty icon="🍰">ช่วงเวลานี้ยังไม่มีรายการขาย</Empty></Card>
       ) : (
         <div className="grid gap-4 lg:grid-cols-2">
           <Breakdown title="แยกตามสินค้า" subtitle="เรียงจากกำไรสุทธิมากไปน้อย" rows={r.byProduct} />
