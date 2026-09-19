@@ -113,7 +113,7 @@ export default function NewBatchPage() {
         <div className="space-y-4">
           <Card title="รอบผลิตนี้">
             <div className="space-y-3.5">
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2 [&>*]:min-w-0">
                 <Field label="สินค้า">
                   <select value={pid} onChange={(e) => setProductId(e.target.value)} className={inputClass}>
                     {products.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
@@ -171,7 +171,7 @@ export default function NewBatchPage() {
 
           <Card title="ค่าแรง และ ค่าแฝง">
             <div className="space-y-3.5">
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2 [&>*]:min-w-0">
                 <Field label="เวลาที่ใช้ทำ (ชั่วโมง)" hint="รวมเวลาส่งของด้วยได้">
                   <input {...numberInput}
                     value={hours} onChange={(e) => setHours(e.target.value)}

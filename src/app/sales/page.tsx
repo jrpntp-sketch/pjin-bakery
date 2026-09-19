@@ -186,7 +186,7 @@ function SaleForm({ stock, channels }: {
           </select>
         </Field>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 [&>*]:min-w-0">
           <Field label={`จำนวน (${item?.product.unit ?? "ชิ้น"})`}>
             <input {...numberInput} required
               value={qty} onChange={(e) => setQty(e.target.value)} className={inputClass} />
@@ -198,7 +198,8 @@ function SaleForm({ stock, channels }: {
           </Field>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        {/* วันที่ต้องได้เต็มบรรทัดบนมือถือ เพราะ iOS แสดงเป็น "19 Sep BE 2569" ซึ่งยาว */}
+        <div className="grid gap-3 sm:grid-cols-2 [&>*]:min-w-0">
           <Field label="วันที่ขาย">
             <input type="date" value={soldOn} onChange={(e) => setSoldOn(e.target.value)} className={inputClass} />
           </Field>

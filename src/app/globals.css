@@ -123,6 +123,14 @@ body {
 }
 
 
+/* iOS Safari แสดงวันที่แบบยาว เช่น "19 Sep BE 2569" ซึ่งกว้างกว่า Chrome มาก
+   ช่อง flex/grid มี min-width:auto เป็นค่าเริ่มต้น จึงไม่ยอมหดตามแล้วดันล้นกรอบ
+   บังคับให้หดได้และไม่เกินความกว้างพ่อแม่ */
+input[type="date"] {
+  min-width: 0;
+  max-width: 100%;
+}
+
 /* ซ่อน spinner ของ input[type=number] เพื่อให้กรอกบนมือถือสบายขึ้น */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {

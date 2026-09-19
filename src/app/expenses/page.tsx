@@ -88,7 +88,8 @@ export default function ExpensesPage() {
                   {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
               </Field>
-              <div className="grid grid-cols-2 gap-3">
+              {/* วันที่ต้องได้เต็มบรรทัดบนมือถือ เพราะ iOS แสดงเป็น "19 Sep BE 2569" ซึ่งยาว */}
+              <div className="grid gap-3 sm:grid-cols-2 [&>*]:min-w-0">
                 <Field label="จำนวนเงิน">
                   <input name="amount" {...numberInput} required placeholder="0.00" className={inputClass} />
                 </Field>

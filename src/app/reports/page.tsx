@@ -44,16 +44,18 @@ export default function ReportsPage() {
         subtitle="สรุปรายงานยอดขาย กำไรขั้นต้น และกำไรสุทธิ" />
 
       <Card className="mb-4">
-        <div className="flex flex-wrap items-end gap-3">
-          <label className="flex-1">
-            <span className="mb-1.5 block text-xs font-semibold text-plum-600">ตั้งแต่</span>
-            <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className={inputClass} />
-          </label>
-          <label className="flex-1">
-            <span className="mb-1.5 block text-xs font-semibold text-plum-600">ถึง</span>
-            <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className={inputClass} />
-          </label>
-          <div className="flex gap-1.5">
+        <div className="space-y-3">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <label className="min-w-0">
+              <span className="mb-1.5 block text-xs font-semibold text-plum-600">ตั้งแต่</span>
+              <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className={inputClass} />
+            </label>
+            <label className="min-w-0">
+              <span className="mb-1.5 block text-xs font-semibold text-plum-600">ถึง</span>
+              <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className={inputClass} />
+            </label>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
             <button type="button" onClick={thisMonth}
               className="rounded-xl border border-cream-200 px-3 py-2.5 text-xs font-semibold text-plum-600 transition hover:bg-cream-100">
               เดือนนี้
