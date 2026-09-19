@@ -13,14 +13,14 @@ export default function BatchesPage() {
   return (
     <>
       <PageHeader title="รอบผลิต"
-        subtitle="ทุกครั้งที่ทำขนม บันทึกไว้ที่นี่ เพื่อให้ต้นทุนต่อชิ้นแม่นขึ้นเรื่อย ๆ"
+        subtitle="บันทึกข้อมูลการผลิตเพื่อคำนวณต้นทุนต่อหน่วยอย่างแม่นยำ"
         action={<LinkButton href="/batches/new">+ บันทึกรอบผลิต</LinkButton>} />
 
       <Card title={`ประวัติการผลิต (${batches.length} รอบล่าสุด)`}>
         {batches.length === 0 ? (
           <Empty icon="🧑‍🍳">
             ยังไม่มีรอบผลิต
-            <span className="mt-3 block"><LinkButton href="/batches/new">บันทึกรอบแรก</LinkButton></span>
+            <span className="mt-3 block"><LinkButton href="/batches/new">บันทึกการผลิต</LinkButton></span>
           </Empty>
         ) : (
           <ul className="divide-y divide-cream-100">
@@ -62,7 +62,7 @@ export default function BatchesPage() {
                       )}
                       <button type="button"
                         onClick={async () => {
-                          if (confirm("ลบรอบผลิตนี้? สต๊อกและต้นทุนเฉลี่ยจะถูกคำนวณใหม่")) {
+                          if (confirm("ยืนยันการลบรอบการผลิตนี้? ระบบจะคำนวณสต็อกและต้นทุนเฉลี่ยใหม่")) {
                             await db.batches.delete(b.id);
                           }
                         }}

@@ -30,7 +30,7 @@ export default function SettingsPage() {
   return (
     <>
       <PageHeader title="ตั้งค่า"
-        subtitle="ค่าแรงต่อชั่วโมงคือตัวแปรสำคัญที่สุด — มันทำให้ 'กำไรสุทธิ' มีความหมาย" />
+        subtitle="กำหนดค่าแรงต่อชั่วโมงและข้อมูลพื้นฐานของร้าน" />
 
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="space-y-4">
@@ -39,14 +39,13 @@ export default function SettingsPage() {
               <Field label="ชื่อร้าน">
                 <input name="shopName" required defaultValue={settings.shopName} className={inputClass} />
               </Field>
-              <Field label="ค่าแรงของตัวเอง ต่อชั่วโมง (บาท)"
-                hint="ตีราคาเวลาตัวเองเท่าไหร่? ลองเทียบกับค่าจ้างงานอื่นที่ทำได้ในเวลาเท่ากัน">
+              <Field label="ค่าแรงของตัวเอง ต่อชั่วโมง (บาท)">
                 <input name="hourlyWage" {...numberInput}
                   defaultValue={settings.hourlyWage || ""} placeholder="เช่น 150" className={inputClass} />
               </Field>
               {saved && (
                 <p className="rounded-xl bg-leaf-500/10 px-3 py-2 text-sm text-leaf-500">
-                  บันทึกแล้ว ✓ รอบผลิตใหม่จะใช้ค่าแรงนี้
+                  บันทึกสำเร็จ (มีผลกับรอบการผลิตถัดไป)
                 </p>
               )}
               <Button type="submit" className="w-full">บันทึกการตั้งค่า</Button>
@@ -77,17 +76,18 @@ export default function SettingsPage() {
               <p>
                 <span className="font-semibold text-plum-700">กำไรขั้นต้น</span> = ยอดขาย − ต้นทุนวัตถุดิบ
                 <span className="block text-xs text-plum-400">
-                  ตัวเลขที่หลายคนคิดว่าเป็น &ldquo;กำไร&rdquo; แต่ยังไม่รวมแรงที่ลงไป
+                  กำไรจากการขายที่ยังไม่รวมต้นทุนค่าแรงและค่าใช้จ่ายแฝง
                 </span>
               </p>
               <p>
                 <span className="font-semibold text-plum-700">กำไรสุทธิ</span> = ยอดขาย −
                 ต้นทุนจริงต่อชิ้น − ส่วนแบ่งช่องทาง − ค่าส่ง
-                <span className="block text-xs text-plum-400">ตัวเลขที่บอกว่าคุ้มค่าแรงจริงไหม</span>
+                <span className="block text-xs text-plum-400">กำไรจริงหลังหักต้นทุนและค่าใช้จ่ายทุกส่วน</span>
               </p>
               <p className="rounded-xl bg-cream-50 p-3 text-xs text-plum-400">
-                ค่าแรงจะถูกบันทึกติดไปกับแต่ละรอบผลิต ถ้าปรับค่าแรงวันนี้
-                รอบผลิตเก่าจะไม่เปลี่ยนตาม — ประวัติกำไรจึงยังตรงกับความจริง
+                อัตราค่าแรงจะถูกบันทึกแยกตามรอบผลิต
+                การแก้ไขค่าแรงในปัจจุบันจะไม่มีผลย้อนหลัง
+                เพื่อรักษาความถูกต้องของประวัติข้อมูล
               </p>
             </div>
           </Card>
@@ -117,9 +117,11 @@ function BackupCard() {
   return (
     <Card title="💾 สำรองข้อมูล">
       <p className="mb-3 text-sm text-plum-600">
-        ข้อมูลเก็บอยู่ในเครื่องนี้เครื่องเดียว <span className="font-semibold text-plum-700">
-        ถ้าลบแอปออกจากหน้าจอ ข้อมูลจะหายทั้งหมด</span> — กดสำรองเก็บไว้เป็นระยะ
-        แล้วส่งไฟล์เข้าแชทตัวเองหรือเก็บใน iCloud Drive
+        ข้อมูลจัดเก็บเฉพาะในอุปกรณ์นี้เท่านั้น{" "}
+        <span className="font-semibold text-plum-700">
+          การลบแอปจะทำให้ข้อมูลสูญหาย
+        </span>{" "}
+        กรุณากดสำรองข้อมูลสม่ำเสมอและบันทึกไฟล์ไว้ในพื้นที่ปลอดภัย
       </p>
 
       <div className="flex flex-wrap gap-2">
@@ -140,7 +142,7 @@ function BackupCard() {
       <button type="button"
         onClick={async () => {
           if (!confirm("ลบข้อมูลทั้งหมดและเริ่มใหม่? กู้คืนไม่ได้")) return;
-          if (!confirm("แน่ใจนะ? สำรองข้อมูลไว้ก่อนหรือยัง")) return;
+          if (!confirm("ยืนยันการลบข้อมูล? คุณได้สำรองข้อมูลไว้แล้วหรือไม่")) return;
           await wipeAll();
           location.reload();
         }}
@@ -176,21 +178,24 @@ function StorageCard() {
         <div className={`rounded-xl p-3 text-xs ${
           persisted ? "bg-leaf-500/10 text-leaf-500" : "bg-peach-500/15 text-peach-700"}`}>
           {persisted === null ? "กำลังตรวจสอบ…"
-            : persisted ? "✓ เบราว์เซอร์รับปากว่าจะไม่ล้างข้อมูลนี้ทิ้ง"
-            : "⚠️ เบราว์เซอร์ยังไม่รับประกันว่าจะเก็บข้อมูลให้ถาวร"}
+            : persisted ? "✓ เปิดใช้งานการจัดเก็บข้อมูลถาวรแล้ว"
+            : "⚠️ ยังไม่ได้เปิดใช้งานการจัดเก็บข้อมูลถาวร"}
         </div>
 
         {!persisted && (
           <Button type="button" variant="ghost"
             onClick={async () => setPersisted(await requestPersistence())}>
-            ขอให้เบราว์เซอร์เก็บข้อมูลถาวร
+            เปิดใช้งานการจัดเก็บข้อมูลถาวร
           </Button>
         )}
 
         <div className="rounded-xl bg-cream-50 p-3 text-xs text-plum-400">
           <p className="mb-1 font-semibold text-plum-600">📌 สำคัญสำหรับ iPhone</p>
-          ต้องกด <span className="font-semibold">แชร์ → เพิ่มลงในหน้าจอโฮม</span> แล้วเปิดใช้จากไอคอนนั้น
-          ถ้าเปิดจากแท็บ Safari เฉยๆ ระบบอาจล้างข้อมูลทิ้งเมื่อไม่ได้เปิดนานเกิน 7 วัน
+          กรุณากด{" "}
+          <span className="font-semibold">
+            แชร์ → เพิ่มไปยังหน้าจอโฮม (Add to Home Screen)
+          </span>{" "}
+          เพื่อป้องกัน Safari ล้างข้อมูลอัตโนมัติเมื่อไม่ได้ใช้งาน
         </div>
       </div>
     </Card>

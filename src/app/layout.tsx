@@ -5,9 +5,9 @@ import { AppShell } from "@/components/app-shell";
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 export const metadata: Metadata = {
-  title: "Lamoon ละมุน — ต้นทุนและกำไรที่แท้จริง",
+  title: "Lamoon ละมุน — ต้นทุนและกำไร",
   description:
-    "บันทึกรอบผลิต ต้นทุนจริงต่อชิ้น สต๊อก และกำไรขั้นต้น/สุทธิ — ข้อมูลเก็บในเครื่องคุณเอง",
+    "จัดการต้นทุน บันทึกการผลิต สต็อกสินค้า และคำนวณกำไรสุทธิ (จัดเก็บข้อมูลในอุปกรณ์)",
   manifest: `${BASE}/manifest.json`,
   appleWebApp: {
     capable: true,

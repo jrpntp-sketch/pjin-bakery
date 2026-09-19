@@ -21,12 +21,12 @@ export default function ChannelsPage() {
   return (
     <>
       <PageHeader title="ช่องทางขาย"
-        subtitle="ขายเอง ฝากร้าน หรือออกบูธ — แต่ละที่หักส่วนแบ่งไม่เท่ากัน" />
+        subtitle="จัดการช่องทางการจำหน่ายและเงื่อนไขส่วนแบ่ง" />
 
       <div className="grid gap-4 lg:grid-cols-[1fr_20rem]">
         <Card title={`ช่องทางทั้งหมด (${channels.length})`}>
           {channels.length === 0 ? (
-            <Empty icon="🏪">ยังไม่มีช่องทาง — เพิ่มทางขวาได้เลย</Empty>
+            <Empty icon="🏪">ยังไม่มีช่องทางจำหน่าย — กรุณาเพิ่มช่องทางใหม่</Empty>
           ) : (
             <ul className="divide-y divide-cream-100">
               {channels.map((c) => (
@@ -52,7 +52,7 @@ export default function ChannelsPage() {
                       <button type="button"
                         onClick={async () => {
                           const r = await removeChannel(c.id);
-                          if (r === "archived") alert("ช่องทางนี้มีประวัติขายอยู่ จึงเปลี่ยนเป็นปิดการใช้งานแทน");
+                          if (r === "archived") alert('มีประวัติการจำหน่ายผ่านช่องทางนี้ ระบบจะปรับสถานะเป็น "ปิดการใช้งาน" แทน');
                         }}
                         className="rounded-lg px-2 py-1 text-xs font-semibold text-plum-400 transition hover:bg-berry-500/10 hover:text-berry-500">
                         ลบ

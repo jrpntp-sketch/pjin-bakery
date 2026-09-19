@@ -83,14 +83,14 @@ export async function restoreBackup(file: File): Promise<RestoreResult> {
   try {
     parsed = JSON.parse(await file.text());
   } catch {
-    return { ok: false, error: "ไฟล์นี้ไม่ใช่ไฟล์ข้อมูลที่ถูกต้อง (อ่านไม่ออก)" };
+    return { ok: false, error: "รูปแบบไฟล์ไม่ถูกต้องหรือไม่สามารถอ่านข้อมูลได้" };
   }
 
   const backup = parsed as Partial<BackupFile>;
   if (backup?.format !== FORMAT) {
     return {
       ok: false,
-      error: "ไฟล์นี้ไม่ใช่ไฟล์สำรองของแอปนี้ — เลือกไฟล์ที่ได้จากปุ่มสำรองข้อมูล",
+      error: "ไฟล์นี้ไม่ใช่ไฟล์สำรองข้อมูลของระบบ กรุณาเลือกไฟล์ที่ถูกต้อง",
     };
   }
   if (typeof backup.version !== "number" || backup.version > VERSION) {

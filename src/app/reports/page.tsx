@@ -40,7 +40,7 @@ export default function ReportsPage() {
   return (
     <>
       <PageHeader title="รายงาน"
-        subtitle="ช่องว่างระหว่างกำไรขั้นต้นกับสุทธิ คือค่าแรงและค่าแฝงที่มักถูกลืม" />
+        subtitle="สรุปรายงานยอดขาย กำไรขั้นต้น และกำไรสุทธิ" />
 
       <Card className="mb-4">
         <div className="flex flex-wrap items-end gap-3">
@@ -72,9 +72,9 @@ export default function ReportsPage() {
           hint={`${r.totals.orders} รายการ · ${num(r.totals.units)} ชิ้น`} />
         <Stat label="กำไรขั้นต้น" value={money(r.totals.gross)} hint="หักเฉพาะวัตถุดิบ" />
         <Stat label="กำไรสุทธิ" value={money(r.totals.net)}
-          hint={`ถูกกินไป ${money(hiddenCost)} จากแรง+แฝง+ส่วนแบ่ง`}
+          hint={`ต้นทุนค่าแรง ต้นทุนแฝง และส่วนแบ่งรวม ${money(hiddenCost)}`}
           tone={r.totals.net > 0 ? "good" : r.totals.net < 0 ? "bad" : "neutral"} />
-        <Stat label="เหลือจริง" value={money(bottomLine)}
+        <Stat label="กำไรสุทธิขั้นสุดท้าย" value={money(bottomLine)}
           hint={`หลังหักรายจ่ายอื่น ${money(r.otherExpenses)}`}
           tone={bottomLine > 0 ? "good" : bottomLine < 0 ? "bad" : "neutral"} />
       </div>
@@ -84,7 +84,7 @@ export default function ReportsPage() {
       ) : (
         <div className="grid gap-4 lg:grid-cols-2">
           <Breakdown title="แยกตามสินค้า" subtitle="เรียงจากกำไรสุทธิมากไปน้อย" rows={r.byProduct} />
-          <Breakdown title="แยกตามช่องทางขาย" subtitle="ที่ไหนคุ้มกว่ากัน" rows={r.byChannel} />
+          <Breakdown title="ประสิทธิภาพตามช่องทางจำหน่าย" subtitle="ที่ไหนคุ้มกว่ากัน" rows={r.byChannel} />
         </div>
       )}
     </>
@@ -120,9 +120,9 @@ function Breakdown({ title, subtitle, rows }: {
               </div>
               <p className={`mt-1 text-xs font-medium ${
                 r.net < 0 ? "text-berry-500" : margin < 15 ? "text-peach-600" : "text-plum-400"}`}>
-                {r.net < 0 ? "⚠️ ขาดทุนเมื่อคิดค่าแรง"
-                  : margin < 15 ? `มาร์จิ้นสุทธิ ${margin.toFixed(0)}% — บาง`
-                  : `มาร์จิ้นสุทธิ ${margin.toFixed(0)}%`}
+                {r.net < 0 ? "⚠️ ขาดทุนสุทธิ (รวมต้นทุนค่าแรง)"
+                  : margin < 15 ? `อัตรากำไรสุทธิ ${margin.toFixed(0)}% — ต่ำ`
+                  : `อัตรากำไรสุทธิ ${margin.toFixed(0)}%`}
               </p>
             </li>
           );

@@ -20,13 +20,13 @@ export default function ProductsPage() {
     <>
       <PageHeader
         title="สินค้า"
-        subtitle="ราคาขายมาตรฐาน ใช้เป็นค่าตั้งต้นเวลาบันทึกขาย (แก้รายครั้งได้)"
+        subtitle="กำหนดราคาขายมาตรฐานสำหรับใช้เป็นค่าเริ่มต้น"
       />
 
       <div className="grid gap-4 lg:grid-cols-[1fr_20rem]">
         <Card title={`รายการสินค้า (${stock.length})`}>
           {stock.length === 0 ? (
-            <Empty>ยังไม่มีสินค้า — เพิ่มขนมชิ้นแรกทางขวาได้เลย</Empty>
+            <Empty>ยังไม่มีรายการสินค้า — กรุณาเพิ่มสินค้าใหม่</Empty>
           ) : (
             <ul className="divide-y divide-cream-100">
               {stock.map((s) => {
@@ -69,7 +69,7 @@ export default function ProductsPage() {
                           onClick={async () => {
                             const r = await removeProduct(p.id);
                             if (r === "archived") {
-                              alert("สินค้านี้มีประวัติผลิต/ขายอยู่ จึงเปลี่ยนเป็นปิดการใช้งานแทน เพื่อไม่ให้รายงานย้อนหลังเพี้ยน");
+                              alert('ไม่สามารถลบได้เนื่องจากมีประวัติการทำรายการ ระบบจะปรับสถานะเป็น "ปิดการใช้งาน" เพื่อรักษาความถูกต้องของรายงาน');
                             }
                           }}
                           className="rounded-lg px-2 py-1 text-xs font-semibold text-plum-400 transition hover:bg-berry-500/10 hover:text-berry-500">

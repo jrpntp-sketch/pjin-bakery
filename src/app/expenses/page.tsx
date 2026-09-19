@@ -46,7 +46,7 @@ export default function ExpensesPage() {
   return (
     <>
       <PageHeader title="รายจ่ายอื่น"
-        subtitle="ของที่ไม่ผูกกับรอบผลิต เช่น ซื้อเตาใหม่ ค่าสมัครตลาดนัด" />
+        subtitle="ค่าใช้จ่ายคงที่หรือค่าใช้จ่ายทั่วไปที่ไม่ขึ้นกับรอบผลิต" />
 
       <div className="mb-4 grid grid-cols-2 gap-3">
         <Stat label="รายจ่ายเดือนนี้" value={money(monthTotal)} tone="bad" />

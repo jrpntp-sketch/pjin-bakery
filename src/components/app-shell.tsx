@@ -76,8 +76,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             เปิดข้อมูลไม่ได้
           </h1>
           <p className="mt-2 text-sm text-plum-400">
-            เบราว์เซอร์ไม่ยอมให้แอปเก็บข้อมูล มักเกิดตอนเปิดในโหมดไม่ระบุตัวตน
-            หรือตั้งค่าบล็อกข้อมูลเว็บไว้
+            ไม่สามารถบันทึกข้อมูลได้ กรุณาปิดโหมดไม่ระบุตัวตน (Incognito)
+            หรือตรวจสอบการอนุญาตจัดเก็บข้อมูลของเบราว์เซอร์
           </p>
           <p className="mt-3 rounded-xl bg-white px-3 py-2 text-left text-xs text-plum-400">
             {dbError}

@@ -63,7 +63,6 @@ export function Guide() {
         <header className="flex shrink-0 items-center justify-between gap-3 border-b border-cream-200 bg-white px-5 py-4">
           <div>
             <h2 className="text-lg font-bold text-plum-700">คู่มือการใช้งาน</h2>
-            <p className="text-xs text-plum-400">อ่านครั้งเดียวก็พอ เปิดซ้ำได้ที่ปุ่ม ❓</p>
           </div>
           <button
             type="button"
@@ -233,7 +232,7 @@ function Content() {
           หากระบบพบว่าผลตอบแทนไม่คุ้มกับต้นทุนและแรงงาน จะแสดงการแจ้งเตือน เช่น
         </p>
         <p className="mt-2 rounded-xl bg-white/70 px-3 py-2 text-sm font-semibold text-berry-500">
-          ⚠️ ทำแล้วไม่ค่อยคุ้มแรง · มาร์จิ้นสุทธิ -10%
+          ⚠️ อัตรากำไรต่ำกว่าเกณฑ์ · อัตรากำไรสุทธิ -10%
         </p>
         <p className="mt-2 text-sm leading-relaxed text-plum-600">
           เพื่อช่วยให้เห็นรายการที่ควรนำไปพิจารณาปรับราคา ลดต้นทุน

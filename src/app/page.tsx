@@ -15,7 +15,7 @@ export default function DashboardPage() {
     <>
       <PageHeader
         title="ภาพรวม"
-        subtitle="กำไรขั้นต้นคือหลังหักวัตถุดิบ — กำไรสุทธิคือหลังหักค่าแรงและค่าแฝงด้วย"
+        subtitle="สรุปภาพรวมยอดขายและผลกำไร"
         action={
           <div className="flex gap-2">
             <LinkButton href="/batches/new" variant="ghost">+ รอบผลิต</LinkButton>
@@ -29,7 +29,7 @@ export default function DashboardPage() {
         <Stat label="ยอดขาย" value={money(d.today.revenue)} />
         <Stat label="กำไรขั้นต้น" value={money(d.today.gross)} hint="หักเฉพาะวัตถุดิบ"
           tone={d.today.gross >= 0 ? "neutral" : "bad"} />
-        <Stat label="กำไรสุทธิ" value={money(d.today.net)} hint="หักแรง + แฝง + ส่วนแบ่ง"
+        <Stat label="กำไรสุทธิ" value={money(d.today.net)} hint="หักต้นทุนแฝง ค่าแรง และส่วนแบ่ง"
           tone={d.today.net > 0 ? "good" : d.today.net < 0 ? "bad" : "neutral"} />
         <Stat label="ขายได้" value={num(d.today.units)} hint={`${d.today.orders} รายการ`} />
       </div>
@@ -41,16 +41,16 @@ export default function DashboardPage() {
           tone={d.month.gross >= 0 ? "neutral" : "bad"} />
         <Stat label="กำไรสุทธิ" value={money(d.month.net)}
           tone={d.month.net > 0 ? "good" : d.month.net < 0 ? "bad" : "neutral"} />
-        <Stat label="เหลือจริงหลังรายจ่ายอื่น" value={money(afterExpenses)}
+        <Stat label="กำไรสุทธิหลังหักรายจ่ายอื่น" value={money(afterExpenses)}
           hint={`รายจ่ายอื่น ${money(d.monthExpenses)}`}
           tone={afterExpenses > 0 ? "good" : afterExpenses < 0 ? "bad" : "neutral"} />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card title="⚠️ ทำแล้วไม่ค่อยคุ้มแรง (เดือนนี้)"
+        <Card title="⚠️ สินค้าที่อัตรากำไรต่ำ / ขาดทุน (เดือนนี้)"
           action={<span className="text-xs text-plum-400">กำไรสุทธิต่ำ/ติดลบ</span>}>
           {d.unprofitable.length === 0 ? (
-            <Empty icon="✨">เดือนนี้ทุกอย่างที่ขายไปคุ้มค่าแรงหมดเลย</Empty>
+            <Empty icon="✨">ทุกรายการสินค้ามีกำไรสุทธิตามเกณฑ์</Empty>
           ) : (
             <ul className="space-y-2.5">
               {d.unprofitable.slice(0, 6).map((p) => {
@@ -77,14 +77,14 @@ export default function DashboardPage() {
         </Card>
 
         <Card title="📦 สต๊อกใกล้หมด"
-          action={<LinkButton href="/batches/new" variant="ghost" className="!px-3 !py-1.5 !text-xs">ทำเพิ่ม</LinkButton>}>
+          action={<LinkButton href="/batches/new" variant="ghost" className="!px-3 !py-1.5 !text-xs">บันทึกผลิตเพิ่ม</LinkButton>}>
           {d.productCount === 0 ? (
             <Empty>
-              ยังไม่มีสินค้า — เริ่มที่{" "}
-              <a href="/products" className="font-semibold underline">เพิ่มสินค้า</a> ก่อนนะ
+              ยังไม่มีข้อมูลสินค้า — กรุณา{" "}
+              <a href="/products" className="font-semibold underline">เพิ่มสินค้า</a>
             </Empty>
           ) : d.lowStock.length === 0 ? (
-            <Empty icon="👍">สต๊อกทุกอย่างยังพอ</Empty>
+            <Empty icon="👍">สินค้าคงคลังอยู่ในเกณฑ์ปกติ</Empty>
           ) : (
             <ul className="space-y-2.5">
               {d.lowStock.slice(0, 6).map((s) => (

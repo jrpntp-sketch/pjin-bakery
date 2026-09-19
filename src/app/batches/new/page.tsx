@@ -105,7 +105,7 @@ export default function NewBatchPage() {
   return (
     <>
       <PageHeader title="บันทึกรอบผลิต"
-        subtitle="กรอกวัตถุดิบ เวลา และจำนวนที่ได้ — ระบบคิดต้นทุนจริงต่อชิ้นให้ทันที"
+        subtitle="ระบุต้นทุนวัตถุดิบ ระยะเวลา และปริมาณที่ได้ เพื่อคำนวณต้นทุนจริงต่อหน่วย"
         action={<LinkButton href="/batches" variant="ghost">ดูรอบผลิตทั้งหมด</LinkButton>} />
 
       <form onSubmit={save} className="grid gap-4 lg:grid-cols-[1fr_20rem]">
@@ -123,7 +123,7 @@ export default function NewBatchPage() {
                 </Field>
               </div>
               <Field label={`จำนวนที่ได้ (${product?.unit ?? "ชิ้น"})`}
-                hint="ตัวเลขนี้คือตัวหารของต้นทุนต่อชิ้น — ใส่ให้ตรงกับที่ได้จริง">
+                hint="ระบุจำนวนผลผลิตจริงเพื่อใช้เฉลี่ยต้นทุนต่อหน่วย">
                 <input {...numberInput} required
                   value={qty} onChange={(e) => setQty(e.target.value)}
                   placeholder="เช่น 24" className={inputClass} />
@@ -179,12 +179,12 @@ export default function NewBatchPage() {
                 <Field label="ค่าแรง/ชั่วโมง"
                   hint={settings.hourlyWage > 0
                     ? `ค่าตั้งต้นจากหน้าตั้งค่า (${money(settings.hourlyWage)})`
-                    : "ยังไม่ได้ตั้งค่าแรง — ตั้งได้ที่หน้าตั้งค่า"}>
+                    : "ยังไม่ได้กำหนดอัตราค่าแรง (กำหนดได้ที่เมนูตั้งค่า)"}>
                   <input {...numberInput}
                     value={effectiveWage} onChange={(e) => setWage(e.target.value)} className={inputClass} />
                 </Field>
               </div>
-              <Field label="ค่าแฝงของรอบนี้" hint="ไฟ แก๊ส บรรจุภัณฑ์ ค่าน้ำมัน ฯลฯ">
+              <Field label="ค่าแฝงของรอบนี้" hint="ค่าบรรจุภัณฑ์, ค่าสาธารณูปโภค, ค่าน้ำมัน ฯลฯ">
                 <input {...numberInput}
                   value={overhead} onChange={(e) => setOverhead(e.target.value)}
                   placeholder="0.00" className={inputClass} />
@@ -235,10 +235,10 @@ export default function NewBatchPage() {
                     <p className={`text-xs font-medium ${
                       calc.netPerUnit < 0 ? "text-berry-500" : calc.marginPct < 20 ? "text-peach-600" : "text-leaf-500"}`}>
                       {calc.netPerUnit < 0
-                        ? "⚠️ ขายราคานี้แล้วขาดทุน — ขึ้นราคาหรือลดเวลา/ต้นทุน"
+                        ? "⚠️ ราคาขายต่ำกว่าต้นทุนจริง (ขาดทุนสุทธิ)"
                         : calc.marginPct < 20
-                          ? `มาร์จิ้น ${calc.marginPct.toFixed(0)}% — ค่อนข้างบาง`
-                          : `มาร์จิ้น ${calc.marginPct.toFixed(0)}% — โอเคเลย`}
+                          ? `อัตรากำไร ${calc.marginPct.toFixed(0)}% — ต่ำกว่าเกณฑ์`
+                          : `อัตรากำไร ${calc.marginPct.toFixed(0)}% — อยู่ในเกณฑ์ดี`}
                     </p>
                   </div>
                 )}
@@ -248,7 +248,7 @@ export default function NewBatchPage() {
             <Button type="submit" disabled={saving || !calc.hasQty} className="mt-4 w-full">
               {saving ? "กำลังบันทึก…" : "บันทึกรอบผลิต + เข้าสต๊อก"}
             </Button>
-            <p className="mt-2 text-center text-xs text-plum-400">บันทึกแล้วจะตัดเข้าสต๊อกให้อัตโนมัติ</p>
+            <p className="mt-2 text-center text-xs text-plum-400">บันทึกและปรับปรุงยอดสต็อกอัตโนมัติ</p>
           </Card>
         </div>
       </form>
