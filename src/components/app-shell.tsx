@@ -19,6 +19,31 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       if (alive) setReady(true);
     })();
 
+    // เวลาอัปเดตแอป ไฟล์ JS จะเปลี่ยนชื่อ (มี hash) แต่เบราว์เซอร์อาจยังถือ
+    // HTML เก่าที่ชี้ไปไฟล์เดิมซึ่งไม่มีแล้ว ทำให้แอปเปิดไม่ขึ้น
+    // ถ้าเจออาการนี้ ให้ล้าง cache แล้วโหลดใหม่ให้เองหนึ่งครั้ง
+    const RELOAD_KEY = "pjin-chunk-reload";
+    const onChunkError = async (ev: ErrorEvent | PromiseRejectionEvent) => {
+      const err = "reason" in ev ? ev.reason : ev.error;
+      const isChunkError =
+        err?.name === "ChunkLoadError" ||
+        /Loading chunk .* failed/i.test(String(err?.message ?? ""));
+      if (!isChunkError) return;
+      // กันวนลูป: ลองแค่ครั้งเดียวต่อการอัปเดตหนึ่งรอบ
+      if (sessionStorage.getItem(RELOAD_KEY)) return;
+      sessionStorage.setItem(RELOAD_KEY, "1");
+      try {
+        await Promise.all((await caches.keys()).map((k) => caches.delete(k)));
+        const regs = await navigator.serviceWorker?.getRegistrations?.();
+        await Promise.all((regs ?? []).map((r) => r.unregister()));
+      } catch {}
+      location.reload();
+    };
+    window.addEventListener("error", onChunkError);
+    window.addEventListener("unhandledrejection", onChunkError);
+    // โหลดสำเร็จแล้วก็ล้างธงทิ้ง เผื่อมีอัปเดตรอบหน้า
+    sessionStorage.removeItem(RELOAD_KEY);
+
     // ลงทะเบียน service worker เพื่อให้เปิดใช้ได้ตอนไม่มีเน็ต
     if ("serviceWorker" in navigator && process.env.NODE_ENV === "production") {
       const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -26,6 +51,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     }
     return () => {
       alive = false;
+      window.removeEventListener("error", onChunkError);
+      window.removeEventListener("unhandledrejection", onChunkError);
     };
   }, []);
 
