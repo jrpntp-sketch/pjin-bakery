@@ -45,7 +45,7 @@ export default function SettingsPage() {
                   defaultValue={settings.hourlyWage || ""} placeholder="เช่น 150" className={inputClass} />
               </Field>
               {saved && (
-                <p className="rounded-xl bg-mint-500/10 px-3 py-2 text-sm text-mint-500">
+                <p className="rounded-xl bg-leaf-500/10 px-3 py-2 text-sm text-leaf-500">
                   บันทึกแล้ว ✓ รอบผลิตใหม่จะใช้ค่าแรงนี้
                 </p>
               )}
@@ -132,7 +132,7 @@ function BackupCard() {
 
       {msg && (
         <p className={`mt-3 rounded-xl px-3 py-2 text-sm ${
-          msg.tone === "ok" ? "bg-mint-500/10 text-mint-500" : "bg-berry-500/10 text-berry-500"}`}>
+          msg.tone === "ok" ? "bg-leaf-500/10 text-leaf-500" : "bg-berry-500/10 text-berry-500"}`}>
           {msg.text}
         </p>
       )}
@@ -174,7 +174,7 @@ function StorageCard() {
         </p>
 
         <div className={`rounded-xl p-3 text-xs ${
-          persisted ? "bg-mint-500/10 text-mint-500" : "bg-amber-500/15 text-amber-700"}`}>
+          persisted ? "bg-leaf-500/10 text-leaf-500" : "bg-honey-500/15 text-honey-700"}`}>
           {persisted === null ? "กำลังตรวจสอบ…"
             : persisted ? "✓ เบราว์เซอร์รับปากว่าจะไม่ล้างข้อมูลนี้ทิ้ง"
             : "⚠️ เบราว์เซอร์ยังไม่รับประกันว่าจะเก็บข้อมูลให้ถาวร"}

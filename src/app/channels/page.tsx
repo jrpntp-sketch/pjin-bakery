@@ -174,7 +174,7 @@ function ChannelForm({ channel, onDone }: { channel?: Channel; onDone?: () => vo
         </label>
 
         {error && <p className="rounded-xl bg-berry-500/10 px-3 py-2 text-sm text-berry-500">{error}</p>}
-        {saved && <p className="rounded-xl bg-mint-500/10 px-3 py-2 text-sm text-mint-500">บันทึกแล้ว ✓</p>}
+        {saved && <p className="rounded-xl bg-leaf-500/10 px-3 py-2 text-sm text-leaf-500">บันทึกแล้ว ✓</p>}
 
         <div className="flex gap-2">
           <Button type="submit" className="flex-1">

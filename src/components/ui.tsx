@@ -42,9 +42,9 @@ export function Stat({
 }) {
   const toneClass = {
     neutral: "text-cocoa-700",
-    good: "text-mint-500",
+    good: "text-leaf-500",
     bad: "text-berry-500",
-    warn: "text-amber-600",
+    warn: "text-honey-600",
   }[tone];
   return (
     <div className="rounded-2xl border border-cream-200 bg-white p-4 shadow-sm">
@@ -130,7 +130,7 @@ export const numberInput = {
 };
 
 export const inputClass =
-  "w-full rounded-xl border border-cream-200 bg-white px-3 py-2.5 text-sm text-cocoa-700 outline-none transition placeholder:text-cocoa-400/60 focus:border-cocoa-400 focus:ring-2 focus:ring-cocoa-400/20";
+  "w-full rounded-xl border border-cream-200 bg-white px-3 py-2.5 text-sm text-cocoa-700 outline-none transition placeholder:text-cocoa-400/60 focus:border-pumpkin-500 focus:ring-2 focus:ring-pumpkin-500/25";
 
 /* ---------- Empty state ---------- */
 export function Empty({
@@ -158,9 +158,9 @@ export function Badge({
 }) {
   const tones = {
     neutral: "bg-cream-100 text-cocoa-600",
-    good: "bg-mint-500/12 text-mint-500",
+    good: "bg-leaf-500/12 text-leaf-500",
     bad: "bg-berry-500/12 text-berry-500",
-    warn: "bg-amber-500/15 text-amber-700",
+    warn: "bg-honey-500/15 text-honey-700",
   };
   return (
     <span

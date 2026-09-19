@@ -228,12 +228,12 @@ export default function NewBatchPage() {
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-cocoa-600">กำไรสุทธิ</span>
-                      <span className={`tabular font-bold ${calc.netPerUnit >= 0 ? "text-mint-500" : "text-berry-500"}`}>
+                      <span className={`tabular font-bold ${calc.netPerUnit >= 0 ? "text-leaf-500" : "text-berry-500"}`}>
                         {money(calc.netPerUnit)}
                       </span>
                     </div>
                     <p className={`text-xs font-medium ${
-                      calc.netPerUnit < 0 ? "text-berry-500" : calc.marginPct < 20 ? "text-amber-600" : "text-mint-500"}`}>
+                      calc.netPerUnit < 0 ? "text-berry-500" : calc.marginPct < 20 ? "text-honey-600" : "text-leaf-500"}`}>
                       {calc.netPerUnit < 0
                         ? "⚠️ ขายราคานี้แล้วขาดทุน — ขึ้นราคาหรือลดเวลา/ต้นทุน"
                         : calc.marginPct < 20

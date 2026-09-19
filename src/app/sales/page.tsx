@@ -66,7 +66,7 @@ export default function SalesPage() {
                       <div className="shrink-0 text-right">
                         <p className="tabular font-semibold text-cocoa-700">{money(t.revenue)}</p>
                         <p className="tabular text-xs text-cocoa-400">ขั้นต้น {money(t.grossProfit)}</p>
-                        <p className={`tabular text-xs font-bold ${t.netProfit >= 0 ? "text-mint-500" : "text-berry-500"}`}>
+                        <p className={`tabular text-xs font-bold ${t.netProfit >= 0 ? "text-leaf-500" : "text-berry-500"}`}>
                           สุทธิ {money(t.netProfit)}
                         </p>
                         <button type="button"
@@ -230,12 +230,12 @@ function SaleForm({ stock, channels }: {
           </div>
           <div className="flex justify-between border-t border-cream-200 pt-1.5">
             <span className="font-semibold text-cocoa-600">กำไรสุทธิ</span>
-            <span className={`tabular font-bold ${calc.net >= 0 ? "text-mint-500" : "text-berry-500"}`}>
+            <span className={`tabular font-bold ${calc.net >= 0 ? "text-leaf-500" : "text-berry-500"}`}>
               {money(calc.net)}
             </span>
           </div>
           {calc.noCost && (
-            <p className="pt-1 text-xs text-amber-600">
+            <p className="pt-1 text-xs text-honey-600">
               ⚠️ สินค้านี้ยังไม่มีรอบผลิต — กำไรสุทธิจะเท่ากับยอดขาย
             </p>
           )}
@@ -255,7 +255,7 @@ function SaleForm({ stock, channels }: {
         )}
 
         {saved && (
-          <p className="rounded-xl bg-mint-500/10 px-3 py-2 text-sm text-mint-500">
+          <p className="rounded-xl bg-leaf-500/10 px-3 py-2 text-sm text-leaf-500">
             บันทึกแล้ว ✓ ตัดสต๊อกเรียบร้อย
           </p>
         )}

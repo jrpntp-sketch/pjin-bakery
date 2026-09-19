@@ -50,7 +50,7 @@ export default function ProductsPage() {
                           ขาย {money(p.basePrice)}/{p.unit} · ต้นทุนจริง{" "}
                           {s.avgCostPerUnit > 0 ? money(s.avgCostPerUnit) : "— ยังไม่มีรอบผลิต"}
                           {s.avgCostPerUnit > 0 && (
-                            <> · <span className={margin < 20 ? "font-semibold text-berry-500" : "font-semibold text-mint-500"}>
+                            <> · <span className={margin < 20 ? "font-semibold text-berry-500" : "font-semibold text-leaf-500"}>
                               มาร์จิ้น {margin.toFixed(0)}%
                             </span></>
                           )}
@@ -164,7 +164,7 @@ function ProductForm({ product, onDone }: { product?: Product; onDone?: () => vo
         </label>
 
         {error && <p className="rounded-xl bg-berry-500/10 px-3 py-2 text-sm text-berry-500">{error}</p>}
-        {saved && <p className="rounded-xl bg-mint-500/10 px-3 py-2 text-sm text-mint-500">บันทึกแล้ว ✓</p>}
+        {saved && <p className="rounded-xl bg-leaf-500/10 px-3 py-2 text-sm text-leaf-500">บันทึกแล้ว ✓</p>}
 
         <div className="flex gap-2">
           <Button type="submit" className="flex-1">

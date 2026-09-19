@@ -63,7 +63,7 @@ export function BottomNav() {
             key={l.href}
             href={l.href}
             className={`flex flex-col items-center gap-0.5 py-2 text-[11px] font-medium transition ${
-              active ? "text-cocoa-700" : "text-cocoa-400"
+              active ? "text-pumpkin-600" : "text-cocoa-400"
             }`}
           >
             <span className="text-lg leading-none">{l.icon}</span>
@@ -91,8 +91,8 @@ function NavLink({
       href={href}
       className={`flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition ${
         active
-          ? "bg-cream-100 text-cocoa-700"
-          : "text-cocoa-400 hover:bg-cream-50 hover:text-cocoa-600"
+          ? "bg-pumpkin-500/12 text-pumpkin-600"
+          : "text-cocoa-400 hover:bg-cream-100 hover:text-cocoa-600"
       }`}
     >
       <span className="text-base leading-none">{icon}</span>

@@ -56,7 +56,7 @@ export default function BatchesPage() {
                       <p className="text-xs text-cocoa-400">ต้นทุน/หน่วย</p>
                       {price > 0 && (
                         <p className={`tabular mt-1 text-xs font-semibold ${
-                          netPerUnit >= 0 ? "text-mint-500" : "text-berry-500"}`}>
+                          netPerUnit >= 0 ? "text-leaf-500" : "text-berry-500"}`}>
                           สุทธิ {money(netPerUnit)}/หน่วย
                         </p>
                       )}

@@ -99,7 +99,7 @@ export default function ExpensesPage() {
               <Field label="รายละเอียด (ไม่บังคับ)">
                 <input name="note" placeholder="เช่น เครื่องตีแป้ง" className={inputClass} />
               </Field>
-              {saved && <p className="rounded-xl bg-mint-500/10 px-3 py-2 text-sm text-mint-500">บันทึกแล้ว ✓</p>}
+              {saved && <p className="rounded-xl bg-leaf-500/10 px-3 py-2 text-sm text-leaf-500">บันทึกแล้ว ✓</p>}
               <Button type="submit" className="w-full">เพิ่มรายจ่าย</Button>
             </form>
           </Card>

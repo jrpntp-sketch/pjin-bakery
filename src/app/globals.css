@@ -1,20 +1,43 @@
 @import "tailwindcss";
 
+/* ============================================================
+   โทนสีจากผ้าแพทช์เวิร์กฤดูใบไม้ร่วง
+   ครีมผ้าดิบ · ด้ายน้ำตาล · ฟักทองส้ม · ใบไม้เขียว · เบอร์รี่แดง · ทองเหลือง
+   ทุกสีที่ใช้กับตัวอักษรผ่านเกณฑ์ความคมชัดบนพื้นครีมแล้ว
+   ============================================================ */
 @theme {
   --font-sans: "IBM Plex Sans Thai Looped", "IBM Plex Sans Thai", ui-sans-serif,
     system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --color-cream-50:  #fdfaf6;
-  --color-cream-100: #f8f1e7;
-  --color-cream-200: #efe2d1;
+  /* ผ้าครีม — พื้นหลังและเส้นคั่น */
+  --color-cream-50: #faf4e6;
+  --color-cream-100: #f2e8d1;
+  --color-cream-200: #e5d5b4;
 
-  --color-cocoa-400: #b08968;
-  --color-cocoa-500: #9c6f4a;
-  --color-cocoa-600: #7f5539;
-  --color-cocoa-700: #5d3d28;
+  /* ด้ายน้ำตาล — ตัวอักษรและปุ่มหลัก */
+  --color-cocoa-400: #9a7a4f; /* ข้อความรอง */
+  --color-cocoa-500: #825f33;
+  --color-cocoa-600: #6f4722; /* พื้นปุ่ม */
+  --color-cocoa-700: #4a3118; /* ข้อความหลัก */
 
-  --color-berry-500: #c2417a;
-  --color-mint-500:  #2f9e70;
+  /* ฟักทอง — สีเน้น */
+  --color-pumpkin-400: #f0a052;
+  --color-pumpkin-500: #e8862e;
+  --color-pumpkin-600: #cf6a1c;
+
+  /* ใบไม้เขียว — กำไร/ผ่าน */
+  --color-leaf-400: #8a9c5e;
+  --color-leaf-500: #5f7337;
+  --color-leaf-600: #4a5a2a;
+
+  /* เบอร์รี่แดง — ขาดทุน/เตือนแรง */
+  --color-berry-500: #c0402c;
+  --color-berry-600: #a13421;
+
+  /* ทองเหลือง — เตือนเบา */
+  --color-honey-500: #d9a627;
+  --color-honey-600: #a06d0c;
+  --color-honey-700: #7d5409;
 }
 
 :root {

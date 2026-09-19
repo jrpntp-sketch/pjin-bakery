@@ -116,10 +116,10 @@ function Breakdown({ title, subtitle, rows }: {
                   pct={(Math.abs(r.gross) / max) * 100} className="bg-cocoa-400" />
                 <Bar label="สุทธิ" value={money(r.net)}
                   pct={(Math.abs(r.net) / max) * 100}
-                  className={r.net >= 0 ? "bg-mint-500" : "bg-berry-500"} />
+                  className={r.net >= 0 ? "bg-leaf-500" : "bg-berry-500"} />
               </div>
               <p className={`mt-1 text-xs font-medium ${
-                r.net < 0 ? "text-berry-500" : margin < 15 ? "text-amber-600" : "text-cocoa-400"}`}>
+                r.net < 0 ? "text-berry-500" : margin < 15 ? "text-honey-600" : "text-cocoa-400"}`}>
                 {r.net < 0 ? "⚠️ ขาดทุนเมื่อคิดค่าแรง"
                   : margin < 15 ? `มาร์จิ้นสุทธิ ${margin.toFixed(0)}% — บาง`
                   : `มาร์จิ้นสุทธิ ${margin.toFixed(0)}%`}

@@ -64,7 +64,7 @@ export default function DashboardPage() {
                       </p>
                     </div>
                     <div className="shrink-0 text-right">
-                      <p className={`tabular text-sm font-bold ${p.net < 0 ? "text-berry-500" : "text-amber-600"}`}>
+                      <p className={`tabular text-sm font-bold ${p.net < 0 ? "text-berry-500" : "text-honey-600"}`}>
                         {money(p.net)}
                       </p>
                       <p className="tabular text-xs text-cocoa-400">{margin.toFixed(0)}% มาร์จิ้น</p>
@@ -119,7 +119,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="shrink-0 text-right">
                   <p className="tabular text-sm font-semibold text-cocoa-700">{money(t.revenue)}</p>
-                  <p className={`tabular text-xs font-medium ${t.netProfit >= 0 ? "text-mint-500" : "text-berry-500"}`}>
+                  <p className={`tabular text-xs font-medium ${t.netProfit >= 0 ? "text-leaf-500" : "text-berry-500"}`}>
                     สุทธิ {money(t.netProfit)}
                   </p>
                 </div>

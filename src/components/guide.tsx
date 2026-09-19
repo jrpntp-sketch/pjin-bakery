@@ -223,8 +223,8 @@ function Content() {
 
       <Example />
 
-      <section className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4">
-        <h3 className="text-sm font-bold text-amber-700">
+      <section className="rounded-2xl border border-honey-500/30 bg-honey-500/10 p-4">
+        <h3 className="text-sm font-bold text-honey-700">
           ⚠️ การแจ้งเตือนบนหน้าภาพรวม
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-cocoa-600">
