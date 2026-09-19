@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fce7ea",
+  themeColor: "#f7e9d7",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -40,7 +40,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&display=swap"
           rel="stylesheet"
         />
       </head>

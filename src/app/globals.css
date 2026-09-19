@@ -5,69 +5,74 @@
    ทุกสีที่ใช้กับตัวอักษรผ่านเกณฑ์ความคมชัดบนพื้นหลังทุกหน้าแล้ว
    ============================================================ */
 @theme {
-  --font-sans: "IBM Plex Sans Thai Looped", "IBM Plex Sans Thai", ui-sans-serif,
-    system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Mitr", "IBM Plex Sans Thai Looped", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", sans-serif;
 
-  /* ครีมงาช้าง — พื้นหลังกลางและเส้นคั่น */
-  --color-cream-50: #fdf7ef;
-  --color-cream-100: #f9ece1;
-  --color-cream-200: #f0dccd;
+  /* Mitr มีน้ำหนักสูงสุด 600 ถ้าปล่อยให้ font-bold เรียก 700
+     เบราว์เซอร์จะปลอมตัวหนาให้ ซึ่งขอบจะเละโดยเฉพาะภาษาไทย */
+  --font-weight-bold: 600;
+  --font-weight-semibold: 500;
 
-  /* พลัม — ตัวอักษรและปุ่มหลัก (แดงอมน้ำตาลแบบตัวหนังสือในภาพ) */
-  --color-plum-400: #a3696e; /* ข้อความรอง */
-  --color-plum-500: #8e5057;
-  --color-plum-600: #7d3d43; /* พื้นปุ่ม */
-  --color-plum-700: #5e2b30; /* ข้อความหลัก */
+  /* ครีม/วานิลลา — พื้นหลังและเส้นคั่น */
+  --color-cream-50: #fbf4e9;
+  --color-cream-100: #f4e7d5;
+  --color-cream-200: #e6d2b8;
 
-  /* เชอร์รี่ — ขาดทุน / เน้นแรง */
-  --color-berry-400: #e98a95;
-  --color-berry-500: #b02a3b;
-  --color-berry-600: #97202f;
+  /* ช็อกโกแลต — ตัวอักษรและปุ่มหลัก */
+  --color-plum-400: #8d6a4d; /* ข้อความรอง */
+  --color-plum-500: #7a5334;
+  --color-plum-600: #6b4123; /* พื้นปุ่ม */
+  --color-plum-700: #3b2416; /* ข้อความหลัก — ดาร์กช็อก */
 
-  /* มิ้นต์ — กำไร / ผ่าน */
-  --color-leaf-400: #8fc2a0;
-  --color-leaf-500: #3c6a4d;
-  --color-leaf-600: #2f553d;
+  /* เชอร์รี่บนเค้ก — ขาดทุน */
+  --color-berry-400: #d98b84;
+  --color-berry-500: #a8322c;
+  --color-berry-600: #8c251f;
 
-  /* พีช — เตือนเบา */
-  --color-peach-400: #f5c49a;
-  --color-peach-500: #e09553;
-  --color-peach-600: #b06a22;
-  --color-peach-700: #8a5016;
+  /* พิสตาชิโอ — กำไร */
+  --color-leaf-400: #8fae87;
+  --color-leaf-500: #3f6b3a;
+  --color-leaf-600: #32562e;
 
-  /* ฟ้าพาสเทล — สีเน้น (โลโก้ในภาพเป็นฟ้า) */
-  --color-sky-300: #bcdcf2;
-  --color-sky-400: #7fb3da;
-  --color-sky-500: #4d86b5;
-  --color-sky-600: #3d7ba8;
+  /* คาราเมล — เตือนเบา */
+  --color-peach-400: #e8bd80;
+  --color-peach-500: #c68a4a;
+  --color-peach-600: #94631a;
+  --color-peach-700: #774e12;
 
-  /* ชมพูหวาน */
-  --color-blush-200: #fbd5da;
-  --color-blush-300: #f7bcc4;
-  --color-blush-400: #f2a8ae;
+  /* นมช็อกโกแลต — สีเน้น */
+  --color-sky-300: #e2c9a8;
+  --color-sky-400: #c49a6c;
+  --color-sky-500: #a27748;
+  --color-sky-600: #855c31;
+
+  /* ครีมสด */
+  --color-blush-200: #f5e4d0;
+  --color-blush-300: #ecd2b4;
+  --color-blush-400: #ddb98f;
 }
 
 :root {
   color-scheme: light;
 
   /* ค่าเริ่มต้นของสีประจำหน้า — แต่ละหน้าจะเขียนทับด้านล่าง */
-  --page-tint: #fce7ea;
-  --page-line: #f6ccd3;
-  --page-accent: #b02a3b;
+  --page-tint: #f7e9d7;
+  --page-line: #e8d0ae;
+  --page-accent: #4a2c1a;
 }
 
 /* ---- สีประจำแต่ละหน้า ----
    เปลี่ยนแค่พื้นหลัง เส้นตาราง และสีหัวข้อ
    ส่วนสีที่มีความหมาย (กำไรเขียว/ขาดทุนแดง) คงเดิมทุกหน้า
    ไม่งั้นอ่านตัวเลขข้ามหน้าแล้วสับสน */
-[data-page="home"]     { --page-tint:#fce7ea; --page-line:#f6ccd3; --page-accent:#b02a3b; }
-[data-page="batches"]  { --page-tint:#e4f0fa; --page-line:#c9e0f2; --page-accent:#31688f; }
-[data-page="sales"]    { --page-tint:#e3f2e8; --page-line:#c6e3d1; --page-accent:#3c6a4d; }
-[data-page="products"] { --page-tint:#fdeee0; --page-line:#f7d9bd; --page-accent:#9c5b18; }
-[data-page="channels"] { --page-tint:#fbf3dc; --page-line:#f0e2b8; --page-accent:#8e5057; }
-[data-page="expenses"] { --page-tint:#fae4e9; --page-line:#f2c6d1; --page-accent:#97202f; }
-[data-page="reports"]  { --page-tint:#eaeaf7; --page-line:#d4d4ee; --page-accent:#5a5a9e; }
-[data-page="settings"] { --page-tint:#fdf7ef; --page-line:#f0dccd; --page-accent:#7d3d43; }
+[data-page="home"]     { --page-tint:#f7e9d7; --page-line:#e8d0ae; --page-accent:#4a2c1a; }
+[data-page="batches"]  { --page-tint:#f1e6dc; --page-line:#dccbb8; --page-accent:#473727; }
+[data-page="sales"]    { --page-tint:#faeed8; --page-line:#efd9ae; --page-accent:#8a5418; }
+[data-page="products"] { --page-tint:#f6eadd; --page-line:#e6d0b8; --page-accent:#8a3f22; }
+[data-page="channels"] { --page-tint:#f3e7d3; --page-line:#e2cca6; --page-accent:#6a4626; }
+[data-page="expenses"] { --page-tint:#f5e4de; --page-line:#e6c8bd; --page-accent:#8f2f28; }
+[data-page="reports"]  { --page-tint:#ece5dd; --page-line:#d6cabb; --page-accent:#3d3128; }
+[data-page="settings"] { --page-tint:#fbf4e9; --page-line:#e6d2b8; --page-accent:#6b4123; }
 
 body {
   background: var(--page-tint);
