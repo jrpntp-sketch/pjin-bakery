@@ -24,7 +24,7 @@ export default function SalesPage() {
   return (
     <>
       <PageHeader title="บันทึกขาย / ฝากขาย"
-        subtitle="เลือกสินค้ากับช่องทาง ระบบตัดสต๊อกและคิดกำไรให้อัตโนมัติ" />
+        subtitle="เลือกสินค้ากับช่องทาง ระบบตัดสต็อกและคิดกำไรให้อัตโนมัติ" />
 
       {missing ? (
         <Card>
@@ -71,7 +71,7 @@ export default function SalesPage() {
                         </p>
                         <button type="button"
                           onClick={async () => {
-                            if (confirm("ลบรายการขายนี้? สต๊อกจะถูกคืนกลับ")) {
+                            if (confirm("ลบรายการขายนี้? สต็อกจะถูกคืนกลับ")) {
                               await db.transactions.delete(t.id);
                             }
                           }}
@@ -243,7 +243,7 @@ function SaleForm({ stock, channels }: {
 
         {calc.notEnough ? (
           <p className="rounded-xl bg-berry-500/10 px-3 py-2 text-sm text-berry-500">
-            สต๊อกไม่พอ — เหลือ {num(item?.stockQty ?? 0)} {item?.product.unit}
+            สต็อกไม่พอ — เหลือ {num(item?.stockQty ?? 0)} {item?.product.unit}
           </p>
         ) : (
           <p className="text-xs text-plum-400">
@@ -256,7 +256,7 @@ function SaleForm({ stock, channels }: {
 
         {saved && (
           <p className="rounded-xl bg-leaf-500/10 px-3 py-2 text-sm text-leaf-500">
-            บันทึกแล้ว ✓ ตัดสต๊อกเรียบร้อย
+            บันทึกแล้ว ✓ ตัดสต็อกเรียบร้อย
           </p>
         )}
 

@@ -51,12 +51,12 @@ export default function ProductsPage() {
                           {s.avgCostPerUnit > 0 ? money(s.avgCostPerUnit) : "— ยังไม่มีรอบผลิต"}
                           {s.avgCostPerUnit > 0 && (
                             <> · <span className={margin < 20 ? "font-semibold text-berry-500" : "font-semibold text-leaf-500"}>
-                              มาร์จิ้น {margin.toFixed(0)}%
+                              อัตรากำไร {margin.toFixed(0)}%
                             </span></>
                           )}
                         </p>
                         <p className="text-xs text-plum-400">
-                          สต๊อก {num(s.stockQty)} {p.unit} · ผลิตล่าสุด {thaiDate(s.lastProducedOn)}
+                          สต็อก {num(s.stockQty)} {p.unit} · ผลิตล่าสุด {thaiDate(s.lastProducedOn)}
                         </p>
                         {p.notes && <p className="mt-1 text-xs text-plum-400">{p.notes}</p>}
                       </div>
@@ -149,7 +149,7 @@ function ProductForm({ product, onDone }: { product?: Product; onDone?: () => vo
               placeholder="ชิ้น / กล่อง" className={inputClass} />
           </Field>
         </div>
-        <Field label="เตือนเมื่อสต๊อกเหลือน้อยกว่า" hint="ใช้แสดงในหน้าภาพรวม">
+        <Field label="เตือนเมื่อสต็อกเหลือน้อยกว่า" hint="ใช้แสดงในหน้าภาพรวม">
           <input name="lowStockThreshold" {...numberInput}
             defaultValue={product?.lowStockThreshold ?? 5} className={inputClass} />
         </Field>

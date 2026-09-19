@@ -67,7 +67,7 @@ export default function DashboardPage() {
                       <p className={`tabular text-sm font-bold ${p.net < 0 ? "text-berry-500" : "text-peach-600"}`}>
                         {money(p.net)}
                       </p>
-                      <p className="tabular text-xs text-plum-400">{margin.toFixed(0)}% มาร์จิ้น</p>
+                      <p className="tabular text-xs text-plum-400">อัตรากำไร {margin.toFixed(0)}%</p>
                     </div>
                   </li>
                 );
@@ -76,7 +76,7 @@ export default function DashboardPage() {
           )}
         </Card>
 
-        <Card title="📦 สต๊อกใกล้หมด"
+        <Card title="📦 สต็อกใกล้หมด"
           action={<LinkButton href="/batches/new" variant="ghost" className="!px-3 !py-1.5 !text-xs">บันทึกผลิตเพิ่ม</LinkButton>}>
           {d.productCount === 0 ? (
             <Empty>

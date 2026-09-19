@@ -86,7 +86,7 @@ export type TransactionComputed = Transaction & {
   netProfit: number;
 };
 
-/** สรุปสต๊อก + ต้นทุนเฉลี่ยของสินค้า (เดิมเป็น view product_stock) */
+/** สรุปสต็อก + ต้นทุนเฉลี่ยของสินค้า (เดิมเป็น view product_stock) */
 export type ProductStock = {
   product: Product;
   totalProduced: number;

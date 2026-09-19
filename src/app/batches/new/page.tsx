@@ -246,7 +246,7 @@ export default function NewBatchPage() {
             )}
 
             <Button type="submit" disabled={saving || !calc.hasQty} className="mt-4 w-full">
-              {saving ? "กำลังบันทึก…" : "บันทึกรอบผลิต + เข้าสต๊อก"}
+              {saving ? "กำลังบันทึก…" : "บันทึกรอบผลิต + เข้าสต็อก"}
             </Button>
             <p className="mt-2 text-center text-xs text-plum-400">บันทึกและปรับปรุงยอดสต็อกอัตโนมัติ</p>
           </Card>

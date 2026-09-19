@@ -52,7 +52,7 @@ export function useBatches(limit = 100) {
   }, [limit]);
 }
 
-/** สต๊อกของทุกสินค้า คำนวณสดจาก ผลิต − ขาย */
+/** สต็อกของทุกสินค้า คำนวณสดจาก ผลิต − ขาย */
 export function useStock(activeOnly = false): ProductStock[] | undefined {
   return useLiveQuery(async () => {
     const [products, batches, transactions] = await Promise.all([
@@ -147,7 +147,7 @@ export function useDashboard() {
       lowStock: stock
         .filter((s) => s.stockQty <= s.product.lowStockThreshold)
         .sort((a, b) => a.stockQty - b.stockQty),
-      // "ไม่คุ้มแรง" = กำไรสุทธิติดลบ หรือมาร์จิ้นสุทธิต่ำกว่า 10%
+      // "ไม่คุ้มแรง" = กำไรสุทธิติดลบ หรืออัตรากำไรสุทธิต่ำกว่า 10%
       unprofitable: byProduct
         .filter((p) => p.net <= 0 || (p.revenue > 0 && p.net / p.revenue < 0.1))
         .sort((a, b) => a.net - b.net),
