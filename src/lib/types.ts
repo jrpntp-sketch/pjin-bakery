@@ -1,104 +1,98 @@
 export type ShareType = "none" | "percent" | "fixed";
 
 export type Settings = {
-  user_id: string;
-  shop_name: string;
-  currency: string;
-  hourly_wage: number;
+  id: 1;
+  shopName: string;
+  hourlyWage: number;
 };
 
 export type Product = {
   id: string;
-  user_id: string;
   name: string;
   unit: string;
-  base_price: number;
-  low_stock_threshold: number;
-  notes: string | null;
-  is_active: boolean;
-  created_at: string;
+  basePrice: number;
+  lowStockThreshold: number;
+  notes?: string;
+  isActive: boolean;
+  createdAt: string;
 };
 
 export type Channel = {
   id: string;
-  user_id: string;
   name: string;
-  share_type: ShareType;
-  share_percent: number;
-  fixed_price: number;
-  shipping_cost_per_trip: number;
-  is_active: boolean;
+  shareType: ShareType;
+  sharePercent: number;
+  fixedPrice: number;
+  shippingCostPerTrip: number;
+  isActive: boolean;
+  createdAt: string;
 };
+
+/** วัตถุดิบย่อยเก็บฝังในรอบผลิตเลย ไม่ต้องแยกตาราง */
+export type Material = { name: string; cost: number };
 
 export type Batch = {
   id: string;
-  user_id: string;
-  product_id: string;
-  produced_on: string;
-  qty_produced: number;
-  hours_spent: number;
-  hourly_wage_snapshot: number;
-  material_cost: number;
-  overhead_cost: number;
-  notes: string | null;
-  labor_cost: number;
-  total_cost: number;
-  cost_per_unit: number;
-  material_cost_per_unit: number;
-};
-
-export type BatchMaterial = {
-  id: string;
-  batch_id: string;
-  name: string;
-  cost: number;
+  productId: string;
+  producedOn: string; // YYYY-MM-DD
+  qtyProduced: number;
+  hoursSpent: number;
+  /** ค่าแรง ณ วันที่บันทึก — ปรับค่าแรงภายหลังแล้วรอบเก่าไม่เปลี่ยนตาม */
+  hourlyWageSnapshot: number;
+  materialCost: number;
+  overheadCost: number;
+  materials?: Material[];
+  notes?: string;
+  createdAt: string;
 };
 
 export type Transaction = {
   id: string;
-  user_id: string;
-  product_id: string;
-  channel_id: string;
-  sold_on: string;
+  productId: string;
+  channelId: string;
+  soldOn: string; // YYYY-MM-DD
   qty: number;
-  unit_price: number;
-  delivery_cost: number;
-  unit_full_cost: number;
-  unit_material_cost: number;
-  channel_share: number;
-  notes: string | null;
-  revenue: number;
-  gross_profit: number;
-  net_profit: number;
-};
-
-export type TransactionDetail = Transaction & {
-  product_name: string;
-  product_unit: string;
-  channel_name: string;
+  unitPrice: number;
+  deliveryCost: number;
+  /** ต้นทุน ณ เวลาขาย — ผลิตรอบใหม่แล้วกำไรรายการเก่าไม่ขยับ */
+  unitFullCost: number;
+  unitMaterialCost: number;
+  channelShare: number;
+  notes?: string;
+  createdAt: string;
 };
 
 export type Expense = {
   id: string;
-  user_id: string;
   category: string;
   amount: number;
-  spent_on: string;
-  note: string | null;
+  spentOn: string; // YYYY-MM-DD
+  note?: string;
+  createdAt: string;
 };
 
+/** ค่าที่คำนวณจากรอบผลิต (เดิมเป็น generated column ใน Postgres) */
+export type BatchComputed = Batch & {
+  laborCost: number;
+  totalCost: number;
+  costPerUnit: number;
+  materialCostPerUnit: number;
+};
+
+/** ค่าที่คำนวณจากรายการขาย */
+export type TransactionComputed = Transaction & {
+  revenue: number;
+  grossProfit: number;
+  netProfit: number;
+};
+
+/** สรุปสต๊อก + ต้นทุนเฉลี่ยของสินค้า (เดิมเป็น view product_stock) */
 export type ProductStock = {
-  product_id: string;
-  user_id: string;
-  name: string;
-  unit: string;
-  base_price: number;
-  low_stock_threshold: number;
-  is_active: boolean;
-  total_produced: number;
-  total_sold: number;
-  stock_qty: number;
-  avg_cost_per_unit: number;
-  avg_material_cost_per_unit: number;
-  last_produced_on: string | null;
+  product: Product;
+  totalProduced: number;
+  totalSold: number;
+  stockQty: number;
+  avgCostPerUnit: number;
+  avgMaterialCostPerUnit: number;
+  lastProducedOn: string | null;
 };
