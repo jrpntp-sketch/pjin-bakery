@@ -1,18 +1,44 @@
-/* Service worker แบบง่าย — cache ไฟล์แอปไว้ให้เปิดใช้ได้ตอนไม่มีเน็ต
+/* Service worker — ทำให้เปิดแอปได้แม้ไม่มีเน็ต
    ข้อมูลผู้ใช้อยู่ใน IndexedDB ไม่เกี่ยวกับ cache นี้ */
-const CACHE = "pjin-bakery-v1";
+const CACHE = "pjin-bakery-v2";
+
+// เส้นทางทุกหน้าของแอป (relative กับ scope ของ service worker)
+const SHELL = [
+  "./",
+  "./batches/",
+  "./batches/new/",
+  "./channels/",
+  "./expenses/",
+  "./products/",
+  "./reports/",
+  "./sales/",
+  "./settings/",
+  "./manifest.json",
+  "./icon-192.png",
+  "./icon-512.png",
+  "./apple-touch-icon.png",
+];
 
 self.addEventListener("install", (e) => {
-  self.skipWaiting();
+  // โหลดหน้าทั้งหมดเก็บไว้ตั้งแต่ติดตั้ง ไม่ต้องรอให้ผู้ใช้เดินเข้าไปเอง
+  e.waitUntil(
+    caches.open(CACHE).then((c) =>
+      // ใช้ทีละไฟล์ เพื่อให้ไฟล์เดียวพังแล้วไม่ล้มทั้งชุด
+      Promise.all(
+        SHELL.map((path) =>
+          fetch(new Request(path, { cache: "reload" }))
+            .then((res) => (res.ok ? c.put(path, res) : null))
+            .catch(() => null),
+        ),
+      ),
+    ).then(() => self.skipWaiting()),
+  );
 });
 
 self.addEventListener("activate", (e) => {
   e.waitUntil(
-    caches
-      .keys()
-      .then((keys) =>
-        Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))),
-      )
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
   );
 });
@@ -20,20 +46,30 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const { request } = e;
   if (request.method !== "GET") return;
+  if (new URL(request.url).origin !== self.location.origin) return;
 
-  const url = new URL(request.url);
-  if (url.origin !== self.location.origin) return;
-
-  // network-first: ได้ของใหม่เสมอเมื่อมีเน็ต ไม่มีเน็ตค่อยใช้ของที่ cache ไว้
   e.respondWith(
+    // มีเน็ต: เอาของใหม่เสมอ แล้วอัปเดต cache ไว้ใช้ตอนออฟไลน์
     fetch(request)
       .then((res) => {
-        const copy = res.clone();
-        caches.open(CACHE).then((c) => c.put(request, copy)).catch(() => {});
+        if (res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(request, copy)).catch(() => {});
+        }
         return res;
       })
-      .catch(() =>
-        caches.match(request).then((hit) => hit ?? caches.match("./")),
-      ),
+      .catch(async () => {
+        // ไม่มีเน็ต: หาจาก cache ถ้าเป็นการเปิดหน้าให้ตกกลับไปหน้าแรก
+        const hit = await caches.match(request, { ignoreSearch: true });
+        if (hit) return hit;
+        if (request.mode === "navigate") {
+          const root = await caches.match("./");
+          if (root) return root;
+        }
+        return new Response("ออฟไลน์ และยังไม่มีข้อมูลที่เก็บไว้", {
+          status: 503,
+          headers: { "Content-Type": "text/plain; charset=utf-8" },
+        });
+      }),
   );
 });
