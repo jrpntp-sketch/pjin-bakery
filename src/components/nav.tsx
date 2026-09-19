@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { openGuide } from "./guide";
 import { LogoMark } from "./logo";
+import { Emoji, withEmoji } from "./emoji";
 
 const LINKS = [
   { href: "/", label: "ภาพรวม", icon: "📊" },
@@ -40,7 +41,7 @@ export function Sidebar({ shopName }: { shopName: string }) {
             onClick={openGuide}
             className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium text-plum-400 transition hover:bg-cream-50 hover:text-plum-600"
           >
-            <span className="text-base leading-none">❓</span>
+            <Emoji name="question" className="text-base" />
             คู่มือการใช้งาน
           </button>
           <NavLink
@@ -70,7 +71,7 @@ export function BottomNav() {
               active ? "text-[var(--page-accent)]" : "text-plum-400"
             }`}
           >
-            <span className="text-lg leading-none">{l.icon}</span>
+            <span className="flex text-lg leading-none">{withEmoji(l.icon)}</span>
             {l.label}
           </Link>
         );
@@ -99,7 +100,7 @@ function NavLink({
           : "text-plum-400 hover:bg-cream-100 hover:text-plum-600"
       }`}
     >
-      <span className="text-base leading-none">{icon}</span>
+      <span className="flex text-base leading-none">{withEmoji(icon)}</span>
       {label}
     </Link>
   );
@@ -124,21 +125,21 @@ export function MobileHeader({ shopName }: { shopName: string }) {
           className="rounded-lg px-2 py-1 text-lg"
           aria-label="คู่มือการใช้งาน"
         >
-          ❓
+          <Emoji name="question" className="size-5" />
         </button>
         <Link
           href="/reports"
           className="rounded-lg px-2 py-1 text-lg"
           aria-label="รายงาน"
         >
-          📈
+          <Emoji name="chart-up" className="size-5" />
         </Link>
         <Link
           href="/settings"
           className="rounded-lg px-2 py-1 text-lg"
           aria-label="ตั้งค่า"
         >
-          ⚙️
+          <Emoji name="gear" className="size-5" />
         </Link>
       </div>
     </header>

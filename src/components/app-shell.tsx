@@ -105,7 +105,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     );
   }
 
-  const shopName = settings?.shopName ?? "ร้านขนม";
+  const shopName = settings?.shopName ?? "ละมุน";
 
   // ชุดสีของหน้านี้ — ประกาศไว้ใน globals.css เป็น [data-page="..."]
   const page =

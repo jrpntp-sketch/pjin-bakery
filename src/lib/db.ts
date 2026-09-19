@@ -46,7 +46,7 @@ export const now = () => new Date().toISOString();
 
 export const DEFAULT_SETTINGS: Settings = {
   id: 1,
-  shopName: "ร้านขนม",
+  shopName: "ละมุน",
   hourlyWage: 0,
 };
 

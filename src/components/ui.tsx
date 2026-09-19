@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
+import { Emoji, withEmoji } from "./emoji";
 
 /* ---------- Card ---------- */
 export function Card({
@@ -19,7 +20,7 @@ export function Card({
     >
       {(title || action) && (
         <header className="flex items-center justify-between gap-3 border-b border-cream-100 px-4 py-3 sm:px-5">
-          <h2 className="text-sm font-semibold text-[var(--page-accent)]">{title}</h2>
+          <h2 className="flex items-center gap-1.5 text-sm font-semibold text-[var(--page-accent)]">{withEmoji(title)}</h2>
           {action}
         </header>
       )}
@@ -142,7 +143,7 @@ export function Empty({
 }) {
   return (
     <div className="py-10 text-center">
-      <p className="text-3xl">{icon}</p>
+      <p className="flex justify-center text-3xl">{withEmoji(icon)}</p>
       <p className="mt-2 text-sm text-plum-400">{children}</p>
     </div>
   );
@@ -164,9 +165,9 @@ export function Badge({
   };
   return (
     <span
-      className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${tones[tone]}`}
+      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${tones[tone]}`}
     >
-      {children}
+      {withEmoji(children)}
     </span>
   );
 }
@@ -185,8 +186,8 @@ export function PageHeader({
     <div className="mb-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-[var(--page-accent)] sm:text-2xl">
-            {title}
+          <h1 className="flex items-center gap-2 text-xl font-bold text-[var(--page-accent)] sm:text-2xl">
+            {withEmoji(title)}
           </h1>
           {subtitle && <p className="mt-0.5 text-sm text-plum-400">{subtitle}</p>}
         </div>

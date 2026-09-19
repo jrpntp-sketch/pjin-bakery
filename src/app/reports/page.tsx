@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useReport } from "@/lib/hooks";
 import { money, monthStartISO, num, todayISO } from "@/lib/format";
 import { Card, Empty, inputClass, PageHeader, Stat } from "@/components/ui";
+import { withEmoji } from "@/components/emoji";
 
 const PRESETS = [
   { label: "7 วัน", days: 7 },
@@ -120,9 +121,9 @@ function Breakdown({ title, subtitle, rows }: {
               </div>
               <p className={`mt-1 text-xs font-medium ${
                 r.net < 0 ? "text-berry-500" : margin < 15 ? "text-peach-600" : "text-plum-400"}`}>
-                {r.net < 0 ? "⚠️ ขาดทุนสุทธิ (รวมต้นทุนค่าแรง)"
+                {withEmoji(r.net < 0 ? "⚠️ ขาดทุนสุทธิ (รวมต้นทุนค่าแรง)"
                   : margin < 15 ? `อัตรากำไรสุทธิ ${margin.toFixed(0)}% — ต่ำ`
-                  : `อัตรากำไรสุทธิ ${margin.toFixed(0)}%`}
+                  : `อัตรากำไรสุทธิ ${margin.toFixed(0)}%`)}
               </p>
             </li>
           );

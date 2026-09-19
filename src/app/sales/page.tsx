@@ -6,6 +6,7 @@ import { useChannels, useSales, useStock } from "@/lib/hooks";
 import { money, num, thaiDate, todayISO } from "@/lib/format";
 import { channelShareFor, round4, toNum, unitPriceFor } from "@/lib/calc";
 import { Badge, Button, Card, Empty, Field, inputClass, numberInput, LinkButton, PageHeader } from "@/components/ui";
+import { T } from "@/components/emoji";
 
 export default function SalesPage() {
   const stock = useStock(true);
@@ -236,7 +237,7 @@ function SaleForm({ stock, channels }: {
           </div>
           {calc.noCost && (
             <p className="pt-1 text-xs text-peach-600">
-              ⚠️ สินค้านี้ยังไม่มีรอบผลิต — กำไรสุทธิจะเท่ากับยอดขาย
+              <T>⚠️ สินค้านี้ยังไม่มีรอบผลิต — กำไรสุทธิจะเท่ากับยอดขาย</T>
             </p>
           )}
         </div>

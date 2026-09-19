@@ -8,6 +8,7 @@ import { downloadBackup, restoreBackup, wipeAll, requestPersistence } from "@/li
 import { money } from "@/lib/format";
 import { Button, Card, Field, inputClass, numberInput, PageHeader } from "@/components/ui";
 import { openGuide } from "@/components/guide";
+import { Emoji, withEmoji } from "@/components/emoji";
 
 export default function SettingsPage() {
   const settings = useSettings();
@@ -20,7 +21,7 @@ export default function SettingsPage() {
     const fd = new FormData(e.currentTarget);
     await db.settings.put({
       ...DEFAULT_SETTINGS,
-      shopName: String(fd.get("shopName") ?? "ร้านขนม").trim() || "ร้านขนม",
+      shopName: String(fd.get("shopName") ?? "ละมุน").trim() || "ละมุน",
       hourlyWage: Math.max(0, toNum(fd.get("hourlyWage"))),
     });
     setSaved(true);
@@ -125,9 +126,11 @@ function BackupCard() {
       </p>
 
       <div className="flex flex-wrap gap-2">
-        <Button type="button" onClick={() => downloadBackup()}>⬇ สำรองข้อมูลตอนนี้</Button>
+        <Button type="button" onClick={() => downloadBackup()}>
+          <Emoji name="arrow-down" /> สำรองข้อมูลตอนนี้
+        </Button>
         <Button type="button" variant="ghost" onClick={() => fileRef.current?.click()}>
-          ⬆ กู้จากไฟล์
+          <Emoji name="arrow-up" /> กู้จากไฟล์
         </Button>
         <input ref={fileRef} type="file" accept="application/json,.json" onChange={onFile} className="hidden" />
       </div>
@@ -177,9 +180,9 @@ function StorageCard() {
 
         <div className={`rounded-xl p-3 text-xs ${
           persisted ? "bg-leaf-500/10 text-leaf-500" : "bg-peach-500/15 text-peach-700"}`}>
-          {persisted === null ? "กำลังตรวจสอบ…"
+          {withEmoji(persisted === null ? "กำลังตรวจสอบ…"
             : persisted ? "✓ เปิดใช้งานการจัดเก็บข้อมูลถาวรแล้ว"
-            : "⚠️ ยังไม่ได้เปิดใช้งานการจัดเก็บข้อมูลถาวร"}
+            : "⚠️ ยังไม่ได้เปิดใช้งานการจัดเก็บข้อมูลถาวร")}
         </div>
 
         {!persisted && (
@@ -190,7 +193,9 @@ function StorageCard() {
         )}
 
         <div className="rounded-xl bg-cream-50 p-3 text-xs text-plum-400">
-          <p className="mb-1 font-semibold text-plum-600">📌 สำคัญสำหรับ iPhone</p>
+          <p className="mb-1 flex items-center gap-1.5 font-semibold text-plum-600">
+            <Emoji name="pushpin" /> สำคัญสำหรับ iPhone
+          </p>
           กรุณากด{" "}
           <span className="font-semibold">
             แชร์ → เพิ่มไปยังหน้าจอโฮม (Add to Home Screen)

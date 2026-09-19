@@ -7,6 +7,7 @@ import { useProducts, useSettings } from "@/lib/hooks";
 import { money, num, todayISO } from "@/lib/format";
 import { round2, toNum } from "@/lib/calc";
 import { Button, Card, Empty, Field, inputClass, numberInput, LinkButton, PageHeader } from "@/components/ui";
+import { withEmoji } from "@/components/emoji";
 
 type Line = { key: number; name: string; cost: string };
 
@@ -234,11 +235,11 @@ export default function NewBatchPage() {
                     </div>
                     <p className={`text-xs font-medium ${
                       calc.netPerUnit < 0 ? "text-berry-500" : calc.marginPct < 20 ? "text-peach-600" : "text-leaf-500"}`}>
-                      {calc.netPerUnit < 0
+                      {withEmoji(calc.netPerUnit < 0
                         ? "⚠️ ราคาขายต่ำกว่าต้นทุนจริง (ขาดทุนสุทธิ)"
                         : calc.marginPct < 20
                           ? `อัตรากำไร ${calc.marginPct.toFixed(0)}% — ต่ำกว่าเกณฑ์`
-                          : `อัตรากำไร ${calc.marginPct.toFixed(0)}% — อยู่ในเกณฑ์ดี`}
+                          : `อัตรากำไร ${calc.marginPct.toFixed(0)}% — อยู่ในเกณฑ์ดี`)}
                     </p>
                   </div>
                 )}

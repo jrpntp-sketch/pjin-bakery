@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Logo } from "./logo";
+import { withEmoji } from "./emoji";
 
 const SEEN_KEY = "pjin-guide-seen";
 const OPEN_EVENT = "pjin:open-guide";
@@ -225,14 +226,14 @@ function Content() {
       <Example />
 
       <section className="rounded-2xl border border-peach-500/30 bg-peach-500/10 p-4">
-        <h3 className="text-sm font-bold text-peach-700">
-          ⚠️ การแจ้งเตือนบนหน้าภาพรวม
+        <h3 className="flex items-center gap-1.5 text-sm font-bold text-peach-700">
+          {withEmoji("⚠️")} การแจ้งเตือนบนหน้าภาพรวม
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-plum-600">
           หากระบบพบว่าผลตอบแทนไม่คุ้มกับต้นทุนและแรงงาน จะแสดงการแจ้งเตือน เช่น
         </p>
         <p className="mt-2 rounded-xl bg-white/70 px-3 py-2 text-sm font-semibold text-berry-500">
-          ⚠️ อัตรากำไรต่ำกว่าเกณฑ์ · อัตรากำไรสุทธิ -10%
+          {withEmoji("⚠️ อัตรากำไรต่ำกว่าเกณฑ์ · อัตรากำไรสุทธิ -10%")}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-plum-600">
           เพื่อช่วยให้เห็นรายการที่ควรนำไปพิจารณาปรับราคา ลดต้นทุน
@@ -241,8 +242,8 @@ function Content() {
       </section>
 
       <section className="rounded-2xl border border-cream-200 bg-white p-4">
-        <h3 className="text-sm font-bold text-plum-700">
-          💾 ข้อจำกัดและการสำรองข้อมูล
+        <h3 className="flex items-center gap-1.5 text-sm font-bold text-plum-700">
+          {withEmoji("💾")} ข้อจำกัดและการสำรองข้อมูล
         </h3>
         <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-plum-600">
           <li>
@@ -263,6 +264,13 @@ function Content() {
         <p className="mt-3 rounded-xl bg-cream-100 px-3 py-2 text-xs text-plum-500">
           ปุ่มสำรองข้อมูลอยู่ที่หน้า <b>ตั้งค่า</b>
         </p>
+      </section>
+
+      <p className="pb-2 text-center text-[11px] text-plum-400">
+        ไอคอนจากชุด Twemoji ของ X (Twitter) · สัญญาอนุญาต CC-BY 4.0
+      </p>
+
+      <section className="hidden">
       </section>
     </div>
   );
@@ -293,7 +301,7 @@ function Step({
         <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-plum-600 text-sm text-cream-50">
           {n}
         </span>
-        <span>{icon}</span>
+        <span className="flex">{withEmoji(icon)}</span>
         {title}
       </h3>
       <div className="mt-2.5 space-y-2 text-sm leading-relaxed text-plum-600">
@@ -306,7 +314,7 @@ function Step({
 function Example() {
   return (
     <section className="rounded-2xl border border-cream-200 bg-white p-4">
-      <h3 className="text-base font-bold text-plum-700">🧪 ตัวอย่างการคำนวณ</h3>
+      <h3 className="flex items-center gap-1.5 text-base font-bold text-plum-700">{withEmoji("🧪")} ตัวอย่างการคำนวณ</h3>
       <p className="mt-2 text-sm text-plum-600">
         ทดลองใช้งานด้วยข้อมูลดังต่อไปนี้
       </p>
