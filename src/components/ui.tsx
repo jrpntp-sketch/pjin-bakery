@@ -50,7 +50,7 @@ export function Stat({
   return (
     <div className="rounded-3xl border border-cream-200 bg-white p-4 shadow-sm">
       <p className="text-xs font-medium text-plum-400">{label}</p>
-      <p className={`tabular mt-1 text-2xl font-bold ${toneClass}`}>{value}</p>
+      <p className={`tabular mt-1 text-2xl ${toneClass}`}>{value}</p>
       {hint && <p className="mt-1 text-xs text-plum-400">{hint}</p>}
     </div>
   );
@@ -193,8 +193,6 @@ export function PageHeader({
         </div>
         {action}
       </div>
-      {/* ขอบหยักแบบลูกไม้ ใช้สีประจำหน้า */}
-      <div className="scallop mt-3" aria-hidden="true" />
     </div>
   );
 }

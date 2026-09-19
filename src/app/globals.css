@@ -111,22 +111,17 @@ body {
   background-position: center top;
 }
 
-/* ตัวเลขเรียงตรงกันในตาราง */
+/* ตัวเลขทั้งหมดใช้ Chewy — ฟอนต์ลายมือกลมอวบ
+   มีน้ำหนักเดียว (400) และตัวอ้วนอยู่แล้ว ห้ามสั่ง bold
+   ไม่งั้นเบราว์เซอร์จะปลอมตัวหนาให้ ขอบจะเละ */
 .tabular {
+  font-family: "Chewy", cursive;
+  font-weight: 400;
+  font-size: 1.12em;
+  line-height: 1.25;
   font-variant-numeric: tabular-nums;
 }
 
-/* ขอบหยักแบบลูกไม้ ใช้ใต้หัวข้อหน้า */
-.scallop {
-  height: 8px;
-  background-image: radial-gradient(
-    circle at 6px 0,
-    var(--page-line) 5.5px,
-    transparent 6px
-  );
-  background-size: 12px 8px;
-  background-repeat: repeat-x;
-}
 
 /* ซ่อน spinner ของ input[type=number] เพื่อให้กรอกบนมือถือสบายขึ้น */
 input[type="number"]::-webkit-outer-spin-button,
