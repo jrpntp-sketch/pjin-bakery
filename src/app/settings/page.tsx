@@ -40,7 +40,7 @@ export default function SettingsPage() {
               <Field label="ค่าแรงของตัวเอง ต่อชั่วโมง (บาท)"
                 hint="ตีราคาเวลาตัวเองเท่าไหร่? ลองเทียบกับค่าจ้างงานอื่นที่ทำได้ในเวลาเท่ากัน">
                 <input name="hourlyWage" type="number" step="1" min="0" inputMode="decimal"
-                  defaultValue={settings.hourlyWage} placeholder="เช่น 150" className={inputClass} />
+                  defaultValue={settings.hourlyWage || ""} placeholder="เช่น 150" className={inputClass} />
               </Field>
               {saved && (
                 <p className="rounded-xl bg-mint-500/10 px-3 py-2 text-sm text-mint-500">
