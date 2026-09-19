@@ -116,6 +116,19 @@ export function Field({
   );
 }
 
+/**
+ * ช่องกรอกตัวเลข — ใช้ type="text" ไม่ใช่ "number"
+ * เพราะ input[type=number] เลือกข้อความเดิมไม่ได้ (สเปค HTML)
+ * ทำให้แตะแล้วพิมพ์กลายเป็นต่อท้าย เช่น 150 + 200 = "150200"
+ * inputMode="decimal" ยังทำให้มือถือขึ้นแป้นตัวเลขเหมือนเดิม
+ */
+export const numberInput = {
+  type: "text" as const,
+  inputMode: "decimal" as const,
+  autoComplete: "off",
+  onFocus: (e: React.FocusEvent<HTMLInputElement>) => e.currentTarget.select(),
+};
+
 export const inputClass =
   "w-full rounded-xl border border-cream-200 bg-white px-3 py-2.5 text-sm text-cocoa-700 outline-none transition placeholder:text-cocoa-400/60 focus:border-cocoa-400 focus:ring-2 focus:ring-cocoa-400/20";
 

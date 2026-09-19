@@ -8,6 +8,12 @@ import type {
   TransactionComputed,
 } from "./types";
 
+/** แปลงค่าจากฟอร์มเป็นตัวเลข — ว่าง/ไม่ใช่ตัวเลข ให้เป็น 0 */
+export function toNum(v: unknown): number {
+  const n = Number(String(v ?? "").trim());
+  return Number.isFinite(n) ? n : 0;
+}
+
 export function round2(n: number): number {
   return Math.round((n + Number.EPSILON) * 100) / 100;
 }

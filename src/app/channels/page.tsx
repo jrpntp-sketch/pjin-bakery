@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { toNum } from "@/lib/calc";
 import { db, newId, now, removeChannel } from "@/lib/db";
 import { useChannels } from "@/lib/hooks";
 import { money } from "@/lib/format";
 import type { Channel, ShareType } from "@/lib/types";
 import {
-  Badge, Button, Card, Empty, Field, inputClass, PageHeader,
+  Badge, Button, Card, Empty, Field, inputClass, numberInput, PageHeader,
 } from "@/components/ui";
 
 const SHARE_LABEL = { none: "ได้เต็มราคา", percent: "หักส่วนแบ่ง %", fixed: "ราคาคงที่" } as const;
@@ -99,7 +100,7 @@ function ChannelForm({ channel, onDone }: { channel?: Channel; onDone?: () => vo
     const name = String(fd.get("name") ?? "").trim();
     if (!name) return setError("กรุณาใส่ชื่อช่องทาง");
 
-    const sharePercent = Number(fd.get("sharePercent")) || 0;
+    const sharePercent = toNum(fd.get("sharePercent"));
     if (shareType === "percent" && (sharePercent <= 0 || sharePercent > 100)) {
       return setError("ส่วนแบ่งต้องอยู่ระหว่าง 0–100%");
     }
@@ -108,8 +109,8 @@ function ChannelForm({ channel, onDone }: { channel?: Channel; onDone?: () => vo
       name,
       shareType,
       sharePercent: shareType === "percent" ? sharePercent : 0,
-      fixedPrice: shareType === "fixed" ? Number(fd.get("fixedPrice")) || 0 : 0,
-      shippingCostPerTrip: Number(fd.get("shippingCostPerTrip")) || 0,
+      fixedPrice: shareType === "fixed" ? toNum(fd.get("fixedPrice")) : 0,
+      shippingCostPerTrip: toNum(fd.get("shippingCostPerTrip")),
       isActive: fd.get("isActive") !== null,
     };
 
@@ -150,19 +151,19 @@ function ChannelForm({ channel, onDone }: { channel?: Channel; onDone?: () => vo
 
         {shareType === "percent" && (
           <Field label="ส่วนแบ่งที่ร้านหัก (%)">
-            <input name="sharePercent" type="number" step="0.5" min="0" max="100" inputMode="decimal"
+            <input name="sharePercent" {...numberInput}
               defaultValue={channel?.sharePercent || ""} placeholder="เช่น 30" className={inputClass} />
           </Field>
         )}
         {shareType === "fixed" && (
           <Field label="ราคาส่งต่อหน่วย" hint="ราคานี้จะถูกใช้แทนราคามาตรฐานของสินค้า">
-            <input name="fixedPrice" type="number" step="0.01" min="0" inputMode="decimal"
+            <input name="fixedPrice" {...numberInput}
               defaultValue={channel?.fixedPrice || ""} placeholder="0.00" className={inputClass} />
           </Field>
         )}
 
         <Field label="ค่าขนส่ง/น้ำมัน ต่อรอบส่ง" hint="ใช้เป็นค่าตั้งต้นตอนบันทึกขาย แก้รายครั้งได้">
-          <input name="shippingCostPerTrip" type="number" step="0.01" min="0" inputMode="decimal"
+          <input name="shippingCostPerTrip" {...numberInput}
             defaultValue={channel?.shippingCostPerTrip || ""} placeholder="0.00" className={inputClass} />
         </Field>
 

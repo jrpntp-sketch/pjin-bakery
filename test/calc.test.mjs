@@ -5,7 +5,7 @@
  */
 import {
   computeBatch, computeTransaction, computeStock,
-  unitPriceFor, channelShareFor, sumTotals, groupTotals, round4,
+  unitPriceFor, channelShareFor, sumTotals, groupTotals, round4, toNum,
 } from "../src/lib/calc.ts";
 
 let pass = 0, fail = 0;
@@ -96,6 +96,22 @@ check("ช่องทางขายเอง ไม่หักส่วนแ
   channelShareFor({ ...channel, shareType: "none" }, 60, 10), 0);
 check("ช่องทางราคาคงที่ ใช้ราคาช่องทาง",
   unitPriceFor({ ...channel, shareType: "fixed", fixedPrice: 45 }, 60), 45);
+
+// ---------- แปลงค่าจากช่องกรอก ----------
+// ช่องกรอกเป็น type=text (เพื่อให้พิมพ์ทับค่าเดิมได้) จึงมีโอกาสได้ค่าที่ไม่ใช่ตัวเลข
+// ถ้าปล่อยเป็น NaN จะหลุดเงื่อนไข qty <= 0 แล้วบันทึกข้อมูลพังลงฐานข้อมูล
+console.log("\n=== 7. กันค่าที่พิมพ์มั่วในช่องตัวเลข ===");
+check("ตัวอักษร -> 0", toNum("abc"), 0);
+check("ช่องว่าง -> 0", toNum(""), 0);
+check("null -> 0", toNum(null), 0);
+check("undefined -> 0", toNum(undefined), 0);
+check("ช่องว่างล้วน -> 0", toNum("   "), 0);
+check("ตัวเลขปกติ", toNum("150"), 150);
+check("ทศนิยม", toNum("3.5"), 3.5);
+check("มีช่องว่างหน้าหลัง", toNum(" 24 "), 24);
+check("Infinity -> 0", toNum("Infinity"), 0);
+const bad = toNum("abc");
+check("NaN ไม่หลุดเงื่อนไข qty>0", bad > 0 ? "หลุด!" : "ถูกกัน", "ถูกกัน");
 
 console.log(`\n${"=".repeat(45)}\nผ่าน ${pass} · ไม่ผ่าน ${fail}`);
 process.exit(fail ? 1 : 0);

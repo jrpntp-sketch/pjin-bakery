@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { toNum } from "@/lib/calc";
 import { db, newId, now, removeProduct } from "@/lib/db";
 import { useStock } from "@/lib/hooks";
 import { money, num, thaiDate } from "@/lib/format";
 import type { Product } from "@/lib/types";
 import {
-  Badge, Button, Card, Empty, Field, inputClass, PageHeader,
+  Badge, Button, Card, Empty, Field, inputClass, numberInput, PageHeader,
 } from "@/components/ui";
 
 export default function ProductsPage() {
@@ -113,8 +114,8 @@ function ProductForm({ product, onDone }: { product?: Product; onDone?: () => vo
     const row = {
       name,
       unit: String(fd.get("unit") ?? "ชิ้น").trim() || "ชิ้น",
-      basePrice: Number(fd.get("basePrice")) || 0,
-      lowStockThreshold: Math.max(0, Math.round(Number(fd.get("lowStockThreshold")) || 0)),
+      basePrice: toNum(fd.get("basePrice")),
+      lowStockThreshold: Math.max(0, Math.round(toNum(fd.get("lowStockThreshold")))),
       notes: String(fd.get("notes") ?? "").trim() || undefined,
       isActive: fd.get("isActive") !== null,
     };
@@ -140,7 +141,7 @@ function ProductForm({ product, onDone }: { product?: Product; onDone?: () => vo
         </Field>
         <div className="grid grid-cols-2 gap-3">
           <Field label="ราคาขาย/หน่วย">
-            <input name="basePrice" type="number" step="0.01" min="0" inputMode="decimal"
+            <input name="basePrice" {...numberInput}
               defaultValue={product?.basePrice ?? ""} placeholder="0.00" className={inputClass} />
           </Field>
           <Field label="หน่วย">
@@ -149,7 +150,7 @@ function ProductForm({ product, onDone }: { product?: Product; onDone?: () => vo
           </Field>
         </div>
         <Field label="เตือนเมื่อสต๊อกเหลือน้อยกว่า" hint="ใช้แสดงในหน้าภาพรวม">
-          <input name="lowStockThreshold" type="number" min="0" step="1" inputMode="numeric"
+          <input name="lowStockThreshold" {...numberInput}
             defaultValue={product?.lowStockThreshold ?? 5} className={inputClass} />
         </Field>
         <Field label="โน้ต (ไม่บังคับ)">

@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { db, newId, now } from "@/lib/db";
 import { useProducts, useSettings } from "@/lib/hooks";
 import { money, num, todayISO } from "@/lib/format";
-import { round2 } from "@/lib/calc";
-import { Button, Card, Empty, Field, inputClass, LinkButton, PageHeader } from "@/components/ui";
+import { round2, toNum } from "@/lib/calc";
+import { Button, Card, Empty, Field, inputClass, numberInput, LinkButton, PageHeader } from "@/components/ui";
 
 type Line = { key: number; name: string; cost: string };
 
@@ -33,12 +33,12 @@ export default function NewBatchPage() {
   const product = products?.find((p) => p.id === pid);
 
   const calc = useMemo(() => {
-    const q = Number(qty) || 0;
+    const q = toNum(qty);
     const materials = detailed
-      ? lines.reduce((s, l) => s + (Number(l.cost) || 0), 0)
-      : Number(materialTotal) || 0;
-    const labor = (Number(hours) || 0) * (Number(effectiveWage) || 0);
-    const oh = Number(overhead) || 0;
+      ? lines.reduce((s, l) => s + toNum(l.cost), 0)
+      : toNum(materialTotal);
+    const labor = toNum(hours) * toNum(effectiveWage);
+    const oh = toNum(overhead);
     const total = materials + labor + oh;
     const perUnit = q > 0 ? total / q : 0;
     const materialPerUnit = q > 0 ? materials / q : 0;
@@ -72,23 +72,24 @@ export default function NewBatchPage() {
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
-    if (!pid || Number(qty) <= 0) return;
+    const qtyNum = toNum(qty);
+    if (!pid || !(qtyNum > 0)) return;
     setSaving(true);
 
     const materials = detailed
-      ? lines.filter((l) => l.name.trim() !== "" || Number(l.cost) > 0)
-             .map((l) => ({ name: l.name.trim() || "วัตถุดิบ", cost: Number(l.cost) || 0 }))
+      ? lines.filter((l) => l.name.trim() !== "" || toNum(l.cost) > 0)
+             .map((l) => ({ name: l.name.trim() || "วัตถุดิบ", cost: toNum(l.cost) }))
       : undefined;
 
     await db.batches.add({
       id: newId(),
       productId: pid,
       producedOn,
-      qtyProduced: Number(qty),
-      hoursSpent: Number(hours) || 0,
-      hourlyWageSnapshot: Number(effectiveWage) || 0,
+      qtyProduced: qtyNum,
+      hoursSpent: toNum(hours),
+      hourlyWageSnapshot: toNum(effectiveWage),
       materialCost: round2(calc.materials),
-      overheadCost: Number(overhead) || 0,
+      overheadCost: toNum(overhead),
       materials: materials?.length ? materials : undefined,
       notes: notes.trim() || undefined,
       createdAt: now(),
@@ -123,7 +124,7 @@ export default function NewBatchPage() {
               </div>
               <Field label={`จำนวนที่ได้ (${product?.unit ?? "ชิ้น"})`}
                 hint="ตัวเลขนี้คือตัวหารของต้นทุนต่อชิ้น — ใส่ให้ตรงกับที่ได้จริง">
-                <input type="number" step="0.01" min="0.01" required inputMode="decimal"
+                <input {...numberInput} required
                   value={qty} onChange={(e) => setQty(e.target.value)}
                   placeholder="เช่น 24" className={inputClass} />
               </Field>
@@ -139,7 +140,7 @@ export default function NewBatchPage() {
             }>
             {!detailed ? (
               <Field label="ยอดรวมวัตถุดิบของรอบนี้">
-                <input type="number" step="0.01" min="0" inputMode="decimal"
+                <input {...numberInput}
                   value={materialTotal} onChange={(e) => setMaterialTotal(e.target.value)}
                   placeholder="0.00" className={inputClass} />
               </Field>
@@ -149,7 +150,7 @@ export default function NewBatchPage() {
                   <div key={l.key} className="flex gap-2">
                     <input value={l.name} onChange={(e) => updateLine(l.key, { name: e.target.value })}
                       placeholder="เช่น แป้ง, เนย" className={`${inputClass} flex-1`} />
-                    <input type="number" step="0.01" min="0" inputMode="decimal"
+                    <input {...numberInput}
                       value={l.cost} onChange={(e) => updateLine(l.key, { cost: e.target.value })}
                       placeholder="0.00" className={`${inputClass} w-28`} />
                     <button type="button" onClick={() => removeLine(l.key)} aria-label="ลบรายการ"
@@ -171,7 +172,7 @@ export default function NewBatchPage() {
             <div className="space-y-3.5">
               <div className="grid gap-3 sm:grid-cols-2">
                 <Field label="เวลาที่ใช้ทำ (ชั่วโมง)" hint="รวมเวลาส่งของด้วยได้">
-                  <input type="number" step="0.25" min="0" inputMode="decimal"
+                  <input {...numberInput}
                     value={hours} onChange={(e) => setHours(e.target.value)}
                     placeholder="เช่น 3.5" className={inputClass} />
                 </Field>
@@ -179,12 +180,12 @@ export default function NewBatchPage() {
                   hint={settings.hourlyWage > 0
                     ? `ค่าตั้งต้นจากหน้าตั้งค่า (${money(settings.hourlyWage)})`
                     : "ยังไม่ได้ตั้งค่าแรง — ตั้งได้ที่หน้าตั้งค่า"}>
-                  <input type="number" step="0.01" min="0" inputMode="decimal"
+                  <input {...numberInput}
                     value={effectiveWage} onChange={(e) => setWage(e.target.value)} className={inputClass} />
                 </Field>
               </div>
               <Field label="ค่าแฝงของรอบนี้" hint="ไฟ แก๊ส บรรจุภัณฑ์ ค่าน้ำมัน ฯลฯ">
-                <input type="number" step="0.01" min="0" inputMode="decimal"
+                <input {...numberInput}
                   value={overhead} onChange={(e) => setOverhead(e.target.value)}
                   placeholder="0.00" className={inputClass} />
               </Field>
@@ -208,7 +209,7 @@ export default function NewBatchPage() {
                 <dl className="mt-4 space-y-1.5 border-t border-cream-100 pt-3 text-sm">
                   <Row label="วัตถุดิบ" value={money(calc.materials)} />
                   <Row label="ค่าแรง" value={money(calc.labor)}
-                    hint={`${num(Number(hours) || 0)} ชม. × ${money(Number(effectiveWage) || 0)}`} />
+                    hint={`${num(toNum(hours))} ชม. × ${money(toNum(effectiveWage))}`} />
                   <Row label="ค่าแฝง" value={money(calc.overhead)} />
                   <div className="flex justify-between border-t border-cream-100 pt-1.5 font-semibold text-cocoa-700">
                     <dt>รวมทั้งรอบ</dt>

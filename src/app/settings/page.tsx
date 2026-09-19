@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { toNum } from "@/lib/calc";
 import { db, DEFAULT_SETTINGS } from "@/lib/db";
 import { useSettings } from "@/lib/hooks";
 import { downloadBackup, restoreBackup, wipeAll, requestPersistence } from "@/lib/backup";
 import { money } from "@/lib/format";
-import { Button, Card, Field, inputClass, PageHeader } from "@/components/ui";
+import { Button, Card, Field, inputClass, numberInput, PageHeader } from "@/components/ui";
 
 export default function SettingsPage() {
   const settings = useSettings();
@@ -19,7 +20,7 @@ export default function SettingsPage() {
     await db.settings.put({
       ...DEFAULT_SETTINGS,
       shopName: String(fd.get("shopName") ?? "ร้านขนม").trim() || "ร้านขนม",
-      hourlyWage: Math.max(0, Number(fd.get("hourlyWage")) || 0),
+      hourlyWage: Math.max(0, toNum(fd.get("hourlyWage"))),
     });
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
@@ -39,7 +40,7 @@ export default function SettingsPage() {
               </Field>
               <Field label="ค่าแรงของตัวเอง ต่อชั่วโมง (บาท)"
                 hint="ตีราคาเวลาตัวเองเท่าไหร่? ลองเทียบกับค่าจ้างงานอื่นที่ทำได้ในเวลาเท่ากัน">
-                <input name="hourlyWage" type="number" step="1" min="0" inputMode="decimal"
+                <input name="hourlyWage" {...numberInput}
                   defaultValue={settings.hourlyWage || ""} placeholder="เช่น 150" className={inputClass} />
               </Field>
               {saved && (

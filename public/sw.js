@@ -1,6 +1,6 @@
 /* Service worker — ทำให้เปิดแอปได้แม้ไม่มีเน็ต
    ข้อมูลผู้ใช้อยู่ใน IndexedDB ไม่เกี่ยวกับ cache นี้ */
-const CACHE = "pjin-bakery-v3";
+const CACHE = "pjin-bakery-v4";
 
 // เส้นทางทุกหน้าของแอป (relative กับ scope ของ service worker)
 const SHELL = [

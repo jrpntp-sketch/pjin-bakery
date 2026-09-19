@@ -4,8 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { db, newId, now } from "@/lib/db";
 import { useChannels, useSales, useStock } from "@/lib/hooks";
 import { money, num, thaiDate, todayISO } from "@/lib/format";
-import { channelShareFor, round4, unitPriceFor } from "@/lib/calc";
-import { Badge, Button, Card, Empty, Field, inputClass, LinkButton, PageHeader } from "@/components/ui";
+import { channelShareFor, round4, toNum, unitPriceFor } from "@/lib/calc";
+import { Badge, Button, Card, Empty, Field, inputClass, numberInput, LinkButton, PageHeader } from "@/components/ui";
 
 export default function SalesPage() {
   const stock = useStock(true);
@@ -108,7 +108,7 @@ function SaleForm({ stock, channels }: {
   const channel = channels.find((c) => c.id === channelId) ?? channels[0];
 
   const defaultPrice = channel && item ? unitPriceFor(channel, item.product.basePrice) : 0;
-  const price = priceOverride !== null ? Number(priceOverride) || 0 : defaultPrice;
+  const price = priceOverride !== null ? toNum(priceOverride) : defaultPrice;
 
   // ค่าส่งตั้งต้นมาจากช่องทางที่เลือก
   useEffect(() => {
@@ -116,10 +116,10 @@ function SaleForm({ stock, channels }: {
   }, [channel]);
 
   const calc = useMemo(() => {
-    const q = Number(qty) || 0;
+    const q = toNum(qty);
     const revenue = price * q;
     const share = channel ? channelShareFor(channel, price, q) : 0;
-    const deliveryCost = Number(delivery) || 0;
+    const deliveryCost = toNum(delivery);
     const net = revenue - (item?.avgCostPerUnit ?? 0) * q - share - deliveryCost;
     return {
       revenue, share,
@@ -133,16 +133,17 @@ function SaleForm({ stock, channels }: {
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
-    if (!item || !channel || calc.notEnough) return;
+    const qtyNum = toNum(qty);
+    if (!item || !channel || calc.notEnough || !(qtyNum > 0)) return;
 
     await db.transactions.add({
       id: newId(),
       productId: item.product.id,
       channelId: channel.id,
       soldOn,
-      qty: Number(qty),
+      qty: qtyNum,
       unitPrice: price,
-      deliveryCost: Number(delivery) || 0,
+      deliveryCost: toNum(delivery),
       unitFullCost: round4(item.avgCostPerUnit),
       unitMaterialCost: round4(item.avgMaterialCostPerUnit),
       channelShare: calc.share,
@@ -186,11 +187,11 @@ function SaleForm({ stock, channels }: {
 
         <div className="grid grid-cols-2 gap-3">
           <Field label={`จำนวน (${item?.product.unit ?? "ชิ้น"})`}>
-            <input type="number" step="0.01" min="0.01" required inputMode="decimal"
+            <input {...numberInput} required
               value={qty} onChange={(e) => setQty(e.target.value)} className={inputClass} />
           </Field>
           <Field label="ราคา/หน่วย">
-            <input type="number" step="0.01" min="0" inputMode="decimal"
+            <input {...numberInput}
               value={priceOverride ?? String(defaultPrice)}
               onChange={(e) => setPriceOverride(e.target.value)} className={inputClass} />
           </Field>
@@ -201,7 +202,7 @@ function SaleForm({ stock, channels }: {
             <input type="date" value={soldOn} onChange={(e) => setSoldOn(e.target.value)} className={inputClass} />
           </Field>
           <Field label="ค่าส่งรอบนี้">
-            <input type="number" step="0.01" min="0" inputMode="decimal"
+            <input {...numberInput}
               value={delivery} onChange={(e) => setDelivery(e.target.value)}
               placeholder="0.00" className={inputClass} />
           </Field>

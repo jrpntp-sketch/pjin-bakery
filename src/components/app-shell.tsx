@@ -19,14 +19,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       if (alive) setReady(true);
     })();
 
-    // ช่องตัวเลขที่มีค่าอยู่แล้ว ถ้าแตะแล้วพิมพ์เลยจะได้ "150200"
-    // เลือกค่าเดิมทั้งหมดตอนโฟกัส เพื่อให้พิมพ์ทับได้ทันที
-    const selectOnFocus = (ev: FocusEvent) => {
-      const el = ev.target;
-      if (el instanceof HTMLInputElement && el.type === "number") el.select();
-    };
-    document.addEventListener("focusin", selectOnFocus);
-
     // ลงทะเบียน service worker เพื่อให้เปิดใช้ได้ตอนไม่มีเน็ต
     if ("serviceWorker" in navigator && process.env.NODE_ENV === "production") {
       const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -34,7 +26,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     }
     return () => {
       alive = false;
-      document.removeEventListener("focusin", selectOnFocus);
     };
   }, []);
 

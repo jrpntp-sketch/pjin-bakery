@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { toNum } from "@/lib/calc";
 import { db, newId, now } from "@/lib/db";
 import { useExpenses } from "@/lib/hooks";
 import { money, monthStartISO, thaiDate, todayISO } from "@/lib/format";
-import { Button, Card, Empty, Field, inputClass, PageHeader, Stat } from "@/components/ui";
+import { Button, Card, Empty, Field, inputClass, numberInput, PageHeader, Stat } from "@/components/ui";
 
 const CATEGORIES = [
   "อุปกรณ์/เครื่องครัว", "ค่าที่/ค่าบูธ", "การตลาด",
@@ -26,7 +27,7 @@ export default function ExpensesPage() {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
-    const amount = Number(fd.get("amount")) || 0;
+    const amount = toNum(fd.get("amount"));
     if (amount <= 0) return;
 
     await db.expenses.add({
@@ -89,8 +90,7 @@ export default function ExpensesPage() {
               </Field>
               <div className="grid grid-cols-2 gap-3">
                 <Field label="จำนวนเงิน">
-                  <input name="amount" type="number" step="0.01" min="0.01" required
-                    inputMode="decimal" placeholder="0.00" className={inputClass} />
+                  <input name="amount" {...numberInput} required placeholder="0.00" className={inputClass} />
                 </Field>
                 <Field label="วันที่">
                   <input name="spentOn" type="date" defaultValue={todayISO()} className={inputClass} />
