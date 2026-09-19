@@ -107,7 +107,10 @@ function ProductForm({ product, onDone }: { product?: Product; onDone?: () => vo
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    // ต้องเก็บ form ไว้ก่อน await เพราะ React เคลียร์ e.currentTarget
+    // ให้เป็น null หลังจบรอบ event ถ้าไปเรียกทีหลังจะพัง
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const name = String(fd.get("name") ?? "").trim();
     if (!name) return setError("กรุณาใส่ชื่อสินค้า");
 
@@ -125,7 +128,7 @@ function ProductForm({ product, onDone }: { product?: Product; onDone?: () => vo
       onDone?.();
     } else {
       await db.products.add({ ...row, id: newId(), createdAt: now() });
-      e.currentTarget.reset();
+      form.reset();
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     }
