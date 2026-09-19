@@ -1,6 +1,6 @@
 /* Service worker — ทำให้เปิดแอปได้แม้ไม่มีเน็ต
    ข้อมูลผู้ใช้อยู่ใน IndexedDB ไม่เกี่ยวกับ cache นี้ */
-const CACHE = "pjin-bakery-v2";
+const CACHE = "pjin-bakery-v3";
 
 // เส้นทางทุกหน้าของแอป (relative กับ scope ของ service worker)
 const SHELL = [
@@ -19,19 +19,46 @@ const SHELL = [
   "./apple-touch-icon.png",
 ];
 
+/** ดึง URL ของไฟล์ JS/CSS ที่หน้านั้นต้องใช้ ออกมาจาก HTML */
+function assetsIn(html) {
+  const found = new Set();
+  const re = /["'(]([^"'()]*\/_next\/static\/[^"'()]+?\.(?:js|css))["')]/g;
+  let m;
+  while ((m = re.exec(html))) found.add(m[1]);
+  return [...found];
+}
+
 self.addEventListener("install", (e) => {
-  // โหลดหน้าทั้งหมดเก็บไว้ตั้งแต่ติดตั้ง ไม่ต้องรอให้ผู้ใช้เดินเข้าไปเอง
+  // โหลดทุกหน้า + ไฟล์ JS/CSS ที่หน้านั้นต้องใช้ เก็บไว้ตั้งแต่ติดตั้ง
+  // ไม่ง้นแอปจะเปิดออฟไลน์ไม่ขึ้นถ้าผู้ใช้ยังไม่เคยเปิดออนไลน์มาก่อน
   e.waitUntil(
-    caches.open(CACHE).then((c) =>
+    (async () => {
+      const c = await caches.open(CACHE);
+      const assets = new Set();
+
       // ใช้ทีละไฟล์ เพื่อให้ไฟล์เดียวพังแล้วไม่ล้มทั้งชุด
-      Promise.all(
-        SHELL.map((path) =>
-          fetch(new Request(path, { cache: "reload" }))
-            .then((res) => (res.ok ? c.put(path, res) : null))
-            .catch(() => null),
-        ),
-      ),
-    ).then(() => self.skipWaiting()),
+      await Promise.all(
+        SHELL.map(async (path) => {
+          try {
+            const res = await fetch(new Request(path, { cache: "reload" }));
+            if (!res.ok) return;
+            if (res.headers.get("content-type")?.includes("text/html")) {
+              assetsIn(await res.clone().text()).forEach((a) => assets.add(a));
+            }
+            await c.put(path, res);
+          } catch {}
+        }),
+      );
+
+      await Promise.all(
+        [...assets].map(async (url) => {
+          try {
+            const res = await fetch(new Request(url, { cache: "reload" }));
+            if (res.ok) await c.put(url, res);
+          } catch {}
+        }),
+      );
+    })().then(() => self.skipWaiting()),
   );
 });
 
