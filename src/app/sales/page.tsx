@@ -50,22 +50,22 @@ export default function SalesPage() {
                   <li key={t.id} className="py-3 first:pt-0 last:pb-0">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <p className="font-semibold text-cocoa-700">
-                          {t.productName} <span className="font-normal text-cocoa-400">× {num(t.qty)}</span>
+                        <p className="font-semibold text-plum-700">
+                          {t.productName} <span className="font-normal text-plum-400">× {num(t.qty)}</span>
                         </p>
-                        <p className="text-xs text-cocoa-400">
+                        <p className="text-xs text-plum-400">
                           {t.channelName} · {thaiDate(t.soldOn)} · {money(t.unitPrice)}/{t.productUnit}
                         </p>
-                        <p className="tabular mt-1 text-xs text-cocoa-400">
+                        <p className="tabular mt-1 text-xs text-plum-400">
                           ต้นทุน {money(t.unitFullCost * t.qty)}
                           {t.channelShare > 0 && ` · ส่วนแบ่ง ${money(t.channelShare)}`}
                           {t.deliveryCost > 0 && ` · ค่าส่ง ${money(t.deliveryCost)}`}
                         </p>
-                        {t.notes && <p className="mt-1 text-xs text-cocoa-400">{t.notes}</p>}
+                        {t.notes && <p className="mt-1 text-xs text-plum-400">{t.notes}</p>}
                       </div>
                       <div className="shrink-0 text-right">
-                        <p className="tabular font-semibold text-cocoa-700">{money(t.revenue)}</p>
-                        <p className="tabular text-xs text-cocoa-400">ขั้นต้น {money(t.grossProfit)}</p>
+                        <p className="tabular font-semibold text-plum-700">{money(t.revenue)}</p>
+                        <p className="tabular text-xs text-plum-400">ขั้นต้น {money(t.grossProfit)}</p>
                         <p className={`tabular text-xs font-bold ${t.netProfit >= 0 ? "text-leaf-500" : "text-berry-500"}`}>
                           สุทธิ {money(t.netProfit)}
                         </p>
@@ -75,7 +75,7 @@ export default function SalesPage() {
                               await db.transactions.delete(t.id);
                             }
                           }}
-                          className="mt-1 rounded-lg px-2 py-1 text-xs font-semibold text-cocoa-400 transition hover:bg-berry-500/10 hover:text-berry-500">
+                          className="mt-1 rounded-lg px-2 py-1 text-xs font-semibold text-plum-400 transition hover:bg-berry-500/10 hover:text-berry-500">
                           ลบ
                         </button>
                       </div>
@@ -215,27 +215,27 @@ function SaleForm({ stock, channels }: {
 
         <div className="space-y-1.5 rounded-xl bg-cream-50 p-3 text-sm">
           <div className="flex justify-between">
-            <span className="text-cocoa-600">ยอดขาย</span>
-            <span className="tabular font-semibold text-cocoa-700">{money(calc.revenue)}</span>
+            <span className="text-plum-600">ยอดขาย</span>
+            <span className="tabular font-semibold text-plum-700">{money(calc.revenue)}</span>
           </div>
           {calc.share > 0 && (
             <div className="flex justify-between text-xs">
-              <span className="text-cocoa-400">หักส่วนแบ่งช่องทาง</span>
-              <span className="tabular text-cocoa-400">−{money(calc.share)}</span>
+              <span className="text-plum-400">หักส่วนแบ่งช่องทาง</span>
+              <span className="tabular text-plum-400">−{money(calc.share)}</span>
             </div>
           )}
           <div className="flex justify-between">
-            <span className="text-cocoa-600">กำไรขั้นต้น</span>
-            <span className="tabular text-cocoa-700">{money(calc.gross)}</span>
+            <span className="text-plum-600">กำไรขั้นต้น</span>
+            <span className="tabular text-plum-700">{money(calc.gross)}</span>
           </div>
           <div className="flex justify-between border-t border-cream-200 pt-1.5">
-            <span className="font-semibold text-cocoa-600">กำไรสุทธิ</span>
+            <span className="font-semibold text-plum-600">กำไรสุทธิ</span>
             <span className={`tabular font-bold ${calc.net >= 0 ? "text-leaf-500" : "text-berry-500"}`}>
               {money(calc.net)}
             </span>
           </div>
           {calc.noCost && (
-            <p className="pt-1 text-xs text-honey-600">
+            <p className="pt-1 text-xs text-peach-600">
               ⚠️ สินค้านี้ยังไม่มีรอบผลิต — กำไรสุทธิจะเท่ากับยอดขาย
             </p>
           )}
@@ -246,7 +246,7 @@ function SaleForm({ stock, channels }: {
             สต๊อกไม่พอ — เหลือ {num(item?.stockQty ?? 0)} {item?.product.unit}
           </p>
         ) : (
-          <p className="text-xs text-cocoa-400">
+          <p className="text-xs text-plum-400">
             ขายแล้วจะเหลือ{" "}
             <Badge tone={calc.stockLeft <= 0 ? "warn" : "neutral"}>
               {num(calc.stockLeft)} {item?.product.unit}

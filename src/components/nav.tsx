@@ -17,11 +17,11 @@ const LINKS = [
 export function Sidebar({ shopName }: { shopName: string }) {
   const pathname = usePathname();
   return (
-    <aside className="hidden w-56 shrink-0 border-r border-cream-200 bg-white lg:block">
+    <aside className="hidden w-56 shrink-0 border-r border-cream-200 bg-white/85 backdrop-blur lg:block">
       <div className="sticky top-0 flex h-dvh flex-col">
         <div className="px-5 py-5">
-          <p className="text-xs font-medium text-cocoa-400">ร้าน</p>
-          <p className="truncate text-base font-bold text-cocoa-700">
+          <p className="text-xs font-medium text-plum-400">ร้าน</p>
+          <p className="truncate text-base font-bold text-plum-700">
             {shopName}
           </p>
         </div>
@@ -34,7 +34,7 @@ export function Sidebar({ shopName }: { shopName: string }) {
           <button
             type="button"
             onClick={openGuide}
-            className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium text-cocoa-400 transition hover:bg-cream-50 hover:text-cocoa-600"
+            className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium text-plum-400 transition hover:bg-cream-50 hover:text-plum-600"
           >
             <span className="text-base leading-none">❓</span>
             คู่มือการใช้งาน
@@ -55,7 +55,7 @@ export function BottomNav() {
   const pathname = usePathname();
   const items = [...LINKS.slice(0, 5)];
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-20 grid grid-cols-5 border-t border-cream-200 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-20 grid grid-cols-5 border-t border-cream-200 bg-white/92 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden">
       {items.map((l) => {
         const active = isActive(pathname, l.href);
         return (
@@ -63,7 +63,7 @@ export function BottomNav() {
             key={l.href}
             href={l.href}
             className={`flex flex-col items-center gap-0.5 py-2 text-[11px] font-medium transition ${
-              active ? "text-pumpkin-600" : "text-cocoa-400"
+              active ? "text-[var(--page-accent)]" : "text-plum-400"
             }`}
           >
             <span className="text-lg leading-none">{l.icon}</span>
@@ -91,8 +91,8 @@ function NavLink({
       href={href}
       className={`flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition ${
         active
-          ? "bg-pumpkin-500/12 text-pumpkin-600"
-          : "text-cocoa-400 hover:bg-cream-100 hover:text-cocoa-600"
+          ? "bg-[var(--page-tint)] text-[var(--page-accent)]"
+          : "text-plum-400 hover:bg-cream-100 hover:text-plum-600"
       }`}
     >
       <span className="text-base leading-none">{icon}</span>
@@ -108,8 +108,8 @@ function isActive(pathname: string, href: string) {
 /** แถบหัวสำหรับจอมือถือ */
 export function MobileHeader({ shopName }: { shopName: string }) {
   return (
-    <header className="sticky top-0 z-10 flex items-center justify-between border-b border-cream-200 bg-cream-50/95 px-4 py-3 backdrop-blur lg:hidden">
-      <p className="truncate font-bold text-cocoa-700">{shopName}</p>
+    <header className="sticky top-0 z-10 flex items-center justify-between border-b border-cream-200 bg-white/80 px-4 py-3 backdrop-blur lg:hidden">
+      <p className="truncate font-bold text-[var(--page-accent)]">{shopName}</p>
       <div className="flex items-center gap-1">
         <button
           type="button"

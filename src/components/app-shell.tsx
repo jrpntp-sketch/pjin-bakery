@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { ensureSeeded } from "@/lib/db";
 import { requestPersistence } from "@/lib/backup";
 import { useSettings } from "@/lib/hooks";
@@ -9,6 +10,7 @@ import { Guide } from "./guide";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
+  const pathname = usePathname();
   const settings = useSettings();
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div className="flex min-h-dvh items-center justify-center bg-cream-50">
         <div className="text-center">
           <p className="animate-pulse text-4xl">🧁</p>
-          <p className="mt-3 text-sm text-cocoa-400">กำลังเปิดข้อมูล…</p>
+          <p className="mt-3 text-sm text-plum-400">กำลังเปิดข้อมูล…</p>
         </div>
       </div>
     );
@@ -70,8 +72,19 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   const shopName = settings?.shopName ?? "ร้านขนม";
 
+  // ชุดสีของหน้านี้ — ประกาศไว้ใน globals.css เป็น [data-page="..."]
+  const page =
+    pathname === "/" ? "home"
+    : pathname.startsWith("/batches") ? "batches"
+    : pathname.startsWith("/sales") ? "sales"
+    : pathname.startsWith("/products") ? "products"
+    : pathname.startsWith("/channels") ? "channels"
+    : pathname.startsWith("/expenses") ? "expenses"
+    : pathname.startsWith("/reports") ? "reports"
+    : "settings";
+
   return (
-    <div className="flex min-h-dvh bg-cream-50">
+    <div data-page={page} className="plaid flex min-h-dvh bg-[var(--page-tint)]">
       <Sidebar shopName={shopName} />
       <div className="flex min-w-0 flex-1 flex-col">
         <MobileHeader shopName={shopName} />

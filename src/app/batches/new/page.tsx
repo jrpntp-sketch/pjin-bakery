@@ -134,7 +134,7 @@ export default function NewBatchPage() {
           <Card title="ต้นทุนวัตถุดิบ"
             action={
               <button type="button" onClick={() => setDetailed((d) => !d)}
-                className="rounded-lg px-2 py-1 text-xs font-semibold text-cocoa-400 transition hover:bg-cream-100 hover:text-cocoa-600">
+                className="rounded-lg px-2 py-1 text-xs font-semibold text-plum-400 transition hover:bg-cream-100 hover:text-plum-600">
                 {detailed ? "← กรอกยอดรวม" : "แยกรายการ →"}
               </button>
             }>
@@ -154,16 +154,16 @@ export default function NewBatchPage() {
                       value={l.cost} onChange={(e) => updateLine(l.key, { cost: e.target.value })}
                       placeholder="0.00" className={`${inputClass} w-28`} />
                     <button type="button" onClick={() => removeLine(l.key)} aria-label="ลบรายการ"
-                      className="shrink-0 rounded-xl px-2.5 text-cocoa-400 transition hover:bg-berry-500/10 hover:text-berry-500">
+                      className="shrink-0 rounded-xl px-2.5 text-plum-400 transition hover:bg-berry-500/10 hover:text-berry-500">
                       ✕
                     </button>
                   </div>
                 ))}
                 <button type="button" onClick={addLine}
-                  className="text-sm font-semibold text-cocoa-500 transition hover:text-cocoa-700">
+                  className="text-sm font-semibold text-plum-500 transition hover:text-plum-700">
                   + เพิ่มวัตถุดิบ
                 </button>
-                <p className="tabular pt-1 text-sm text-cocoa-400">รวม {money(calc.materials)}</p>
+                <p className="tabular pt-1 text-sm text-plum-400">รวม {money(calc.materials)}</p>
               </div>
             )}
           </Card>
@@ -200,18 +200,18 @@ export default function NewBatchPage() {
         <div className="lg:sticky lg:top-5 lg:self-start">
           <Card title="💡 ต้นทุนจริงต่อหน่วย">
             {!calc.hasQty ? (
-              <p className="py-6 text-center text-sm text-cocoa-400">ใส่จำนวนที่ได้ แล้วตัวเลขจะขึ้นตรงนี้</p>
+              <p className="py-6 text-center text-sm text-plum-400">ใส่จำนวนที่ได้ แล้วตัวเลขจะขึ้นตรงนี้</p>
             ) : (
               <>
-                <p className="tabular text-3xl font-bold text-cocoa-700">{money(calc.perUnit)}</p>
-                <p className="text-xs text-cocoa-400">ต่อ 1 {product?.unit ?? "ชิ้น"}</p>
+                <p className="tabular text-3xl font-bold text-plum-700">{money(calc.perUnit)}</p>
+                <p className="text-xs text-plum-400">ต่อ 1 {product?.unit ?? "ชิ้น"}</p>
 
                 <dl className="mt-4 space-y-1.5 border-t border-cream-100 pt-3 text-sm">
                   <Row label="วัตถุดิบ" value={money(calc.materials)} />
                   <Row label="ค่าแรง" value={money(calc.labor)}
                     hint={`${num(toNum(hours))} ชม. × ${money(toNum(effectiveWage))}`} />
                   <Row label="ค่าแฝง" value={money(calc.overhead)} />
-                  <div className="flex justify-between border-t border-cream-100 pt-1.5 font-semibold text-cocoa-700">
+                  <div className="flex justify-between border-t border-cream-100 pt-1.5 font-semibold text-plum-700">
                     <dt>รวมทั้งรอบ</dt>
                     <dd className="tabular">{money(calc.total)}</dd>
                   </div>
@@ -219,21 +219,21 @@ export default function NewBatchPage() {
 
                 {calc.price > 0 && (
                   <div className="mt-4 space-y-2 rounded-xl bg-cream-50 p-3">
-                    <p className="text-xs font-semibold text-cocoa-400">
+                    <p className="text-xs font-semibold text-plum-400">
                       ถ้าขายที่ {money(calc.price)}/{product?.unit}
                     </p>
                     <div className="flex justify-between text-sm">
-                      <span className="text-cocoa-600">กำไรขั้นต้น</span>
-                      <span className="tabular font-semibold text-cocoa-700">{money(calc.grossPerUnit)}</span>
+                      <span className="text-plum-600">กำไรขั้นต้น</span>
+                      <span className="tabular font-semibold text-plum-700">{money(calc.grossPerUnit)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-cocoa-600">กำไรสุทธิ</span>
+                      <span className="text-plum-600">กำไรสุทธิ</span>
                       <span className={`tabular font-bold ${calc.netPerUnit >= 0 ? "text-leaf-500" : "text-berry-500"}`}>
                         {money(calc.netPerUnit)}
                       </span>
                     </div>
                     <p className={`text-xs font-medium ${
-                      calc.netPerUnit < 0 ? "text-berry-500" : calc.marginPct < 20 ? "text-honey-600" : "text-leaf-500"}`}>
+                      calc.netPerUnit < 0 ? "text-berry-500" : calc.marginPct < 20 ? "text-peach-600" : "text-leaf-500"}`}>
                       {calc.netPerUnit < 0
                         ? "⚠️ ขายราคานี้แล้วขาดทุน — ขึ้นราคาหรือลดเวลา/ต้นทุน"
                         : calc.marginPct < 20
@@ -248,7 +248,7 @@ export default function NewBatchPage() {
             <Button type="submit" disabled={saving || !calc.hasQty} className="mt-4 w-full">
               {saving ? "กำลังบันทึก…" : "บันทึกรอบผลิต + เข้าสต๊อก"}
             </Button>
-            <p className="mt-2 text-center text-xs text-cocoa-400">บันทึกแล้วจะตัดเข้าสต๊อกให้อัตโนมัติ</p>
+            <p className="mt-2 text-center text-xs text-plum-400">บันทึกแล้วจะตัดเข้าสต๊อกให้อัตโนมัติ</p>
           </Card>
         </div>
       </form>
@@ -259,11 +259,11 @@ export default function NewBatchPage() {
 function Row({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
     <div className="flex items-baseline justify-between gap-2">
-      <dt className="text-cocoa-600">
+      <dt className="text-plum-600">
         {label}
-        {hint && <span className="ml-1.5 text-xs text-cocoa-400">{hint}</span>}
+        {hint && <span className="ml-1.5 text-xs text-plum-400">{hint}</span>}
       </dt>
-      <dd className="tabular shrink-0 text-cocoa-700">{value}</dd>
+      <dd className="tabular shrink-0 text-plum-700">{value}</dd>
     </div>
   );
 }

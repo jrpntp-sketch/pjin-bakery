@@ -24,7 +24,7 @@ export default function DashboardPage() {
         }
       />
 
-      <h2 className="mb-2 text-sm font-semibold text-cocoa-400">วันนี้</h2>
+      <h2 className="mb-2 text-sm font-semibold text-plum-400">วันนี้</h2>
       <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Stat label="ยอดขาย" value={money(d.today.revenue)} />
         <Stat label="กำไรขั้นต้น" value={money(d.today.gross)} hint="หักเฉพาะวัตถุดิบ"
@@ -34,7 +34,7 @@ export default function DashboardPage() {
         <Stat label="ขายได้" value={num(d.today.units)} hint={`${d.today.orders} รายการ`} />
       </div>
 
-      <h2 className="mb-2 text-sm font-semibold text-cocoa-400">เดือนนี้</h2>
+      <h2 className="mb-2 text-sm font-semibold text-plum-400">เดือนนี้</h2>
       <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Stat label="ยอดขาย" value={money(d.month.revenue)} />
         <Stat label="กำไรขั้นต้น" value={money(d.month.gross)}
@@ -48,7 +48,7 @@ export default function DashboardPage() {
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card title="⚠️ ทำแล้วไม่ค่อยคุ้มแรง (เดือนนี้)"
-          action={<span className="text-xs text-cocoa-400">กำไรสุทธิต่ำ/ติดลบ</span>}>
+          action={<span className="text-xs text-plum-400">กำไรสุทธิต่ำ/ติดลบ</span>}>
           {d.unprofitable.length === 0 ? (
             <Empty icon="✨">เดือนนี้ทุกอย่างที่ขายไปคุ้มค่าแรงหมดเลย</Empty>
           ) : (
@@ -58,16 +58,16 @@ export default function DashboardPage() {
                 return (
                   <li key={p.id} className="flex items-center justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold text-cocoa-700">{p.label}</p>
-                      <p className="tabular text-xs text-cocoa-400">
+                      <p className="truncate text-sm font-semibold text-plum-700">{p.label}</p>
+                      <p className="tabular text-xs text-plum-400">
                         ขาย {num(p.units)} ชิ้น · ขั้นต้น {money(p.gross)}
                       </p>
                     </div>
                     <div className="shrink-0 text-right">
-                      <p className={`tabular text-sm font-bold ${p.net < 0 ? "text-berry-500" : "text-honey-600"}`}>
+                      <p className={`tabular text-sm font-bold ${p.net < 0 ? "text-berry-500" : "text-peach-600"}`}>
                         {money(p.net)}
                       </p>
-                      <p className="tabular text-xs text-cocoa-400">{margin.toFixed(0)}% มาร์จิ้น</p>
+                      <p className="tabular text-xs text-plum-400">{margin.toFixed(0)}% มาร์จิ้น</p>
                     </div>
                   </li>
                 );
@@ -90,8 +90,8 @@ export default function DashboardPage() {
               {d.lowStock.slice(0, 6).map((s) => (
                 <li key={s.product.id} className="flex items-center justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-cocoa-700">{s.product.name}</p>
-                    <p className="text-xs text-cocoa-400">ผลิตล่าสุด {thaiDate(s.lastProducedOn)}</p>
+                    <p className="truncate text-sm font-semibold text-plum-700">{s.product.name}</p>
+                    <p className="text-xs text-plum-400">ผลิตล่าสุด {thaiDate(s.lastProducedOn)}</p>
                   </div>
                   <Badge tone={s.stockQty <= 0 ? "bad" : "warn"}>
                     เหลือ {num(s.stockQty)} {s.product.unit}
@@ -112,13 +112,13 @@ export default function DashboardPage() {
             {d.recent.map((t) => (
               <li key={t.id} className="flex items-center justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-semibold text-cocoa-700">
-                    {t.productName} <span className="font-normal text-cocoa-400">× {num(t.qty)}</span>
+                  <p className="truncate text-sm font-semibold text-plum-700">
+                    {t.productName} <span className="font-normal text-plum-400">× {num(t.qty)}</span>
                   </p>
-                  <p className="text-xs text-cocoa-400">{t.channelName} · {thaiDate(t.soldOn)}</p>
+                  <p className="text-xs text-plum-400">{t.channelName} · {thaiDate(t.soldOn)}</p>
                 </div>
                 <div className="shrink-0 text-right">
-                  <p className="tabular text-sm font-semibold text-cocoa-700">{money(t.revenue)}</p>
+                  <p className="tabular text-sm font-semibold text-plum-700">{money(t.revenue)}</p>
                   <p className={`tabular text-xs font-medium ${t.netProfit >= 0 ? "text-leaf-500" : "text-berry-500"}`}>
                     สุทธิ {money(t.netProfit)}
                   </p>

@@ -33,11 +33,11 @@ export default function ChannelsPage() {
                 <li key={c.id} className="py-3 first:pt-0 last:pb-0">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="flex flex-wrap items-center gap-2 font-semibold text-cocoa-700">
+                      <p className="flex flex-wrap items-center gap-2 font-semibold text-plum-700">
                         {c.name}
                         {!c.isActive && <Badge>ปิดใช้งาน</Badge>}
                       </p>
-                      <p className="tabular mt-1 text-xs text-cocoa-400">
+                      <p className="tabular mt-1 text-xs text-plum-400">
                         {SHARE_LABEL[c.shareType]}
                         {c.shareType === "percent" && ` · หัก ${c.sharePercent}% ของยอดขาย`}
                         {c.shareType === "fixed" && ` · ${money(c.fixedPrice)} ต่อหน่วย`}
@@ -46,7 +46,7 @@ export default function ChannelsPage() {
                     </div>
                     <div className="flex shrink-0 gap-1">
                       <button type="button" onClick={() => setEditing(c)}
-                        className="rounded-lg px-2 py-1 text-xs font-semibold text-cocoa-400 transition hover:bg-cream-100 hover:text-cocoa-600">
+                        className="rounded-lg px-2 py-1 text-xs font-semibold text-plum-400 transition hover:bg-cream-100 hover:text-plum-600">
                         แก้ไข
                       </button>
                       <button type="button"
@@ -54,7 +54,7 @@ export default function ChannelsPage() {
                           const r = await removeChannel(c.id);
                           if (r === "archived") alert("ช่องทางนี้มีประวัติขายอยู่ จึงเปลี่ยนเป็นปิดการใช้งานแทน");
                         }}
-                        className="rounded-lg px-2 py-1 text-xs font-semibold text-cocoa-400 transition hover:bg-berry-500/10 hover:text-berry-500">
+                        className="rounded-lg px-2 py-1 text-xs font-semibold text-plum-400 transition hover:bg-berry-500/10 hover:text-berry-500">
                         ลบ
                       </button>
                     </div>
@@ -71,7 +71,7 @@ export default function ChannelsPage() {
       </div>
 
       {editing && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-cocoa-700/30 p-4 backdrop-blur-sm sm:items-center"
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-plum-700/30 p-4 backdrop-blur-sm sm:items-center"
           onClick={() => setEditing(null)}>
           <div className="w-full max-w-md" onClick={(e) => e.stopPropagation()}>
             <ChannelForm channel={editing} onDone={() => setEditing(null)} />
@@ -142,7 +142,7 @@ function ChannelForm({ channel, onDone }: { channel?: Channel; onDone?: () => vo
             {OPTIONS.map((o) => (
               <button key={o.value} type="button" onClick={() => setShareType(o.value)}
                 className={`rounded-lg py-2 text-xs font-semibold transition ${
-                  shareType === o.value ? "bg-white text-cocoa-700 shadow-sm" : "text-cocoa-400 hover:text-cocoa-600"}`}>
+                  shareType === o.value ? "bg-white text-plum-700 shadow-sm" : "text-plum-400 hover:text-plum-600"}`}>
                 {o.label}
               </button>
             ))}
@@ -167,9 +167,9 @@ function ChannelForm({ channel, onDone }: { channel?: Channel; onDone?: () => vo
             defaultValue={channel?.shippingCostPerTrip || ""} placeholder="0.00" className={inputClass} />
         </Field>
 
-        <label className="flex items-center gap-2 text-sm text-cocoa-600">
+        <label className="flex items-center gap-2 text-sm text-plum-600">
           <input type="checkbox" name="isActive" defaultChecked={channel?.isActive ?? true}
-            className="size-4 rounded border-cream-200 accent-cocoa-600" />
+            className="size-4 rounded border-cream-200 accent-plum-600" />
           ยังใช้ช่องทางนี้อยู่
         </label>
 

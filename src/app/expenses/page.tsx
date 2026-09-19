@@ -62,15 +62,15 @@ export default function ExpensesPage() {
               {expenses.map((e) => (
                 <li key={e.id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
                   <div className="min-w-0">
-                    <p className="font-semibold text-cocoa-700">{e.category}</p>
-                    <p className="text-xs text-cocoa-400">
+                    <p className="font-semibold text-plum-700">{e.category}</p>
+                    <p className="text-xs text-plum-400">
                       {thaiDate(e.spentOn)}{e.note && ` · ${e.note}`}
                     </p>
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
                     <span className="tabular font-semibold text-berry-500">−{money(e.amount)}</span>
                     <button type="button" onClick={() => db.expenses.delete(e.id)}
-                      className="rounded-lg px-2 py-1 text-xs font-semibold text-cocoa-400 transition hover:bg-berry-500/10 hover:text-berry-500">
+                      className="rounded-lg px-2 py-1 text-xs font-semibold text-plum-400 transition hover:bg-berry-500/10 hover:text-berry-500">
                       ลบ
                     </button>
                   </div>

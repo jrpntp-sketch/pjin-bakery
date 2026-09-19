@@ -49,7 +49,7 @@ export function Guide() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-cocoa-700/40 backdrop-blur-sm sm:items-center sm:p-6"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-plum-700/40 backdrop-blur-sm sm:items-center sm:p-6"
       onClick={close}
       role="dialog"
       aria-modal="true"
@@ -61,14 +61,14 @@ export function Guide() {
       >
         <header className="flex shrink-0 items-center justify-between gap-3 border-b border-cream-200 bg-white px-5 py-4">
           <div>
-            <h2 className="text-lg font-bold text-cocoa-700">คู่มือการใช้งาน</h2>
-            <p className="text-xs text-cocoa-400">อ่านครั้งเดียวก็พอ เปิดซ้ำได้ที่ปุ่ม ❓</p>
+            <h2 className="text-lg font-bold text-plum-700">คู่มือการใช้งาน</h2>
+            <p className="text-xs text-plum-400">อ่านครั้งเดียวก็พอ เปิดซ้ำได้ที่ปุ่ม ❓</p>
           </div>
           <button
             type="button"
             onClick={close}
             aria-label="ปิด"
-            className="shrink-0 rounded-full px-3 py-1.5 text-xl leading-none text-cocoa-400 transition hover:bg-cream-100 hover:text-cocoa-700"
+            className="shrink-0 rounded-full px-3 py-1.5 text-xl leading-none text-plum-400 transition hover:bg-cream-100 hover:text-plum-700"
           >
             ✕
           </button>
@@ -82,7 +82,7 @@ export function Guide() {
           <button
             type="button"
             onClick={close}
-            className="w-full rounded-xl bg-cocoa-600 px-4 py-3 text-sm font-semibold text-cream-50 transition hover:bg-cocoa-700 active:scale-[0.99]"
+            className="w-full rounded-xl bg-plum-600 px-4 py-3 text-sm font-semibold text-cream-50 transition hover:bg-plum-700 active:scale-[0.99]"
           >
             เริ่มใช้งาน
           </button>
@@ -98,17 +98,17 @@ function Content() {
   return (
     <div className="space-y-6">
       <section>
-        <p className="text-sm leading-relaxed text-cocoa-600">
+        <p className="text-sm leading-relaxed text-plum-600">
           แนะนำให้ใช้งานตามลำดับ เพื่อให้ระบบคำนวณต้นทุนและกำไรได้ถูกต้อง
         </p>
-        <ol className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-xs font-semibold text-cocoa-500">
+        <ol className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-2 text-xs font-semibold text-plum-500">
           {["ตั้งค่า", "สินค้า", "ช่องทาง", "รอบผลิต", "ขาย/ฝาก", "รายงาน"].map(
             (s, i) => (
               <li key={s} className="flex items-center gap-1.5">
                 <span className="rounded-full bg-cream-200 px-2.5 py-1">
                   {i + 1}. {s}
                 </span>
-                {i < 5 && <span className="text-cocoa-400">→</span>}
+                {i < 5 && <span className="text-plum-400">→</span>}
               </li>
             ),
           )}
@@ -123,7 +123,7 @@ function Content() {
           ค่าแรงเป็นข้อมูลสำคัญสำหรับการคำนวณ <b>กำไรสุทธิ</b> เพราะแอปออกแบบมา
           เพื่อช่วยตอบคำถามว่า
         </p>
-        <blockquote className="border-l-3 border-cocoa-400 bg-cream-100 px-3 py-2 text-cocoa-700 italic">
+        <blockquote className="border-l-3 border-plum-400 bg-cream-100 px-3 py-2 text-plum-700 italic">
           “รายได้ที่ได้รับ คุ้มกับเวลาและแรงที่ลงไปหรือไม่?”
         </blockquote>
         <p className="text-berry-500">
@@ -152,7 +152,7 @@ function Content() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[22rem] border-collapse text-xs">
             <thead>
-              <tr className="border-b border-cream-200 text-left text-cocoa-400">
+              <tr className="border-b border-cream-200 text-left text-plum-400">
                 <th className="py-1.5 pr-3 font-semibold">รูปแบบ</th>
                 <th className="py-1.5 font-semibold">ใช้เมื่อ</th>
               </tr>
@@ -164,8 +164,8 @@ function Content() {
                 ["ราคาคงที่", "ตกลงราคาส่งกับร้านเป็นจำนวนเงินคงที่ โดยไม่ขึ้นกับราคาหน้าร้าน"],
               ].map(([a, b]) => (
                 <tr key={a} className="border-b border-cream-100 last:border-0">
-                  <td className="py-2 pr-3 font-semibold text-cocoa-700">{a}</td>
-                  <td className="py-2 text-cocoa-600">{b}</td>
+                  <td className="py-2 pr-3 font-semibold text-plum-700">{a}</td>
+                  <td className="py-2 text-plum-600">{b}</td>
                 </tr>
               ))}
             </tbody>
@@ -198,7 +198,7 @@ function Content() {
       </Step>
 
       <Step n={5} icon="🧾" title="ขาย / ฝากขาย">
-        <p className="rounded-xl bg-cream-100 px-3 py-2 text-center text-xs font-semibold text-cocoa-700">
+        <p className="rounded-xl bg-cream-100 px-3 py-2 text-center text-xs font-semibold text-plum-700">
           เลือกสินค้า → เลือกช่องทาง → ระบุจำนวน → ตรวจสอบกำไร → บันทึก
         </p>
         <p>
@@ -223,27 +223,27 @@ function Content() {
 
       <Example />
 
-      <section className="rounded-2xl border border-honey-500/30 bg-honey-500/10 p-4">
-        <h3 className="text-sm font-bold text-honey-700">
+      <section className="rounded-2xl border border-peach-500/30 bg-peach-500/10 p-4">
+        <h3 className="text-sm font-bold text-peach-700">
           ⚠️ การแจ้งเตือนบนหน้าภาพรวม
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-cocoa-600">
+        <p className="mt-2 text-sm leading-relaxed text-plum-600">
           หากระบบพบว่าผลตอบแทนไม่คุ้มกับต้นทุนและแรงงาน จะแสดงการแจ้งเตือน เช่น
         </p>
         <p className="mt-2 rounded-xl bg-white/70 px-3 py-2 text-sm font-semibold text-berry-500">
           ⚠️ ทำแล้วไม่ค่อยคุ้มแรง · มาร์จิ้นสุทธิ -10%
         </p>
-        <p className="mt-2 text-sm leading-relaxed text-cocoa-600">
+        <p className="mt-2 text-sm leading-relaxed text-plum-600">
           เพื่อช่วยให้เห็นรายการที่ควรนำไปพิจารณาปรับราคา ลดต้นทุน
           หรือปรับช่องทางการขาย
         </p>
       </section>
 
       <section className="rounded-2xl border border-cream-200 bg-white p-4">
-        <h3 className="text-sm font-bold text-cocoa-700">
+        <h3 className="text-sm font-bold text-plum-700">
           💾 ข้อจำกัดและการสำรองข้อมูล
         </h3>
-        <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-cocoa-600">
+        <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-plum-600">
           <li>
             • ข้อมูลจัดเก็บอยู่ <b>ภายในอุปกรณ์</b>{" "}
             เครื่องที่ใช้ทดสอบและเครื่องของผู้ใช้งานจะมีข้อมูลแยกจากกัน
@@ -259,7 +259,7 @@ function Content() {
           </li>
           <li>• ควรเก็บไฟล์สำรองไว้ในที่ปลอดภัย เพื่อป้องกันข้อมูลสูญหาย</li>
         </ul>
-        <p className="mt-3 rounded-xl bg-cream-100 px-3 py-2 text-xs text-cocoa-500">
+        <p className="mt-3 rounded-xl bg-cream-100 px-3 py-2 text-xs text-plum-500">
           ปุ่มสำรองข้อมูลอยู่ที่หน้า <b>ตั้งค่า</b>
         </p>
       </section>
@@ -284,18 +284,18 @@ function Step({
     <section
       className={`rounded-2xl border p-4 ${
         highlight
-          ? "border-cocoa-400/40 bg-white shadow-sm"
+          ? "border-plum-400/40 bg-white shadow-sm"
           : "border-cream-200 bg-white"
       }`}
     >
-      <h3 className="flex items-center gap-2 text-base font-bold text-cocoa-700">
-        <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-cocoa-600 text-sm text-cream-50">
+      <h3 className="flex items-center gap-2 text-base font-bold text-plum-700">
+        <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-plum-600 text-sm text-cream-50">
           {n}
         </span>
         <span>{icon}</span>
         {title}
       </h3>
-      <div className="mt-2.5 space-y-2 text-sm leading-relaxed text-cocoa-600">
+      <div className="mt-2.5 space-y-2 text-sm leading-relaxed text-plum-600">
         {children}
       </div>
     </section>
@@ -305,18 +305,18 @@ function Step({
 function Example() {
   return (
     <section className="rounded-2xl border border-cream-200 bg-white p-4">
-      <h3 className="text-base font-bold text-cocoa-700">🧪 ตัวอย่างการคำนวณ</h3>
-      <p className="mt-2 text-sm text-cocoa-600">
+      <h3 className="text-base font-bold text-plum-700">🧪 ตัวอย่างการคำนวณ</h3>
+      <p className="mt-2 text-sm text-plum-600">
         ทดลองใช้งานด้วยข้อมูลดังต่อไปนี้
       </p>
 
-      <ul className="mt-2 space-y-0.5 text-sm text-cocoa-600">
+      <ul className="mt-2 space-y-0.5 text-sm text-plum-600">
         <li>• ค่าแรง 150 บาท/ชั่วโมง · ราคาขาย 60 บาท/ชิ้น</li>
         <li>• ช่องทาง: หัก 30% · ค่าส่ง 50 บาท/รอบ</li>
       </ul>
 
-      <p className="mt-3 text-sm font-semibold text-cocoa-700">รอบผลิต</p>
-      <p className="text-sm text-cocoa-600">
+      <p className="mt-3 text-sm font-semibold text-plum-700">รอบผลิต</p>
+      <p className="text-sm text-plum-600">
         ผลิตได้ 24 ชิ้น · วัตถุดิบ 380 บาท · เวลา 3.5 ชั่วโมง · ค่าแฝง 120 บาท
       </p>
 
@@ -328,7 +328,7 @@ function Example() {
         ]}
       />
 
-      <p className="mt-4 text-sm font-semibold text-cocoa-700">
+      <p className="mt-4 text-sm font-semibold text-plum-700">
         ทดลองขาย 10 ชิ้น ผ่านช่องทางที่หัก 30%
       </p>
 
@@ -341,11 +341,11 @@ function Example() {
         ]}
       />
 
-      <p className="mt-3 rounded-xl bg-cream-100 px-3 py-2.5 text-sm leading-relaxed text-cocoa-600">
+      <p className="mt-3 rounded-xl bg-cream-100 px-3 py-2.5 text-sm leading-relaxed text-plum-600">
         ยอดขาย 600 บาท กำไรขั้นต้น 441.67 บาท แต่เมื่อรวมต้นทุนค่าแรง
         และส่วนแบ่งของช่องทางขายแล้ว{" "}
         <b className="text-berry-500">กำไรสุทธิเป็น -57.08 บาท</b>
-        <span className="mt-1.5 block text-xs text-cocoa-500">
+        <span className="mt-1.5 block text-xs text-plum-500">
           นี่คือประโยชน์สำคัญของแอป เพราะช่วยให้เห็นต้นทุนค่าแรง
           และกำไรสุทธิที่แท้จริง ซึ่งอาจไม่ปรากฏจากการจดบันทึกยอดขายทั่วไป
         </span>
@@ -359,7 +359,7 @@ function Table({ rows }: { rows: (string | boolean | undefined)[][] }) {
     <dl className="mt-2 divide-y divide-cream-100 rounded-xl border border-cream-200">
       {rows.map(([label, value, bold, bad]) => (
         <div key={String(label)} className="flex justify-between gap-3 px-3 py-2">
-          <dt className={`text-sm ${bold ? "font-semibold text-cocoa-700" : "text-cocoa-600"}`}>
+          <dt className={`text-sm ${bold ? "font-semibold text-plum-700" : "text-plum-600"}`}>
             {label}
           </dt>
           <dd
@@ -367,8 +367,8 @@ function Table({ rows }: { rows: (string | boolean | undefined)[][] }) {
               bad
                 ? "font-bold text-berry-500"
                 : bold
-                  ? "font-bold text-cocoa-700"
-                  : "text-cocoa-600"
+                  ? "font-bold text-plum-700"
+                  : "text-plum-600"
             }`}
           >
             {value}

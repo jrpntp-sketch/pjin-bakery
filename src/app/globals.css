@@ -1,58 +1,126 @@
 @import "tailwindcss";
 
 /* ============================================================
-   โทนสีจากผ้าแพทช์เวิร์กฤดูใบไม้ร่วง
-   ครีมผ้าดิบ · ด้ายน้ำตาล · ฟักทองส้ม · ใบไม้เขียว · เบอร์รี่แดง · ทองเหลือง
-   ทุกสีที่ใช้กับตัวอักษรผ่านเกณฑ์ความคมชัดบนพื้นครีมแล้ว
+   โทน Sweetie — ชมพูหวาน ฟ้าพาสเทล แดงเชอร์รี่ ครีม เขียวมิ้นต์
+   ทุกสีที่ใช้กับตัวอักษรผ่านเกณฑ์ความคมชัดบนพื้นหลังทุกหน้าแล้ว
    ============================================================ */
 @theme {
   --font-sans: "IBM Plex Sans Thai Looped", "IBM Plex Sans Thai", ui-sans-serif,
     system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* ผ้าครีม — พื้นหลังและเส้นคั่น */
-  --color-cream-50: #faf4e6;
-  --color-cream-100: #f2e8d1;
-  --color-cream-200: #e5d5b4;
+  /* ครีมงาช้าง — พื้นหลังกลางและเส้นคั่น */
+  --color-cream-50: #fdf7ef;
+  --color-cream-100: #f9ece1;
+  --color-cream-200: #f0dccd;
 
-  /* ด้ายน้ำตาล — ตัวอักษรและปุ่มหลัก */
-  --color-cocoa-400: #9a7a4f; /* ข้อความรอง */
-  --color-cocoa-500: #825f33;
-  --color-cocoa-600: #6f4722; /* พื้นปุ่ม */
-  --color-cocoa-700: #4a3118; /* ข้อความหลัก */
+  /* พลัม — ตัวอักษรและปุ่มหลัก (แดงอมน้ำตาลแบบตัวหนังสือในภาพ) */
+  --color-plum-400: #a3696e; /* ข้อความรอง */
+  --color-plum-500: #8e5057;
+  --color-plum-600: #7d3d43; /* พื้นปุ่ม */
+  --color-plum-700: #5e2b30; /* ข้อความหลัก */
 
-  /* ฟักทอง — สีเน้น */
-  --color-pumpkin-400: #f0a052;
-  --color-pumpkin-500: #e8862e;
-  --color-pumpkin-600: #cf6a1c;
+  /* เชอร์รี่ — ขาดทุน / เน้นแรง */
+  --color-berry-400: #e98a95;
+  --color-berry-500: #b02a3b;
+  --color-berry-600: #97202f;
 
-  /* ใบไม้เขียว — กำไร/ผ่าน */
-  --color-leaf-400: #8a9c5e;
-  --color-leaf-500: #5f7337;
-  --color-leaf-600: #4a5a2a;
+  /* มิ้นต์ — กำไร / ผ่าน */
+  --color-leaf-400: #8fc2a0;
+  --color-leaf-500: #3c6a4d;
+  --color-leaf-600: #2f553d;
 
-  /* เบอร์รี่แดง — ขาดทุน/เตือนแรง */
-  --color-berry-500: #c0402c;
-  --color-berry-600: #a13421;
+  /* พีช — เตือนเบา */
+  --color-peach-400: #f5c49a;
+  --color-peach-500: #e09553;
+  --color-peach-600: #b06a22;
+  --color-peach-700: #8a5016;
 
-  /* ทองเหลือง — เตือนเบา */
-  --color-honey-500: #d9a627;
-  --color-honey-600: #a06d0c;
-  --color-honey-700: #7d5409;
+  /* ฟ้าพาสเทล — สีเน้น (โลโก้ในภาพเป็นฟ้า) */
+  --color-sky-300: #bcdcf2;
+  --color-sky-400: #7fb3da;
+  --color-sky-500: #4d86b5;
+  --color-sky-600: #3d7ba8;
+
+  /* ชมพูหวาน */
+  --color-blush-200: #fbd5da;
+  --color-blush-300: #f7bcc4;
+  --color-blush-400: #f2a8ae;
 }
 
 :root {
   color-scheme: light;
+
+  /* ค่าเริ่มต้นของสีประจำหน้า — แต่ละหน้าจะเขียนทับด้านล่าง */
+  --page-tint: #fce7ea;
+  --page-line: #f6ccd3;
+  --page-accent: #b02a3b;
 }
 
+/* ---- สีประจำแต่ละหน้า ----
+   เปลี่ยนแค่พื้นหลัง เส้นตาราง และสีหัวข้อ
+   ส่วนสีที่มีความหมาย (กำไรเขียว/ขาดทุนแดง) คงเดิมทุกหน้า
+   ไม่งั้นอ่านตัวเลขข้ามหน้าแล้วสับสน */
+[data-page="home"]     { --page-tint:#fce7ea; --page-line:#f6ccd3; --page-accent:#b02a3b; }
+[data-page="batches"]  { --page-tint:#e4f0fa; --page-line:#c9e0f2; --page-accent:#31688f; }
+[data-page="sales"]    { --page-tint:#e3f2e8; --page-line:#c6e3d1; --page-accent:#3c6a4d; }
+[data-page="products"] { --page-tint:#fdeee0; --page-line:#f7d9bd; --page-accent:#9c5b18; }
+[data-page="channels"] { --page-tint:#fbf3dc; --page-line:#f0e2b8; --page-accent:#8e5057; }
+[data-page="expenses"] { --page-tint:#fae4e9; --page-line:#f2c6d1; --page-accent:#97202f; }
+[data-page="reports"]  { --page-tint:#eaeaf7; --page-line:#d4d4ee; --page-accent:#5a5a9e; }
+[data-page="settings"] { --page-tint:#fdf7ef; --page-line:#f0dccd; --page-accent:#7d3d43; }
+
 body {
-  background: var(--color-cream-50);
-  color: var(--color-cocoa-700);
+  background: var(--page-tint);
+  color: var(--color-plum-700);
   -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.25s ease;
+}
+
+/* ลายสก็อตแบบผ้าปูโต๊ะในภาพ — เส้นบางถี่ สลับเส้นหนาห่าง ๆ
+   ใช้ความจางต่ำมากเพื่อให้รู้สึกเป็นผ้า ไม่ใช่กระดาษกราฟ
+   ตัวเลขทั้งหมดอยู่บนการ์ดขาวทึบ จึงไม่กระทบการอ่าน */
+.plaid {
+  background-image:
+    /* เส้นหนา แนวตั้ง/แนวนอน */
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-line) 55%, transparent) 0 6px,
+      transparent 6px 104px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--page-line) 55%, transparent) 0 6px,
+      transparent 6px 104px
+    ),
+    /* เส้นบาง */
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--page-line) 30%, transparent) 0 2px,
+      transparent 2px 26px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--page-line) 30%, transparent) 0 2px,
+      transparent 2px 26px
+    );
+  background-position: center top;
 }
 
 /* ตัวเลขเรียงตรงกันในตาราง */
 .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+/* ขอบหยักแบบลูกไม้ ใช้ใต้หัวข้อหน้า */
+.scallop {
+  height: 8px;
+  background-image: radial-gradient(
+    circle at 6px 0,
+    var(--page-line) 5.5px,
+    transparent 6px
+  );
+  background-size: 12px 8px;
+  background-repeat: repeat-x;
 }
 
 /* ซ่อน spinner ของ input[type=number] เพื่อให้กรอกบนมือถือสบายขึ้น */

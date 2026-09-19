@@ -45,21 +45,21 @@ export default function ReportsPage() {
       <Card className="mb-4">
         <div className="flex flex-wrap items-end gap-3">
           <label className="flex-1">
-            <span className="mb-1.5 block text-xs font-semibold text-cocoa-600">ตั้งแต่</span>
+            <span className="mb-1.5 block text-xs font-semibold text-plum-600">ตั้งแต่</span>
             <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} className={inputClass} />
           </label>
           <label className="flex-1">
-            <span className="mb-1.5 block text-xs font-semibold text-cocoa-600">ถึง</span>
+            <span className="mb-1.5 block text-xs font-semibold text-plum-600">ถึง</span>
             <input type="date" value={to} onChange={(e) => setTo(e.target.value)} className={inputClass} />
           </label>
           <div className="flex gap-1.5">
             <button type="button" onClick={thisMonth}
-              className="rounded-xl border border-cream-200 px-3 py-2.5 text-xs font-semibold text-cocoa-600 transition hover:bg-cream-100">
+              className="rounded-xl border border-cream-200 px-3 py-2.5 text-xs font-semibold text-plum-600 transition hover:bg-cream-100">
               เดือนนี้
             </button>
             {PRESETS.map((p) => (
               <button key={p.days} type="button" onClick={() => preset(p.days)}
-                className="rounded-xl border border-cream-200 px-3 py-2.5 text-xs font-semibold text-cocoa-600 transition hover:bg-cream-100">
+                className="rounded-xl border border-cream-200 px-3 py-2.5 text-xs font-semibold text-plum-600 transition hover:bg-cream-100">
                 {p.label}
               </button>
             ))}
@@ -99,27 +99,27 @@ function Breakdown({ title, subtitle, rows }: {
   const max = Math.max(...rows.map((r) => Math.abs(r.gross)), 1);
 
   return (
-    <Card title={title} action={<span className="text-xs text-cocoa-400">{subtitle}</span>}>
+    <Card title={title} action={<span className="text-xs text-plum-400">{subtitle}</span>}>
       <ul className="space-y-4">
         {rows.map((r) => {
           const margin = r.revenue > 0 ? (r.net / r.revenue) * 100 : 0;
           return (
             <li key={r.id}>
               <div className="mb-1.5 flex items-baseline justify-between gap-2">
-                <p className="truncate text-sm font-semibold text-cocoa-700">{r.label}</p>
-                <p className="tabular shrink-0 text-xs text-cocoa-400">
+                <p className="truncate text-sm font-semibold text-plum-700">{r.label}</p>
+                <p className="tabular shrink-0 text-xs text-plum-400">
                   {num(r.units)} ชิ้น · {money(r.revenue)}
                 </p>
               </div>
               <div className="space-y-1">
                 <Bar label="ขั้นต้น" value={money(r.gross)}
-                  pct={(Math.abs(r.gross) / max) * 100} className="bg-cocoa-400" />
+                  pct={(Math.abs(r.gross) / max) * 100} className="bg-plum-400" />
                 <Bar label="สุทธิ" value={money(r.net)}
                   pct={(Math.abs(r.net) / max) * 100}
                   className={r.net >= 0 ? "bg-leaf-500" : "bg-berry-500"} />
               </div>
               <p className={`mt-1 text-xs font-medium ${
-                r.net < 0 ? "text-berry-500" : margin < 15 ? "text-honey-600" : "text-cocoa-400"}`}>
+                r.net < 0 ? "text-berry-500" : margin < 15 ? "text-peach-600" : "text-plum-400"}`}>
                 {r.net < 0 ? "⚠️ ขาดทุนเมื่อคิดค่าแรง"
                   : margin < 15 ? `มาร์จิ้นสุทธิ ${margin.toFixed(0)}% — บาง`
                   : `มาร์จิ้นสุทธิ ${margin.toFixed(0)}%`}
@@ -137,11 +137,11 @@ function Bar({ label, value, pct, className }: {
 }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="w-12 shrink-0 text-xs text-cocoa-400">{label}</span>
+      <span className="w-12 shrink-0 text-xs text-plum-400">{label}</span>
       <div className="h-2 flex-1 overflow-hidden rounded-full bg-cream-100">
         <div className={`h-full rounded-full ${className}`} style={{ width: `${Math.min(100, pct)}%` }} />
       </div>
-      <span className="tabular w-20 shrink-0 text-right text-xs font-semibold text-cocoa-600">{value}</span>
+      <span className="tabular w-20 shrink-0 text-right text-xs font-semibold text-plum-600">{value}</span>
     </div>
   );
 }

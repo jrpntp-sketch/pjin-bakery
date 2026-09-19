@@ -60,7 +60,7 @@ export default function SettingsPage() {
           <StorageCard />
 
           <Card title="❓ คู่มือการใช้งาน">
-            <p className="mb-3 text-sm text-cocoa-600">
+            <p className="mb-3 text-sm text-plum-600">
               ขั้นตอนการใช้งานทั้งหมด ตัวอย่างการคำนวณ และวิธีสำรองข้อมูล
             </p>
             <Button type="button" variant="ghost" onClick={openGuide}>
@@ -69,23 +69,23 @@ export default function SettingsPage() {
           </Card>
 
           <Card title="ระบบคิดต้นทุนยังไง">
-            <div className="space-y-3 text-sm text-cocoa-600">
+            <div className="space-y-3 text-sm text-plum-600">
               <p>
-                <span className="font-semibold text-cocoa-700">ต้นทุนจริงต่อชิ้น</span> ={" "}
+                <span className="font-semibold text-plum-700">ต้นทุนจริงต่อชิ้น</span> ={" "}
                 (วัตถุดิบ + ค่าแรง + ค่าแฝง) ÷ จำนวนที่ได้ต่อรอบ
               </p>
               <p>
-                <span className="font-semibold text-cocoa-700">กำไรขั้นต้น</span> = ยอดขาย − ต้นทุนวัตถุดิบ
-                <span className="block text-xs text-cocoa-400">
+                <span className="font-semibold text-plum-700">กำไรขั้นต้น</span> = ยอดขาย − ต้นทุนวัตถุดิบ
+                <span className="block text-xs text-plum-400">
                   ตัวเลขที่หลายคนคิดว่าเป็น &ldquo;กำไร&rdquo; แต่ยังไม่รวมแรงที่ลงไป
                 </span>
               </p>
               <p>
-                <span className="font-semibold text-cocoa-700">กำไรสุทธิ</span> = ยอดขาย −
+                <span className="font-semibold text-plum-700">กำไรสุทธิ</span> = ยอดขาย −
                 ต้นทุนจริงต่อชิ้น − ส่วนแบ่งช่องทาง − ค่าส่ง
-                <span className="block text-xs text-cocoa-400">ตัวเลขที่บอกว่าคุ้มค่าแรงจริงไหม</span>
+                <span className="block text-xs text-plum-400">ตัวเลขที่บอกว่าคุ้มค่าแรงจริงไหม</span>
               </p>
-              <p className="rounded-xl bg-cream-50 p-3 text-xs text-cocoa-400">
+              <p className="rounded-xl bg-cream-50 p-3 text-xs text-plum-400">
                 ค่าแรงจะถูกบันทึกติดไปกับแต่ละรอบผลิต ถ้าปรับค่าแรงวันนี้
                 รอบผลิตเก่าจะไม่เปลี่ยนตาม — ประวัติกำไรจึงยังตรงกับความจริง
               </p>
@@ -116,8 +116,8 @@ function BackupCard() {
 
   return (
     <Card title="💾 สำรองข้อมูล">
-      <p className="mb-3 text-sm text-cocoa-600">
-        ข้อมูลเก็บอยู่ในเครื่องนี้เครื่องเดียว <span className="font-semibold text-cocoa-700">
+      <p className="mb-3 text-sm text-plum-600">
+        ข้อมูลเก็บอยู่ในเครื่องนี้เครื่องเดียว <span className="font-semibold text-plum-700">
         ถ้าลบแอปออกจากหน้าจอ ข้อมูลจะหายทั้งหมด</span> — กดสำรองเก็บไว้เป็นระยะ
         แล้วส่งไฟล์เข้าแชทตัวเองหรือเก็บใน iCloud Drive
       </p>
@@ -144,7 +144,7 @@ function BackupCard() {
           await wipeAll();
           location.reload();
         }}
-        className="mt-4 text-xs font-semibold text-cocoa-400 transition hover:text-berry-500">
+        className="mt-4 text-xs font-semibold text-plum-400 transition hover:text-berry-500">
         ลบข้อมูลทั้งหมดแล้วเริ่มใหม่
       </button>
     </Card>
@@ -167,14 +167,14 @@ function StorageCard() {
 
   return (
     <Card title="📱 ที่เก็บข้อมูล">
-      <div className="space-y-3 text-sm text-cocoa-600">
+      <div className="space-y-3 text-sm text-plum-600">
         <p>
           ข้อมูลทั้งหมดอยู่ในเครื่องนี้ ไม่ได้ส่งไปไหน ไม่ต้องล็อกอิน ใช้ได้แม้ไม่มีเน็ต
-          {usage && <span className="block text-xs text-cocoa-400">ใช้พื้นที่ {usage}</span>}
+          {usage && <span className="block text-xs text-plum-400">ใช้พื้นที่ {usage}</span>}
         </p>
 
         <div className={`rounded-xl p-3 text-xs ${
-          persisted ? "bg-leaf-500/10 text-leaf-500" : "bg-honey-500/15 text-honey-700"}`}>
+          persisted ? "bg-leaf-500/10 text-leaf-500" : "bg-peach-500/15 text-peach-700"}`}>
           {persisted === null ? "กำลังตรวจสอบ…"
             : persisted ? "✓ เบราว์เซอร์รับปากว่าจะไม่ล้างข้อมูลนี้ทิ้ง"
             : "⚠️ เบราว์เซอร์ยังไม่รับประกันว่าจะเก็บข้อมูลให้ถาวร"}
@@ -187,8 +187,8 @@ function StorageCard() {
           </Button>
         )}
 
-        <div className="rounded-xl bg-cream-50 p-3 text-xs text-cocoa-400">
-          <p className="mb-1 font-semibold text-cocoa-600">📌 สำคัญสำหรับ iPhone</p>
+        <div className="rounded-xl bg-cream-50 p-3 text-xs text-plum-400">
+          <p className="mb-1 font-semibold text-plum-600">📌 สำคัญสำหรับ iPhone</p>
           ต้องกด <span className="font-semibold">แชร์ → เพิ่มลงในหน้าจอโฮม</span> แล้วเปิดใช้จากไอคอนนั้น
           ถ้าเปิดจากแท็บ Safari เฉยๆ ระบบอาจล้างข้อมูลทิ้งเมื่อไม่ได้เปิดนานเกิน 7 วัน
         </div>
