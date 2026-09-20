@@ -148,12 +148,17 @@ export default function NewBatchPage() {
             ) : (
               <div className="space-y-2">
                 {lines.map((l) => (
-                  <div key={l.key} className="flex gap-2">
+                  /* inputClass มี w-full อยู่แล้ว การเติม w-28 ต่อท้ายจึงตีกันเอง
+                     ใช้ flex shorthand แทน เพราะ flex-basis มีผลเหนือ width
+                     สำหรับ flex item — ช่องชื่อกว้างกว่าช่องราคา 3 ต่อ 1 */
+                  <div key={l.key} className="flex items-center gap-2">
                     <input value={l.name} onChange={(e) => updateLine(l.key, { name: e.target.value })}
-                      placeholder="เช่น แป้ง, เนย" className={`${inputClass} flex-1`} />
+                      placeholder="เช่น แป้ง, เนย"
+                      className={`${inputClass} min-w-0 flex-[3_1_6rem]`} />
                     <input {...numberInput}
                       value={l.cost} onChange={(e) => updateLine(l.key, { cost: e.target.value })}
-                      placeholder="0.00" className={`${inputClass} w-28`} />
+                      placeholder="0.00"
+                      className={`${inputClass} min-w-0 flex-[1_1_4.5rem]`} />
                     <button type="button" onClick={() => removeLine(l.key)} aria-label="ลบรายการ"
                       className="shrink-0 rounded-xl px-2.5 text-plum-400 transition hover:bg-berry-500/10 hover:text-berry-500">
                       ✕
