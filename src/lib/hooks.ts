@@ -157,6 +157,94 @@ export function useDashboard() {
   }, []);
 }
 
+/**
+ * รายรับ-รายจ่าย = เงินสดเข้าออกจริง ต่างจากหน้ารายงานที่ดู "กำไร"
+ *
+ * จุดต่างที่สำคัญ: ค่าแรงตัวเองไม่นับเป็นเงินออก เพราะไม่ได้จ่ายให้ใครจริง
+ * เป็นต้นทุนค่าเสียโอกาส ใช้ตอบว่า "คุ้มแรงไหม" ซึ่งเป็นคำถามคนละข้อ
+ * กับ "ตอนนี้มีเงินเหลือเท่าไหร่"
+ *
+ * เงินที่ได้รับจริงจากการขาย = ยอดขาย − ส่วนแบ่งช่องทาง
+ * เพราะร้านที่ฝากขายหักส่วนแบ่งก่อนจ่ายให้เรา
+ */
+export function useCashflow(from: string, to: string) {
+  return useLiveQuery(async () => {
+    const inRange = (d: string) => d >= from && d <= to;
+    const [products, batches, transactions, channels, expenses] = await Promise.all([
+      db.products.toArray(),
+      db.batches.toArray(),
+      db.transactions.toArray(),
+      db.channels.toArray(),
+      db.expenses.toArray(),
+    ]);
+    const pName = new Map(products.map((p) => [p.id, p.name]));
+    const cName = new Map(channels.map((c) => [c.id, c.name]));
+
+    const sales = transactions.filter((t) => inRange(t.soldOn));
+    const runs = batches.filter((b) => inRange(b.producedOn));
+    const other = expenses.filter((e) => inRange(e.spentOn));
+
+    const grossSales = sales.reduce((s, t) => s + t.qty * t.unitPrice, 0);
+    const channelShare = sales.reduce((s, t) => s + t.channelShare, 0);
+    const received = grossSales - channelShare;
+
+    const materials = runs.reduce((s, b) => s + b.materialCost, 0);
+    const overhead = runs.reduce((s, b) => s + b.overheadCost, 0);
+    const delivery = sales.reduce((s, t) => s + t.deliveryCost, 0);
+    const otherOut = other.reduce((s, e) => s + e.amount, 0);
+    const paidOut = materials + overhead + delivery + otherOut;
+
+    // ไม่รวมในเงินออก แต่แสดงให้เห็นเพื่อเทียบกับหน้ารายงาน
+    const ownLabor = runs.reduce((s, b) => s + b.hoursSpent * b.hourlyWageSnapshot, 0);
+    const hours = runs.reduce((s, b) => s + b.hoursSpent, 0);
+
+    type Move = {
+      id: string; date: string; label: string; detail: string;
+      amount: number; kind: "in" | "out";
+    };
+    const moves: Move[] = [
+      ...sales.map((t) => ({
+        id: "s" + t.id,
+        date: t.soldOn,
+        label: pName.get(t.productId) ?? "สินค้าที่ถูกลบ",
+        detail: `ขาย ${t.qty} · ${cName.get(t.channelId) ?? "—"}` +
+          (t.channelShare > 0 ? ` · หักส่วนแบ่ง ${t.channelShare.toFixed(2)}` : ""),
+        amount: t.qty * t.unitPrice - t.channelShare,
+        kind: "in" as const,
+      })),
+      ...runs.flatMap((b) => {
+        const name = pName.get(b.productId) ?? "สินค้าที่ถูกลบ";
+        const rows: Move[] = [];
+        if (b.materialCost > 0)
+          rows.push({ id: "m" + b.id, date: b.producedOn, label: "ค่าวัตถุดิบ",
+            detail: `${name} · ผลิต ${b.qtyProduced}`, amount: b.materialCost, kind: "out" });
+        if (b.overheadCost > 0)
+          rows.push({ id: "o" + b.id, date: b.producedOn, label: "ค่าแฝง",
+            detail: name, amount: b.overheadCost, kind: "out" });
+        return rows;
+      }),
+      ...sales.filter((t) => t.deliveryCost > 0).map((t) => ({
+        id: "d" + t.id, date: t.soldOn, label: "ค่าส่ง",
+        detail: cName.get(t.channelId) ?? "—",
+        amount: t.deliveryCost, kind: "out" as const,
+      })),
+      ...other.map((e) => ({
+        id: "e" + e.id, date: e.spentOn, label: e.category,
+        detail: e.note ?? "", amount: e.amount, kind: "out" as const,
+      })),
+    ].sort((a, b) => b.date.localeCompare(a.date));
+
+    return {
+      in: { grossSales, channelShare, received },
+      out: { materials, overhead, delivery, other: otherOut, total: paidOut },
+      net: received - paidOut,
+      ownLabor, hours,
+      moves,
+      count: moves.length,
+    };
+  }, [from, to]);
+}
+
 export function useReport(from: string, to: string) {
   return useLiveQuery(async () => {
     const [rows, expenses] = await Promise.all([

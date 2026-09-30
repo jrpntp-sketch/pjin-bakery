@@ -68,6 +68,7 @@
 [data-page="home"]     { --page-tint:#f7e9d7; --page-line:#e8d0ae; --page-accent:#4a2c1a; }
 [data-page="batches"]  { --page-tint:#f1e6dc; --page-line:#dccbb8; --page-accent:#473727; }
 [data-page="sales"]    { --page-tint:#faeed8; --page-line:#efd9ae; --page-accent:#8a5418; }
+[data-page="cashflow"] { --page-tint:#eef0e4; --page-line:#d8ddc4; --page-accent:#4a5a2a; }
 [data-page="products"] { --page-tint:#f6eadd; --page-line:#e6d0b8; --page-accent:#8a3f22; }
 [data-page="channels"] { --page-tint:#f3e7d3; --page-line:#e2cca6; --page-accent:#6a4626; }
 [data-page="expenses"] { --page-tint:#f5e4de; --page-line:#e6c8bd; --page-accent:#8f2f28; }
