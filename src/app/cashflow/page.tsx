@@ -69,7 +69,7 @@ export default function CashflowPage() {
 
       <div className="mb-4 grid grid-cols-2 gap-3 lg:grid-cols-3">
         <Stat label="เงินเข้า" value={money(c.in.received)} tone="good"
-          hint="ยอดขายหลังหักส่วนแบ่ง" />
+          hint={c.in.otherIn > 0 ? "ขายหลังหักส่วนแบ่ง + รายรับอื่น" : "ยอดขายหลังหักส่วนแบ่ง"} />
         <Stat label="เงินออก" value={money(c.out.total)} tone="bad"
           hint="จ่ายออกไปจริง" />
         <Stat label="คงเหลือ" value={money(c.net)}
@@ -87,6 +87,9 @@ export default function CashflowPage() {
                 <Row label="ยอดขายทั้งหมด" value={money(c.in.grossSales)} />
                 {c.in.channelShare > 0 && (
                   <Row label="หักส่วนแบ่งช่องทาง" value={"−" + money(c.in.channelShare)} muted />
+                )}
+                {c.in.otherIn > 0 && (
+                  <Row label="รายรับอื่น" value={money(c.in.otherIn)} />
                 )}
                 <Total label="ได้รับจริง" value={money(c.in.received)} tone="good" />
               </dl>

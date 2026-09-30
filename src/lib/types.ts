@@ -62,8 +62,16 @@ export type Transaction = {
   createdAt: string;
 };
 
-export type Expense = {
+/**
+ * เงินเข้า-ออกที่ไม่ผูกกับรอบผลิตหรือการขาย
+ * เช่น ซื้อเตาใหม่ (ออก) หรือขายอุปกรณ์เก่า (เข้า)
+ *
+ * เก็บอยู่ในตารางชื่อ "expenses" ตามเดิม เพราะการเปลี่ยนชื่อตาราง
+ * ต้องย้ายข้อมูลทั้งหมด ซึ่งเสี่ยงกว่าประโยชน์ที่ได้
+ */
+export type MoneyEntry = {
   id: string;
+  kind: "in" | "out";
   category: string;
   amount: number;
   spentOn: string; // YYYY-MM-DD

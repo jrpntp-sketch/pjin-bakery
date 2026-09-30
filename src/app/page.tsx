@@ -42,7 +42,7 @@ export default function DashboardPage() {
         <Stat label="กำไรสุทธิ" value={money(d.month.net)}
           tone={d.month.net > 0 ? "good" : d.month.net < 0 ? "bad" : "neutral"} />
         <Stat label="กำไรสุทธิหลังหักรายจ่ายอื่น" value={money(afterExpenses)}
-          hint={`รายจ่ายอื่น ${money(d.monthExpenses)}`}
+          hint={`รับ-จ่ายอื่นสุทธิ ${money(d.monthExpenses)}`}
           tone={afterExpenses > 0 ? "good" : afterExpenses < 0 ? "bad" : "neutral"} />
       </div>
 

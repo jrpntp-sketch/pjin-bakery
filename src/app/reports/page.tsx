@@ -78,7 +78,7 @@ export default function ReportsPage() {
           hint={`ต้นทุนค่าแรง ต้นทุนแฝง และส่วนแบ่งรวม ${money(hiddenCost)}`}
           tone={r.totals.net > 0 ? "good" : r.totals.net < 0 ? "bad" : "neutral"} />
         <Stat label="กำไรสุทธิขั้นสุดท้าย" value={money(bottomLine)}
-          hint={`หลังหักรายจ่ายอื่น ${money(r.otherExpenses)}`}
+          hint={`หลังรับ-จ่ายอื่นสุทธิ ${money(r.otherExpenses)}`}
           tone={bottomLine > 0 ? "good" : bottomLine < 0 ? "bad" : "neutral"} />
       </div>
 

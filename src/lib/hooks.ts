@@ -130,9 +130,12 @@ export function useDashboard() {
       db.expenses.toArray(),
     ]);
 
-    const monthExpenses = allExpenses
-      .filter((e) => e.spentOn >= monthStart)
-      .reduce((s, e) => s + e.amount, 0);
+    // "รายจ่ายอื่น" ในภาพรวม = ขาออกสุทธิ (จ่ายออก − รับเข้า)
+    // เพราะรายรับอื่นก็ทำให้เงินเหลือมากขึ้นเหมือนกัน
+    const monthOther = allExpenses.filter((e) => e.spentOn >= monthStart);
+    const monthExpenses =
+      monthOther.filter((e) => e.kind !== "in").reduce((s, e) => s + e.amount, 0) -
+      monthOther.filter((e) => e.kind === "in").reduce((s, e) => s + e.amount, 0);
 
     const byProduct = groupTotals(
       monthRows,
@@ -182,11 +185,14 @@ export function useCashflow(from: string, to: string) {
 
     const sales = transactions.filter((t) => inRange(t.soldOn));
     const runs = batches.filter((b) => inRange(b.producedOn));
-    const other = expenses.filter((e) => inRange(e.spentOn));
+    const otherAll = expenses.filter((e) => inRange(e.spentOn));
+    const otherIn = otherAll.filter((e) => e.kind === "in");
+    const other = otherAll.filter((e) => e.kind !== "in");
 
     const grossSales = sales.reduce((s, t) => s + t.qty * t.unitPrice, 0);
     const channelShare = sales.reduce((s, t) => s + t.channelShare, 0);
-    const received = grossSales - channelShare;
+    const otherInTotal = otherIn.reduce((s, e) => s + e.amount, 0);
+    const received = grossSales - channelShare + otherInTotal;
 
     const materials = runs.reduce((s, b) => s + b.materialCost, 0);
     const overhead = runs.reduce((s, b) => s + b.overheadCost, 0);
@@ -232,10 +238,14 @@ export function useCashflow(from: string, to: string) {
         id: "e" + e.id, date: e.spentOn, label: e.category,
         detail: e.note ?? "", amount: e.amount, kind: "out" as const,
       })),
+      ...otherIn.map((e) => ({
+        id: "i" + e.id, date: e.spentOn, label: e.category,
+        detail: e.note ?? "", amount: e.amount, kind: "in" as const,
+      })),
     ].sort((a, b) => b.date.localeCompare(a.date));
 
     return {
-      in: { grossSales, channelShare, received },
+      in: { grossSales, channelShare, otherIn: otherInTotal, received },
       out: { materials, overhead, delivery, other: otherOut, total: paidOut },
       net: received - paidOut,
       ownLabor, hours,
@@ -251,9 +261,10 @@ export function useReport(from: string, to: string) {
       loadSales(from, to),
       db.expenses.toArray(),
     ]);
-    const otherExpenses = expenses
-      .filter((e) => e.spentOn >= from && e.spentOn <= to)
-      .reduce((s, e) => s + e.amount, 0);
+    const inRange = expenses.filter((e) => e.spentOn >= from && e.spentOn <= to);
+    const otherExpenses =
+      inRange.filter((e) => e.kind !== "in").reduce((s, e) => s + e.amount, 0) -
+      inRange.filter((e) => e.kind === "in").reduce((s, e) => s + e.amount, 0);
 
     return {
       totals: rows.length ? sumTotals(rows) : { ...EMPTY_TOTALS },

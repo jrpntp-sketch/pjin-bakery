@@ -4,7 +4,7 @@ import { db, getSettings } from "./db";
 import type {
   Batch,
   Channel,
-  Expense,
+  MoneyEntry,
   Product,
   Settings,
   Transaction,
@@ -24,7 +24,7 @@ export type BackupFile = {
     channels: Channel[];
     batches: Batch[];
     transactions: Transaction[];
-    expenses: Expense[];
+    expenses: MoneyEntry[];
   };
 };
 
@@ -122,7 +122,10 @@ export async function restoreBackup(file: File): Promise<RestoreResult> {
         db.channels.bulkAdd(d.channels ?? []),
         db.batches.bulkAdd(d.batches ?? []),
         db.transactions.bulkAdd(d.transactions ?? []),
-        db.expenses.bulkAdd(d.expenses ?? []),
+        // ไฟล์สำรองที่ทำก่อนมีรายรับอื่น จะไม่มีช่อง kind — เติมเป็น "out"
+        db.expenses.bulkAdd(
+          (d.expenses ?? []).map((e) => ({ ...e, kind: e.kind ?? "out" })),
+        ),
       ]);
     },
   );

@@ -4,7 +4,7 @@ import Dexie, { type EntityTable } from "dexie";
 import type {
   Batch,
   Channel,
-  Expense,
+  MoneyEntry,
   Product,
   Settings,
   Transaction,
@@ -20,7 +20,7 @@ class BakeryDB extends Dexie {
   channels!: EntityTable<Channel, "id">;
   batches!: EntityTable<Batch, "id">;
   transactions!: EntityTable<Transaction, "id">;
-  expenses!: EntityTable<Expense, "id">;
+  expenses!: EntityTable<MoneyEntry, "id">;
 
   constructor() {
     super("pjin-bakery");
@@ -32,6 +32,19 @@ class BakeryDB extends Dexie {
       transactions: "id, productId, channelId, soldOn",
       expenses: "id, spentOn, category",
     });
+
+    // เดิมตารางนี้เก็บแต่รายจ่าย ตอนนี้เก็บรายรับด้วย
+    // ข้อมูลเก่าไม่มีช่อง kind จึงเติมให้เป็น "out" ทั้งหมด
+    this.version(2)
+      .stores({ expenses: "id, spentOn, category, kind" })
+      .upgrade((tx) =>
+        tx
+          .table("expenses")
+          .toCollection()
+          .modify((e) => {
+            if (!e.kind) e.kind = "out";
+          }),
+      );
   }
 }
 

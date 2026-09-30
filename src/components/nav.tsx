@@ -14,7 +14,7 @@ const LINKS = [
   { href: "/cashflow", label: "รายรับ-รายจ่าย", icon: "🍮" },
   { href: "/products", label: "สินค้า", icon: "🥨" },
   { href: "/channels", label: "ช่องทาง", icon: "🧁" },
-  { href: "/expenses", label: "รายจ่ายอื่น", icon: "💸" },
+  { href: "/expenses", label: "รับ-จ่ายอื่น", icon: "💸" },
   { href: "/reports", label: "รายงาน", icon: "🍰" },
 ] as const;
 
