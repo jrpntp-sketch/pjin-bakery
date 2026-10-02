@@ -133,9 +133,13 @@ export function useDashboard() {
     // "รายจ่ายอื่น" ในภาพรวม = ขาออกสุทธิ (จ่ายออก − รับเข้า)
     // เพราะรายรับอื่นก็ทำให้เงินเหลือมากขึ้นเหมือนกัน
     const monthOther = allExpenses.filter((e) => e.spentOn >= monthStart);
-    const monthExpenses =
-      monthOther.filter((e) => e.kind !== "in").reduce((s, e) => s + e.amount, 0) -
-      monthOther.filter((e) => e.kind === "in").reduce((s, e) => s + e.amount, 0);
+    const monthOtherOut = monthOther
+      .filter((e) => e.kind !== "in")
+      .reduce((s, e) => s + e.amount, 0);
+    const monthOtherIn = monthOther
+      .filter((e) => e.kind === "in")
+      .reduce((s, e) => s + e.amount, 0);
+    const monthExpenses = monthOtherOut - monthOtherIn;
 
     const byProduct = groupTotals(
       monthRows,
@@ -147,6 +151,8 @@ export function useDashboard() {
       today: sumTotals(monthRows.filter((t) => t.soldOn === today)),
       month: sumTotals(monthRows),
       monthExpenses,
+      monthOtherIn,
+      monthOtherOut,
       lowStock: stock
         .filter((s) => s.stockQty <= s.product.lowStockThreshold)
         .sort((a, b) => a.stockQty - b.stockQty),
@@ -262,13 +268,18 @@ export function useReport(from: string, to: string) {
       db.expenses.toArray(),
     ]);
     const inRange = expenses.filter((e) => e.spentOn >= from && e.spentOn <= to);
-    const otherExpenses =
-      inRange.filter((e) => e.kind !== "in").reduce((s, e) => s + e.amount, 0) -
-      inRange.filter((e) => e.kind === "in").reduce((s, e) => s + e.amount, 0);
+    const otherOut = inRange
+      .filter((e) => e.kind !== "in")
+      .reduce((s, e) => s + e.amount, 0);
+    const otherIn = inRange
+      .filter((e) => e.kind === "in")
+      .reduce((s, e) => s + e.amount, 0);
 
     return {
       totals: rows.length ? sumTotals(rows) : { ...EMPTY_TOTALS },
-      otherExpenses,
+      otherExpenses: otherOut - otherIn,
+      otherIn,
+      otherOut,
       byProduct: groupTotals(rows, (t) => t.productId, (t) => t.productName),
       byChannel: groupTotals(rows, (t) => t.channelId, (t) => t.channelName),
       count: rows.length,

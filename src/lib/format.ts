@@ -39,3 +39,13 @@ export function todayISO(): string {
 export function monthStartISO(): string {
   return todayISO().slice(0, 8) + "01";
 }
+
+/** คำอธิบายใต้ "กำไรหลังรับ-จ่ายอื่น"
+ *  เลี่ยงการโชว์ยอดสุทธิติดลบ เพราะ "รับ-จ่ายอื่นสุทธิ -฿1,610" อ่านเหมือนขาดทุน
+ *  ทั้งที่ความจริงคือรับเข้ามากกว่าจ่ายออก 1,610 บาท */
+export function otherFlowHint(inAmt: number, outAmt: number): string {
+  if (!inAmt && !outAmt) return "ยังไม่มีรับ-จ่ายอื่นในช่วงนี้";
+  if (!inAmt) return `หักรายจ่ายอื่น ${money(outAmt)}`;
+  if (!outAmt) return `บวกรายรับอื่น ${money(inAmt)}`;
+  return `บวกรายรับอื่น ${money(inAmt)} · หักรายจ่ายอื่น ${money(outAmt)}`;
+}

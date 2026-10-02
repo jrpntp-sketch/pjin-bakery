@@ -119,7 +119,7 @@ export default function EntriesPage() {
 
               <Field label="หมวดหมู่">
                 {/* key บังคับให้ select สร้างใหม่ตอนสลับ ไม่งั้นค่าเดิมค้างข้ามชุด */}
-                <select key={kind} name="category" defaultValue="อื่นๆ" className={inputClass}>
+                <select key={kind} name="category" className={inputClass}>
                   {(isIn ? CAT_IN : CAT_OUT).map((c) => <option key={c} value={c}>{c}</option>)}
                 </select>
               </Field>

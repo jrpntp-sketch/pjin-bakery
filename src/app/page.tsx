@@ -1,7 +1,7 @@
 "use client";
 
 import { useDashboard } from "@/lib/hooks";
-import { money, num, thaiDate } from "@/lib/format";
+import { money, num, otherFlowHint, thaiDate } from "@/lib/format";
 import { Badge, Card, Empty, LinkButton, PageHeader, Stat } from "@/components/ui";
 
 export default function DashboardPage() {
@@ -42,7 +42,7 @@ export default function DashboardPage() {
         <Stat label="กำไรสุทธิ" value={money(d.month.net)}
           tone={d.month.net > 0 ? "good" : d.month.net < 0 ? "bad" : "neutral"} />
         <Stat label="กำไรสุทธิหลังหักรายจ่ายอื่น" value={money(afterExpenses)}
-          hint={`รับ-จ่ายอื่นสุทธิ ${money(d.monthExpenses)}`}
+          hint={otherFlowHint(d.monthOtherIn, d.monthOtherOut)}
           tone={afterExpenses > 0 ? "good" : afterExpenses < 0 ? "bad" : "neutral"} />
       </div>
 

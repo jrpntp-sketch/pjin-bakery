@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useReport } from "@/lib/hooks";
-import { money, monthStartISO, num, todayISO } from "@/lib/format";
+import { money, monthStartISO, num, otherFlowHint, todayISO } from "@/lib/format";
 import { Card, Empty, inputClass, PageHeader, Stat } from "@/components/ui";
 import { withEmoji } from "@/components/emoji";
 
@@ -78,7 +78,7 @@ export default function ReportsPage() {
           hint={`ต้นทุนค่าแรง ต้นทุนแฝง และส่วนแบ่งรวม ${money(hiddenCost)}`}
           tone={r.totals.net > 0 ? "good" : r.totals.net < 0 ? "bad" : "neutral"} />
         <Stat label="กำไรสุทธิขั้นสุดท้าย" value={money(bottomLine)}
-          hint={`หลังรับ-จ่ายอื่นสุทธิ ${money(r.otherExpenses)}`}
+          hint={otherFlowHint(r.otherIn, r.otherOut)}
           tone={bottomLine > 0 ? "good" : bottomLine < 0 ? "bad" : "neutral"} />
       </div>
 
