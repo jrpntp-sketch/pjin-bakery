@@ -27,6 +27,7 @@ export default function NewBatchPage() {
   const [producedOn, setProducedOn] = useState(todayISO());
   const [notes, setNotes] = useState("");
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   // ตั้งค่าเริ่มต้นเมื่อข้อมูลโหลดเสร็จ
   const pid = productId || products?.[0]?.id || "";
@@ -74,7 +75,9 @@ export default function NewBatchPage() {
   async function save(e: React.FormEvent) {
     e.preventDefault();
     const qtyNum = toNum(qty);
-    if (!pid || !(qtyNum > 0)) return;
+    if (!pid) return setError("กรุณาเลือกสินค้าก่อน");
+    if (!(qtyNum > 0)) return setError("กรุณาใส่จำนวนที่ได้เป็นตัวเลขมากกว่า 0");
+    setError("");
     setSaving(true);
 
     const materials = detailed
@@ -109,7 +112,7 @@ export default function NewBatchPage() {
         subtitle="ระบุต้นทุนวัตถุดิบ ระยะเวลา และปริมาณที่ได้ เพื่อคำนวณต้นทุนจริงต่อหน่วย"
         action={<LinkButton href="/batches" variant="ghost">ดูรอบผลิตทั้งหมด</LinkButton>} />
 
-      <form onSubmit={save} className="grid gap-4 lg:grid-cols-[1fr_20rem]">
+      <form onSubmit={save} noValidate className="grid gap-4 lg:grid-cols-[1fr_20rem]">
         <div className="space-y-4">
           <Card title="รอบผลิตนี้">
             <div className="space-y-3.5">
@@ -125,7 +128,7 @@ export default function NewBatchPage() {
               </div>
               <Field label={`จำนวนที่ได้ (${product?.unit ?? "ชิ้น"})`}
                 hint="ระบุจำนวนผลผลิตจริงเพื่อใช้เฉลี่ยต้นทุนต่อหน่วย">
-                <input {...numberInput} required
+                <input {...numberInput}
                   value={qty} onChange={(e) => setQty(e.target.value)}
                   placeholder="เช่น 24" className={inputClass} />
               </Field>
@@ -251,10 +254,20 @@ export default function NewBatchPage() {
               </>
             )}
 
-            <Button type="submit" disabled={saving || !calc.hasQty} className="mt-4 w-full">
+            {error && (
+              <p className="mt-4 rounded-xl bg-berry-500/10 px-3 py-2 text-sm text-berry-500">
+                {error}
+              </p>
+            )}
+
+            <Button type="submit" disabled={saving} className="mt-4 w-full">
               {saving ? "กำลังบันทึก…" : "บันทึกรอบผลิต + เข้าสต็อก"}
             </Button>
-            <p className="mt-2 text-center text-xs text-plum-400">บันทึกและปรับปรุงยอดสต็อกอัตโนมัติ</p>
+            <p className="mt-2 text-center text-xs text-plum-400">
+              {calc.hasQty
+                ? "บันทึกและปรับปรุงยอดสต็อกอัตโนมัติ"
+                : "ใส่จำนวนที่ได้ก่อน แล้วจึงบันทึกได้"}
+            </p>
           </Card>
         </div>
       </form>

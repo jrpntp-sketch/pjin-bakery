@@ -21,6 +21,7 @@ export default function EntriesPage() {
   const rows = useExpenses();
   const [kind, setKind] = useState<"in" | "out">("out");
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
 
   if (!rows) return <div className="h-40 animate-pulse rounded-3xl bg-cream-100" />;
 
@@ -35,7 +36,12 @@ export default function EntriesPage() {
     const form = e.currentTarget;
     const fd = new FormData(form);
     const amount = toNum(fd.get("amount"));
-    if (amount <= 0) return;
+    // เดิมตรงนี้ return เงียบ ๆ กดแล้วไม่มีอะไรขึ้นเลย เลยดูเหมือนปุ่มเสีย
+    if (amount <= 0) {
+      setError("กรุณาใส่จำนวนเงินเป็นตัวเลขมากกว่า 0");
+      return;
+    }
+    setError("");
 
     await db.expenses.add({
       id: newId(),
@@ -100,7 +106,7 @@ export default function EntriesPage() {
 
         <div className="lg:sticky lg:top-5 lg:self-start">
           <Card title="เพิ่มรายการ">
-            <form onSubmit={submit} className="space-y-3.5">
+            <form onSubmit={submit} noValidate className="space-y-3.5">
               {/* เลือกทิศทางเงินก่อน เพราะหมวดหมู่เปลี่ยนตาม */}
               <div className="grid grid-cols-2 gap-1 rounded-xl bg-cream-100 p-1">
                 {([["out", "จ่ายออก"], ["in", "รับเข้า"]] as const).map(([k, label]) => (
@@ -126,7 +132,7 @@ export default function EntriesPage() {
 
               <div className="grid gap-3 sm:grid-cols-2 [&>*]:min-w-0">
                 <Field label="จำนวนเงิน">
-                  <input name="amount" {...numberInput} required placeholder="0.00" className={inputClass} />
+                  <input name="amount" {...numberInput} placeholder="0.00" className={inputClass} />
                 </Field>
                 <Field label="วันที่">
                   <input name="spentOn" type="date" defaultValue={todayISO()} className={inputClass} />
@@ -139,6 +145,11 @@ export default function EntriesPage() {
                   className={inputClass} />
               </Field>
 
+              {error && (
+                <p className="rounded-xl bg-berry-500/10 px-3 py-2 text-sm text-berry-500">
+                  {error}
+                </p>
+              )}
               {saved && (
                 <p className="rounded-xl bg-leaf-500/10 px-3 py-2 text-sm text-leaf-500">
                   บันทึกแล้ว ✓

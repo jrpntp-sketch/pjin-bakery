@@ -9,8 +9,16 @@ import type {
 } from "./types";
 
 /** แปลงค่าจากฟอร์มเป็นตัวเลข — ว่าง/ไม่ใช่ตัวเลข ให้เป็น 0 */
+const THAI_DIGITS = "๐๑๒๓๔๕๖๗๘๙";
+
 export function toNum(v: unknown): number {
-  const n = Number(String(v ?? "").trim());
+  let s = String(v ?? "").trim();
+  if (!s) return 0;
+  // คีย์บอร์ดไทยบน iPhone พิมพ์เลขไทยออกมา ถ้าไม่แปลงจะกลายเป็น NaN แล้วเงินหาย
+  s = s.replace(/[๐-๙]/g, (d) => String(THAI_DIGITS.indexOf(d)));
+  // ตัดเครื่องหมายคั่นหลักพัน สัญลักษณ์เงิน และช่องว่างที่ติดมาจากการก๊อปวาง
+  s = s.replace(/[,\s฿]/g, "");
+  const n = Number(s);
   return Number.isFinite(n) ? n : 0;
 }
 

@@ -104,6 +104,7 @@ function SaleForm({ stock, channels }: {
   const [soldOn, setSoldOn] = useState(todayISO());
   const [notes, setNotes] = useState("");
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState("");
 
   const item = stock.find((s) => s.product.id === productId) ?? stock[0];
   const channel = channels.find((c) => c.id === channelId) ?? channels[0];
@@ -135,7 +136,12 @@ function SaleForm({ stock, channels }: {
   async function save(e: React.FormEvent) {
     e.preventDefault();
     const qtyNum = toNum(qty);
-    if (!item || !channel || calc.notEnough || !(qtyNum > 0)) return;
+    // เดิมเช็กรวมแล้ว return เงียบ ๆ ต้องบอกว่าติดตรงไหนไม่งั้นเหมือนปุ่มเสีย
+    if (!item) return setError("กรุณาเลือกสินค้าก่อน");
+    if (!channel) return setError("กรุณาเลือกช่องทางขายก่อน");
+    if (!(qtyNum > 0)) return setError("กรุณาใส่จำนวนเป็นตัวเลขมากกว่า 0");
+    if (calc.notEnough) return setError("สต็อกไม่พอกับจำนวนที่กรอก");
+    setError("");
 
     await db.transactions.add({
       id: newId(),
@@ -161,7 +167,7 @@ function SaleForm({ stock, channels }: {
 
   return (
     <Card title="บันทึกรายการขาย">
-      <form onSubmit={save} className="space-y-3.5">
+      <form onSubmit={save} noValidate className="space-y-3.5">
         <Field label="สินค้า">
           <select value={productId} onChange={(e) => setProductId(e.target.value)} className={inputClass}>
             {stock.map((s) => (
@@ -188,7 +194,7 @@ function SaleForm({ stock, channels }: {
 
         <div className="grid grid-cols-2 gap-3 [&>*]:min-w-0">
           <Field label={`จำนวน (${item?.product.unit ?? "ชิ้น"})`}>
-            <input {...numberInput} required
+            <input {...numberInput}
               value={qty} onChange={(e) => setQty(e.target.value)} className={inputClass} />
           </Field>
           <Field label="ราคา/หน่วย">
@@ -256,6 +262,11 @@ function SaleForm({ stock, channels }: {
           </p>
         )}
 
+        {error && (
+          <p className="rounded-xl bg-berry-500/10 px-3 py-2 text-sm text-berry-500">
+            {error}
+          </p>
+        )}
         {saved && (
           <p className="rounded-xl bg-leaf-500/10 px-3 py-2 text-sm text-leaf-500">
             บันทึกแล้ว ✓ ตัดสต็อกเรียบร้อย
